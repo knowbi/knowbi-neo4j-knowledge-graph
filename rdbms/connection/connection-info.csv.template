@@ -1,0 +1,2 @@
+connection_name,database_type,url,host,port,database name,username,password,driver,version
+connection,postgresql,jdbc:postgresql://localhost:5432/database,localhost,5432,database,postgres,password,org.postgresql.Driver,12.3

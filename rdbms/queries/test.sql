@@ -1,0 +1,1 @@
+SELECT A.*, B.addresstype, B.longitude, B.latitude FROM data_lake_dwh_sls.Sandbox.tbl_sales_orders_pt A LEFT JOIN data_lake_dwh_mkt.private.dwh_customers_addresses B ON A.customershipto_address_id = B.customer_address_id WHERE A.order_date >= DATE_SUB(current_date(), INTERVAL 1 YEAR) AND A.unitprice_transaction_currency > 0
