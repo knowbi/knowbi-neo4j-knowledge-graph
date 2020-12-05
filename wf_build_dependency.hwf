@@ -183,7 +183,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/aws/jb_load_aws.hwf</filename>
+      <filename>${PROJECT_HOME}/aws/wf_load_aws.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -243,7 +243,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/git/jb_write_git_logs.hwf</filename>
+      <filename>${PROJECT_HOME}/git/wf_write_git_logs.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -295,7 +295,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/rdbms/tr_read_db_queries.hpl</filename>
+      <filename>${PROJECT_HOME}/rdbms/pl_read_db_queries.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -408,7 +408,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/utils/tr_env_set_vars.hpl</filename>
+      <filename>${PROJECT_HOME}/utils/pl_env_set_vars.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>

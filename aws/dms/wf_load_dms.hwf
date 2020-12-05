@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>jb_load_rds</name>
+  <name>jb_load_dms</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
   <workflow_version/>
   <created_user>-</created_user>
-  <created_date>2019/12/11 17:16:32.696</created_date>
+  <created_date>2019/12/19 15:54:37.172</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2019/12/11 17:16:32.696</modified_date>
+  <modified_date>2019/12/19 15:54:37.172</modified_date>
   <parameters>
     <parameter>
-      <name>PRM_RDS_JSON</name>
+      <name>PRM_JSON_FOLDER</name>
       <default_value/>
       <description/>
     </parameter>
@@ -40,11 +40,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Insert RDS Nodes</name>
+      <name>Insert DMS Nodes</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/aws/rds/tr_insert_rds_nodes.hpl</filename>
+      <filename>${PROJECT_HOME}/aws/dms/pl_insert_dmstask_nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -63,23 +63,23 @@
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
         <parameter>
-          <name>PRM_RDS_JSON</name>
+          <name>PRM_JSON_FOLDER</name>
           <stream_name/>
-          <value>${PRM_RDS_JSON}</value>
+          <value>${PRM_JSON_FOLDER}</value>
         </parameter>
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>400</xloc>
+      <xloc>464</xloc>
       <yloc>100</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Insert RDS Relations</name>
+      <name>Insert DMS Relations</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/aws/rds/tr_insert_rds_relations.hpl</filename>
+      <filename>${PROJECT_HOME}/aws/rds/pl_insert_rds_relations.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -98,14 +98,14 @@
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
         <parameter>
-          <name>PRM_RDS_JSON</name>
+          <name>PRM_JSON_FOLDER</name>
           <stream_name/>
-          <value>${PRM_RDS_JSON}</value>
+          <value>${PRM_JSON_FOLDER}</value>
         </parameter>
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>704</xloc>
+      <xloc>728</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
     </action>
@@ -116,7 +116,7 @@
       <attributes/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>928</xloc>
+      <xloc>992</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
     </action>
@@ -124,7 +124,7 @@
   <hops>
     <hop>
       <from>Start</from>
-      <to>Insert RDS Nodes</to>
+      <to>Insert DMS Nodes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -132,8 +132,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Insert RDS Nodes</from>
-      <to>Insert RDS Relations</to>
+      <from>Insert DMS Relations</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -141,8 +141,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Insert RDS Relations</from>
-      <to>Success</to>
+      <from>Insert DMS Nodes</from>
+      <to>Insert DMS Relations</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

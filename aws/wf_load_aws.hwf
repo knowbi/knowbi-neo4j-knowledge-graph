@@ -40,7 +40,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/aws/dms/jb_load_dms.hwf</filename>
+      <filename>${PROJECT_HOME}/aws/dms/wf_load_dms.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -70,7 +70,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/aws/rds/jb_load_rds.hwf</filename>
+      <filename>${PROJECT_HOME}/aws/rds/wf_load_rds.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>

@@ -279,7 +279,7 @@
       <schema_name/>
     </partitioning>
     <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/rdbms/tr_insert_db_nodes.hpl</filename>
+    <filename>${PROJECT_HOME}/rdbms/pl_insert_db_nodes.hpl</filename>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
@@ -358,7 +358,7 @@
       <schema_name/>
     </partitioning>
     <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/rdbms/tr_insert_db_relationships.hpl</filename>
+    <filename>${PROJECT_HOME}/rdbms/pl_insert_db_relationships.hpl</filename>
     <group_size>1</group_size>
     <group_field/>
     <group_time/>
