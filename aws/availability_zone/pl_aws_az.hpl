@@ -16,7 +16,7 @@
     <created_date>2020/11/29 10:53:23.525</created_date>
     <modified_user>-</modified_user>
     <modified_date>2020/11/29 10:53:23.525</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -29,13 +29,13 @@
     </hop>
     <hop>
       <from>get AZ details</from>
-      <to>:AvailabilityZone</to>
+      <to>:Region, :AvailabilityZone</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>get AZs</name>
-    <type>JsonInput</type>
+    <name>:Region, :AvailabilityZone</name>
+    <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -44,54 +44,92 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <readurl>N</readurl>
-    <removeSourceField>N</removeSourceField>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>Y</ignoreMissingPath>
-    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <rownum_field/>
-    <file>
-      <name>${PROJECT_HOME}/aws/input/availabilityzones.json</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>AZs</name>
-        <path>$.AvailabilityZones.*</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <IsInFields>N</IsInFields>
-    <IsAFile>N</IsAFile>
-    <valueField/>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Region</value>
+      </labels>
+      <properties>
+        <property>
+          <name>regionName</name>
+          <value>regionName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>AvailabilityZone</value>
+      </labels>
+      <properties>
+        <property>
+          <name>regionName</name>
+          <value>regionName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>availabilityZoneId</name>
+          <value>zoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>optInStatus</name>
+          <value>optInStatus</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>messages</name>
+          <value>messages</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>groupName</name>
+          <value>groupName</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>state</name>
+          <value>state</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>networkBorderGroup</name>
+          <value>networkBorderGroup</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>zoneName</name>
+          <value>zoneName</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>REGION_HAS_AZ</relationship_value>
+    <relprops/>
     <attributes/>
     <GUI>
-      <xloc>75</xloc>
+      <xloc>352</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -249,8 +287,8 @@
     </GUI>
   </transform>
   <transform>
-    <name>:AvailabilityZone</name>
-    <type>Neo4JOutput</type>
+    <name>get AZs</name>
+    <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -259,82 +297,54 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>AvailabilityZone</value>
-      </labels>
-      <properties>
-        <property>
-          <name>zoneId</name>
-          <value>zoneId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>optInStatus</name>
-          <value>optInStatus</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>messages</name>
-          <value>messages</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>groupName</name>
-          <value>groupName</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>state</name>
-          <value>state</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>networkBorderGroup</name>
-          <value>networkBorderGroup</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>zoneName</name>
-          <value>zoneName</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>regionName</name>
-          <value>regionName</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name>${PROJECT_HOME}/aws/input/availabilityzones.json</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>AZs</name>
+        <path>$.AvailabilityZones.*</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>352</xloc>
+      <xloc>75</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>

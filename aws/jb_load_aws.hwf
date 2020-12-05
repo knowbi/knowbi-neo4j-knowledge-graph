@@ -60,8 +60,8 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>208</yloc>
+      <xloc>784</xloc>
+      <yloc>160</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -90,8 +90,8 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>784</xloc>
-      <yloc>208</yloc>
+      <xloc>896</xloc>
+      <yloc>160</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -288,6 +288,33 @@
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load EC2</from>
+      <to>Load DMS</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load DMS</from>
+      <to>Load RDS</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load RDS</from>
+      <to>AWS Relations</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>

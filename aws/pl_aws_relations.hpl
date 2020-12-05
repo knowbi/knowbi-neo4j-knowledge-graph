@@ -24,27 +24,62 @@
   <order>
     <hop>
       <from>Get Ids</from>
-      <to>:EC2VPC</to>
+      <to>:VPC_HAS_EC2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get Ids</from>
-      <to>:EC2SUBNET</to>
+      <to>:SUBNET_HAS_EC2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Get Ids</from>
-      <to>:VPCSubnet</to>
+      <to>:VPC_HAS_SUBNET</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>get Subnet ids</from>
-      <to>:SUBNETAZ</to>
+      <to>:AZ_HAS_SUBNET</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get EC2 hosts</from>
+      <to>add route53</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get rest transforms</from>
+      <to>get host</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get host</from>
+      <to>dns LU</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>add route53</from>
+      <to>dns LU</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>dns LU</from>
+      <to>:EC2_DNS</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generate 1 row</from>
+      <to>wait for :VPC_HAS_SUBNET</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>wait for :VPC_HAS_SUBNET</from>
+      <to>get Subnet ids</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>:EC2SUBNET</name>
+    <name>:SUBNET_HAS_EC2</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -64,63 +99,57 @@
     <return_graph_field>graph</return_graph_field>
     <from>
       <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>EC2Instance</value>
-      </labels>
-      <properties>
-        <property>
-          <name>instanceId</name>
-          <value>w.instanceId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>vpcId</name>
-          <value>w.vpcId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>subnetId</name>
-          <value>w.subnetId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
       <labels>
         <label/>
         <value>Subnet</value>
       </labels>
       <properties>
         <property>
+          <name>vpcId</name>
+          <value>w.vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
           <name>subnetId</name>
           <value>w.subnetId</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>EC2Instance</value>
+      </labels>
+      <properties>
         <property>
           <name>vpcId</name>
           <value>w.vpcId</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
+        <property>
+          <name>instanceId</name>
+          <value>w.instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
       </properties>
     </to>
     <relationship/>
-    <relationship_value>EC2SUBNET</relationship_value>
+    <relationship_value>SUBNET_HAS_EC2</relationship_value>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>358</xloc>
-      <yloc>269</yloc>
+      <xloc>720</xloc>
+      <yloc>256</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>:EC2VPC</name>
+    <name>:VPC_HAS_EC2</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -140,33 +169,6 @@
     <return_graph_field>graph</return_graph_field>
     <from>
       <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>EC2Instance</value>
-      </labels>
-      <properties>
-        <property>
-          <name>instanceId</name>
-          <value>w.instanceId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>vpcId</name>
-          <value>w.vpcId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>subnetId</name>
-          <value>w.subnetId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
       <labels>
         <label/>
         <value>VPC</value>
@@ -176,21 +178,190 @@
           <name>vpcId</name>
           <value>w.vpcId</value>
           <type>String</type>
-          <primary>N</primary>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>EC2Instance</value>
+      </labels>
+      <properties>
+        <property>
+          <name>vpcId</name>
+          <value>w.vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>instanceId</name>
+          <value>w.instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
         </property>
       </properties>
     </to>
     <relationship/>
-    <relationship_value>EC2VPC</relationship_value>
+    <relationship_value>VPC_HAS_EC2</relationship_value>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>358</xloc>
+      <xloc>720</xloc>
       <yloc>176</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>:VPCSubnet</name>
+    <name>:EC2_DNS</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Transform</value>
+        <label/>
+        <value>Rest</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>r.name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>r.pluginId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>r.pipelineName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>EC2Instance</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>e.instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>vpcId</name>
+          <value>e.vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>TRANSFORM_ON_EC2</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:AZ_HAS_SUBNET</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>AvailabilityZone</value>
+      </labels>
+      <properties>
+        <property>
+          <name>availabilityZoneId</name>
+          <value>s.availabilityZoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>regionName</name>
+          <value>re.regionName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Subnet</value>
+      </labels>
+      <properties>
+        <property>
+          <name>availabilityZoneId</name>
+          <value>s.availabilityZoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>subnetId</name>
+          <value>s.subnetId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>AZ_HAS_SUBNET</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>464</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:VPC_HAS_SUBNET</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -245,12 +416,12 @@
       </properties>
     </to>
     <relationship/>
-    <relationship_value>VPCSUBNET</relationship_value>
+    <relationship_value>VPC_HAS_SUBNET</relationship_value>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>358</xloc>
-      <yloc>362</yloc>
+      <xloc>720</xloc>
+      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform>
@@ -278,11 +449,6 @@
     <mappings/>
     <returns>
       <return>
-        <name>w.instanceId</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-      <return>
         <name>w.vpcId</name>
         <type>String</type>
         <source_type>String</source_type>
@@ -292,11 +458,128 @@
         <type>String</type>
         <source_type>String</source_type>
       </return>
+      <return>
+        <name>w.instanceId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
     </returns>
     <attributes/>
     <GUI>
       <xloc>160</xloc>
       <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>add route53</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>dnsname</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>https://chat.project-hop.org</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>704</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>dns LU</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>add route53</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>dnsname</name>
+        <field>dnsname</field>
+      </key>
+      <value>
+        <name>e.instanceId</name>
+        <rename>e.instanceId</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>e.vpcId</name>
+        <rename>e.vpcId</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get EC2 hosts</name>
+    <type>Neo4jCypherOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <cypher>MATCH (e:EC2Instance) RETURN e.instanceId, e.vpcId</cypher>
+    <batch_size/>
+    <read_only>N</read_only>
+    <retry>Y</retry>
+    <cypher_from_field>N</cypher_from_field>
+    <cypher_field/>
+    <unwind>N</unwind>
+    <unwind_map/>
+    <returning_graph>N</returning_graph>
+    <return_graph_field/>
+    <mappings/>
+    <returns>
+      <return>
+        <name>e.instanceId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>e.vpcId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+    </returns>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>784</yloc>
     </GUI>
   </transform>
   <transform>
@@ -311,7 +594,10 @@
       <schema_name/>
     </partitioning>
     <connection>lineage-graph</connection>
-    <cypher>match(s:Subnet) return s.availabilityZoneId, s.subnetId; </cypher>
+    <cypher>MATCH (v:VPC)-[r:VPC_HAS_SUBNET]-(s:Subnet) 
+MATCH(re:Region)-[:REGION_HAS_AZ]-(az:AvailabilityZone) 
+where s.availabilityZoneId = s.availabilityZoneId 
+RETURN distinct re.regionName, v.vpcId, s.availabilityZoneId, s.subnetId</cypher>
     <batch_size/>
     <read_only>N</read_only>
     <retry>Y</retry>
@@ -329,20 +615,61 @@
         <source_type>String</source_type>
       </return>
       <return>
+        <name>v.vpcId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
         <name>s.subnetId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>re.regionName</name>
         <type>String</type>
         <source_type>String</source_type>
       </return>
     </returns>
     <attributes/>
     <GUI>
-      <xloc>216</xloc>
-      <yloc>541</yloc>
+      <xloc>512</xloc>
+      <yloc>464</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>:SUBNETAZ</name>
-    <type>Neo4JOutput</type>
+    <name>get host</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>dnsname</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>https://chat.project-hop.org</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get rest transforms</name>
+    <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -352,56 +679,90 @@
       <schema_name/>
     </partitioning>
     <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
+    <cypher>match(r:Rest:Transform) where not(r.parsedUrl = '' or r.parsedUrl is null) return r.name, r.pluginId, r.pipelineName, r.parsedUrl;</cypher>
+    <batch_size/>
+    <read_only>N</read_only>
+    <retry>Y</retry>
+    <cypher_from_field>N</cypher_from_field>
+    <cypher_field/>
+    <unwind>N</unwind>
+    <unwind_map/>
     <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Subnet</value>
-      </labels>
-      <properties>
-        <property>
-          <name>subnetId</name>
-          <value>s.subnetId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>availabilityZoneId</name>
-          <value>s.availabilityZoneId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>AvailabilityZone</value>
-      </labels>
-      <properties>
-        <property>
-          <name>availabilityZoneId</name>
-          <value>s.availabilityZoneId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>SUBNETAZ</relationship_value>
-    <relprops/>
+    <return_graph_field/>
+    <mappings/>
+    <returns>
+      <return>
+        <name>r.name</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>r.pluginId</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>r.pipelineName</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>r.parsedUrl</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+    </returns>
     <attributes/>
     <GUI>
-      <xloc>376</xloc>
-      <yloc>545</yloc>
+      <xloc>160</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Generate 1 row</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+    </fields>
+    <limit>1</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>464</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait for :VPC_HAS_SUBNET</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <name>:VPC_HAS_SUBNET</name>
+        <CopyNr>0</CopyNr>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>464</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

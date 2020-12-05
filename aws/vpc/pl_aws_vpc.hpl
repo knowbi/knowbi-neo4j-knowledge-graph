@@ -39,17 +39,183 @@
     </hop>
     <hop>
       <from>get Tags</from>
-      <to>wait for vpc</to>
+      <to>wait for VPC</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>wait for vpc</from>
-      <to>:VpcTags</to>
+      <from>wait for VPC</from>
+      <to>:VPCTag</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>get VPCs</name>
+    <name>:VPC</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>VPC</value>
+      </labels>
+      <properties>
+        <property>
+          <name>vpcId</name>
+          <value>vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>instanceTenancy</name>
+          <value>instanceTenancy</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>state</name>
+          <value>state</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>dhcpOptionsId</name>
+          <value>DhcpOptionsId</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>ownerId</name>
+          <value>OwnerId</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>cidrBlock</name>
+          <value>CidrBlock</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>isDefault</name>
+          <value>IsDefault</value>
+          <type>Boolean</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>cidrBlockAssociationId</name>
+          <value>cidrBlockAssociationId</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>cirdBlockState</name>
+          <value>cirdBlockState</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>272</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:VPCTag</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>Y</read_only_from_node>
+      <labels>
+        <label/>
+        <value>VPC</value>
+      </labels>
+      <properties>
+        <property>
+          <name>vpcId</name>
+          <value>vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>VPCTag</value>
+      </labels>
+      <properties>
+        <property>
+          <name>vpcId</name>
+          <value>vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>tagKey</name>
+          <value>tagKey</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>tagValue</name>
+          <value>tagValue</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>VPC_HAS_TAG</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>272</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get Tags</name>
     <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -71,7 +237,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${PROJECT_HOME}/aws/input/vpc.json</name>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -79,8 +245,21 @@
     </file>
     <fields>
       <field>
-        <name>vpc</name>
-        <path>$.Vpcs.*</path>
+        <name>tagKey</name>
+        <path>$.*.Key</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>tagValue</name>
+        <path>$.*.Value</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -93,9 +272,9 @@
       </field>
     </fields>
     <limit>0</limit>
-    <IsInFields>N</IsInFields>
+    <IsInFields>Y</IsInFields>
     <IsAFile>N</IsAFile>
-    <valueField/>
+    <valueField>tags</valueField>
     <shortFileFieldName/>
     <pathFieldName/>
     <hiddenFieldName/>
@@ -106,7 +285,7 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>108</xloc>
+      <xloc>496</xloc>
       <yloc>160</yloc>
     </GUI>
   </transform>
@@ -316,7 +495,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>get Tags</name>
+    <name>get VPCs</name>
     <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -338,7 +517,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name/>
+      <name>${PROJECT_HOME}/aws/input/vpc.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -346,21 +525,8 @@
     </file>
     <fields>
       <field>
-        <name>tagKey</name>
-        <path>$.*.Key</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>tagValue</name>
-        <path>$.*.Value</path>
+        <name>vpc</name>
+        <path>$.Vpcs.*</path>
         <type>String</type>
         <format/>
         <currency/>
@@ -373,9 +539,9 @@
       </field>
     </fields>
     <limit>0</limit>
-    <IsInFields>Y</IsInFields>
+    <IsInFields>N</IsInFields>
     <IsAFile>N</IsAFile>
-    <valueField>tags</valueField>
+    <valueField/>
     <shortFileFieldName/>
     <pathFieldName/>
     <hiddenFieldName/>
@@ -386,168 +552,12 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>496</xloc>
+      <xloc>108</xloc>
       <yloc>160</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>:VPC</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>VPC</value>
-      </labels>
-      <properties>
-        <property>
-          <name>vpcId</name>
-          <value>vpcId</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>instanceTenancy</name>
-          <value>instanceTenancy</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>state</name>
-          <value>state</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>dhcpOptionsId</name>
-          <value>DhcpOptionsId</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>ownerId</name>
-          <value>OwnerId</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>cidrBlock</name>
-          <value>CidrBlock</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>isDefault</name>
-          <value>IsDefault</value>
-          <type>Boolean</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>cidrBlockAssociationId</name>
-          <value>cidrBlockAssociationId</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>cirdBlockState</name>
-          <value>cirdBlockState</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>256</xloc>
-      <yloc>272</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>:VpcTags</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>VpcTags</value>
-      </labels>
-      <properties>
-        <property>
-          <name>vpcId</name>
-          <value>vpcId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>tagKey</name>
-          <value>tagKey</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>tagValue</name>
-          <value>tagValue</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>640</xloc>
-      <yloc>272</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait for vpc</name>
+    <name>wait for VPC</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>

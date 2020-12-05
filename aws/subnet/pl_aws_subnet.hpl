@@ -60,22 +60,16 @@
       </labels>
       <properties>
         <property>
+          <name>availabilityZoneId</name>
+          <value>availabilityZoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
           <name>subnetId</name>
           <value>subnetId</value>
           <type>String</type>
           <primary>Y</primary>
-        </property>
-        <property>
-          <name>vpcId</name>
-          <value>vpcId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>availabilityZoneId</name>
-          <value>availabilityZoneId</value>
-          <type>String</type>
-          <primary>N</primary>
         </property>
         <property>
           <name>subnets</name>
@@ -141,6 +135,12 @@
           <name>assignIpv6AddressOnCreation</name>
           <value>assignIpv6AddressOnCreation</value>
           <type>Boolean</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>vpcId</name>
+          <value>vpcId</value>
+          <type>String</type>
           <primary>N</primary>
         </property>
       </properties>
