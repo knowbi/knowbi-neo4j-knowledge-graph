@@ -219,6 +219,12 @@
           <primary>Y</primary>
         </property>
         <property>
+          <name>pluginId</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
           <name>url</name>
           <value>url</value>
           <type>String</type>
@@ -688,59 +694,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>select</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-      </field>
-      <field>
-        <name>type</name>
-      </field>
-      <field>
-        <name>connection</name>
-      </field>
-      <field>
-        <name>lookup_table</name>
-      </field>
-      <field>
-        <name>lookup_schema</name>
-      </field>
-      <field>
-        <name>table</name>
-      </field>
-      <field>
-        <name>schema</name>
-      </field>
-      <field>
-        <name>sql</name>
-      </field>
-      <field>
-        <name>hpl_name</name>
-      </field>
-      <field>
-        <name>pipeline</name>
-      </field>
-      <field>
-        <name>xml</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>80</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>replace vars in url</name>
     <type>ScriptValueMod</type>
     <description/>
@@ -799,6 +752,59 @@ if(url.indexOf('${') > -1){
     <GUI>
       <xloc>640</xloc>
       <yloc>192</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>select</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>name</name>
+      </field>
+      <field>
+        <name>type</name>
+      </field>
+      <field>
+        <name>connection</name>
+      </field>
+      <field>
+        <name>lookup_table</name>
+      </field>
+      <field>
+        <name>lookup_schema</name>
+      </field>
+      <field>
+        <name>table</name>
+      </field>
+      <field>
+        <name>schema</name>
+      </field>
+      <field>
+        <name>sql</name>
+      </field>
+      <field>
+        <name>hpl_name</name>
+      </field>
+      <field>
+        <name>pipeline</name>
+      </field>
+      <field>
+        <name>xml</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

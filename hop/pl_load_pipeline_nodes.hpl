@@ -145,6 +145,174 @@
     </hop>
   </order>
   <transform>
+    <name>:Pipeline</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Pipeline</value>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>hpl_filename</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>path</name>
+          <value>hpl_path</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1328</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:Transform</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Transform</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1328</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:TransformType</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>TransformType</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1328</xloc>
+      <yloc>144</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>Calc Cypher</name>
     <type>Calculator</type>
     <description/>
@@ -281,66 +449,6 @@
     <GUI>
       <xloc>432</xloc>
       <yloc>288</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>:Pipeline</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Pipeline</value>
-      </labels>
-      <properties>
-        <property>
-          <name>filename</name>
-          <value>hpl_filename</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>path</name>
-          <value>hpl_path</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1328</xloc>
-      <yloc>592</yloc>
     </GUI>
   </transform>
   <transform>
@@ -722,7 +830,7 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     <attributes/>
     <GUI>
       <xloc>944</xloc>
-      <yloc>592</yloc>
+      <yloc>576</yloc>
     </GUI>
   </transform>
   <transform>
@@ -856,7 +964,7 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     <attributes/>
     <GUI>
       <xloc>1072</xloc>
-      <yloc>592</yloc>
+      <yloc>576</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1072,54 +1180,6 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     </GUI>
   </transform>
   <transform>
-    <name>:TransformType</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>TransformType</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1328</xloc>
-      <yloc>144</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>transform uses table</name>
     <type>FilterRows</type>
     <description/>
@@ -1147,66 +1207,6 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     </GUI>
   </transform>
   <transform>
-    <name>:Transform</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Transform</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pluginId</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1328</xloc>
-      <yloc>432</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>wait for :Pipeline</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
@@ -1230,29 +1230,6 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     </GUI>
   </transform>
   <transform>
-    <name>wait for transforms</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <name>transforms</name>
-        <CopyNr>0</CopyNr>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1200</xloc>
-      <yloc>288</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>wait for :Transform</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
@@ -1273,6 +1250,29 @@ var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script
     <GUI>
       <xloc>1200</xloc>
       <yloc>144</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait for transforms</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <name>transforms</name>
+        <CopyNr>0</CopyNr>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1200</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
