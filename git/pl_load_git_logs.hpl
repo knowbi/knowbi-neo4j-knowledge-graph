@@ -147,8 +147,8 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>512</yloc>
+      <xloc>496</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -174,8 +174,8 @@
     </compare>
     <attributes/>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>512</yloc>
+      <xloc>384</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -219,8 +219,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>512</yloc>
+      <xloc>608</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -267,8 +267,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1728</xloc>
-      <yloc>512</yloc>
+      <xloc>1088</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -327,8 +327,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1728</xloc>
-      <yloc>64</yloc>
+      <xloc>1088</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -375,8 +375,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1728</xloc>
-      <yloc>672</yloc>
+      <xloc>1088</xloc>
+      <yloc>656</yloc>
     </GUI>
   </transform>
   <transform>
@@ -429,8 +429,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1728</xloc>
-      <yloc>192</yloc>
+      <xloc>1088</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -452,8 +452,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>320</yloc>
+      <xloc>240</xloc>
+      <yloc>368</yloc>
     </GUI>
   </transform>
   <transform>
@@ -489,8 +489,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1472</xloc>
-      <yloc>64</yloc>
+      <xloc>384</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -516,8 +516,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>512</yloc>
+      <xloc>240</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -542,8 +542,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>192</yloc>
+      <xloc>384</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -569,8 +569,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </compare>
     <attributes/>
     <GUI>
-      <xloc>1472</xloc>
-      <yloc>672</yloc>
+      <xloc>816</xloc>
+      <yloc>656</yloc>
     </GUI>
   </transform>
   <transform>
@@ -624,8 +624,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>64</yloc>
+      <xloc>240</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -796,7 +796,7 @@ branch = branch.replace(branch.match(/\(/), '')
     <attributes/>
     <GUI>
       <xloc>64</xloc>
-      <yloc>192</yloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -829,8 +829,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>512</yloc>
+      <xloc>704</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform>
@@ -863,8 +863,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>192</yloc>
+      <xloc>704</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -897,8 +897,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>672</yloc>
+      <xloc>704</xloc>
+      <yloc>656</yloc>
     </GUI>
   </transform>
   <transform>
@@ -940,8 +940,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>672</yloc>
+      <xloc>608</xloc>
+      <yloc>656</yloc>
     </GUI>
   </transform>
   <transform>
@@ -967,54 +967,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </compare>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>192</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait for commits</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <name>create commits</name>
-        <CopyNr>0</CopyNr>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1600</xloc>
-      <yloc>192</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait for users</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <name>create users</name>
-        <CopyNr>0</CopyNr>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1600</xloc>
-      <yloc>512</yloc>
+      <xloc>240</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1036,8 +990,54 @@ branch = branch.replace(branch.match(/\(/), '')
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1616</xloc>
-      <yloc>672</yloc>
+      <xloc>944</xloc>
+      <yloc>656</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait for commits</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <name>create commits</name>
+        <CopyNr>0</CopyNr>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>240</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait for users</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <name>create users</name>
+        <CopyNr>0</CopyNr>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>496</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

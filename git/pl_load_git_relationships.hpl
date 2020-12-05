@@ -105,8 +105,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>384</yloc>
+      <xloc>240</xloc>
+      <yloc>400</yloc>
     </GUI>
   </transform>
   <transform>
@@ -163,7 +163,7 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1120</xloc>
+      <xloc>608</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -221,8 +221,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1120</xloc>
-      <yloc>384</yloc>
+      <xloc>608</xloc>
+      <yloc>400</yloc>
     </GUI>
   </transform>
   <transform>
@@ -279,8 +279,8 @@ branch = branch.replace(branch.match(/\(/), '')
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1120</xloc>
-      <yloc>64</yloc>
+      <xloc>608</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform>
@@ -316,8 +316,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>64</yloc>
+      <xloc>368</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform>
@@ -371,8 +371,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>64</yloc>
+      <xloc>240</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform>
@@ -398,8 +398,8 @@ branch = branch.replace(branch.match(/\(/), '')
     </fields>
     <attributes/>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>64</yloc>
+      <xloc>480</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform>

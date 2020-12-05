@@ -24,11 +24,6 @@
   </notepads>
   <order>
     <hop>
-      <from>CSV file input</from>
-      <to>file</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>file</from>
       <to>get label</to>
       <enabled>Y</enabled>
@@ -48,6 +43,16 @@
       <to>file changes</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>CSV file input</from>
+      <to>parse commit details</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>parse commit details</from>
+      <to>file</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>CSV file input</name>
@@ -64,7 +69,7 @@
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
-    <separator> </separator>
+    <separator>####</separator>
     <enclosure/>
     <header>Y</header>
     <buffer_size>50000</buffer_size>
@@ -75,42 +80,20 @@
     <encoding/>
     <fields>
       <field>
-        <name>commit_hash</name>
+        <name>line</name>
         <type>String</type>
         <format>#</format>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>15</length>
+        <length>-1</length>
         <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>diff_type</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>40</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>commit_file</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>1</length>
-        <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>96</xloc>
+      <xloc>64</xloc>
       <yloc>256</yloc>
     </GUI>
   </transform>
@@ -168,8 +151,8 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>256</yloc>
+      <xloc>704</xloc>
+      <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
@@ -250,7 +233,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>496</xloc>
       <yloc>256</yloc>
     </GUI>
   </transform>
@@ -382,8 +365,8 @@ var file_name = file.split('.').slice(0, -1).join('.');</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>336</yloc>
+      <xloc>704</xloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
@@ -425,7 +408,44 @@ if(file.endsWith('hwf')){
     </fields>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
+      <xloc>384</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>parse commit details</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>line</in_stream_name>
+        <out_stream_name>commit_hash</out_stream_name>
+        <cut_from>0</cut_from>
+        <cut_to>40</cut_to>
+      </field>
+      <field>
+        <in_stream_name>line</in_stream_name>
+        <out_stream_name>diff_type</out_stream_name>
+        <cut_from>41</cut_from>
+        <cut_to>42</cut_to>
+      </field>
+      <field>
+        <in_stream_name>line</in_stream_name>
+        <out_stream_name>commit_file</out_stream_name>
+        <cut_from>43</cut_from>
+        <cut_to>50000</cut_to>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>176</xloc>
       <yloc>256</yloc>
     </GUI>
   </transform>

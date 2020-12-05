@@ -70,11 +70,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>tr_load_git_logs</name>
+      <name>Load Git Logs</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/git/tr_load_git_logs.hpl</filename>
+      <filename>${PROJECT_HOME}/git/pl_load_git_logs.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -100,11 +100,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>tr_load_git_relationships</name>
+      <name>Load Git Relationships</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/git/tr_load_git_relationships.hpl</filename>
+      <filename>${PROJECT_HOME}/git/pl_load_git_relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -160,11 +160,11 @@ done &lt; ${git.tmp.dir}/git.csv
       <attributes_hac/>
     </action>
     <action>
-      <name>tr_load_file_relationships</name>
+      <name>Load File Relationships</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/git/tr_load_file_relationships.hpl</filename>
+      <filename>${PROJECT_HOME}/git/pl_load_file_relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -202,7 +202,7 @@ done &lt; ${git.tmp.dir}/git.csv
     </hop>
     <hop>
       <from>write git log</from>
-      <to>tr_load_git_logs</to>
+      <to>Load Git Logs</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -210,8 +210,8 @@ done &lt; ${git.tmp.dir}/git.csv
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>tr_load_git_logs</from>
-      <to>tr_load_git_relationships</to>
+      <from>Load Git Logs</from>
+      <to>Load Git Relationships</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -219,7 +219,7 @@ done &lt; ${git.tmp.dir}/git.csv
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>tr_load_git_relationships</from>
+      <from>Load Git Relationships</from>
       <to>get commit files</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -228,7 +228,7 @@ done &lt; ${git.tmp.dir}/git.csv
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>tr_load_file_relationships</from>
+      <from>Load File Relationships</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -238,7 +238,7 @@ done &lt; ${git.tmp.dir}/git.csv
     </hop>
     <hop>
       <from>get commit files</from>
-      <to>tr_load_file_relationships</to>
+      <to>Load File Relationships</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
