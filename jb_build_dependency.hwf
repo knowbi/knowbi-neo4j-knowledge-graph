@@ -116,7 +116,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>256</xloc>
-      <yloc>544</yloc>
+      <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -174,7 +174,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>256</xloc>
-      <yloc>672</yloc>
+      <yloc>544</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -204,7 +204,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>480</xloc>
-      <yloc>544</yloc>
+      <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -234,7 +234,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>480</xloc>
-      <yloc>672</yloc>
+      <yloc>544</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -454,30 +454,12 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>database?</from>
-      <to>AWS?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>AWS?</from>
       <to>Load AWS</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>AWS?</from>
-      <to>ETL?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -508,15 +490,6 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>ETL?</from>
-      <to>git?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>git?</from>
       <to>Load git logs</to>
       <from_nr>0</from_nr>
@@ -528,15 +501,6 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
     <hop>
       <from>database?</from>
       <to>Load Databases</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Databases</from>
-      <to>AWS?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -595,15 +559,6 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load AWS</from>
-      <to>ETL?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -670,12 +625,57 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Load Databases</from>
+      <to>ETL?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>database?</from>
+      <to>ETL?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>Load Hop ETL</from>
+      <to>AWS?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ETL?</from>
+      <to>AWS?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load AWS</from>
       <to>git?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>AWS?</from>
+      <to>git?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>
