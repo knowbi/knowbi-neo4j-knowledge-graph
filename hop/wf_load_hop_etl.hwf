@@ -62,7 +62,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>544</yloc>
+      <yloc>336</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -92,7 +92,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>416</yloc>
+      <yloc>208</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -122,7 +122,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>896</yloc>
+      <yloc>688</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -152,7 +152,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>656</yloc>
+      <yloc>448</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -163,7 +163,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>1536</yloc>
+      <yloc>1392</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -176,8 +176,8 @@
       <logsubject/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>1344</xloc>
-      <yloc>864</yloc>
+      <xloc>688</xloc>
+      <yloc>688</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -207,37 +207,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>1280</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Load Connection Relationships</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_connection_relationships.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>592</xloc>
-      <yloc>320</yloc>
+      <yloc>1072</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -267,7 +237,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>1024</yloc>
+      <yloc>816</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -278,8 +248,8 @@
       <message/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>1536</xloc>
-      <yloc>864</yloc>
+      <xloc>880</xloc>
+      <yloc>688</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -309,37 +279,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>1152</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Load Connection Nodes</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_connection_nodes.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>592</xloc>
-      <yloc>224</yloc>
+      <yloc>944</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -369,7 +309,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>768</yloc>
+      <yloc>560</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -399,7 +339,37 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>448</xloc>
-      <yloc>1408</yloc>
+      <yloc>1200</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Load Execution Logging</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/hop/pl_load_execution_logging.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <nr>0</nr>
+      <xloc>448</xloc>
+      <yloc>1296</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -450,15 +420,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Connection Relationships</from>
-      <to>error</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Transform Types</from>
       <to>error</to>
       <from_nr>0</from_nr>
@@ -504,15 +465,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Connection Nodes</from>
-      <to>error</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Pipeline Hops</from>
       <to>Load Pipeline Relationships</to>
       <from_nr>0</from_nr>
@@ -528,33 +480,6 @@
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Start</from>
-      <to>Load Connection Nodes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load Connection Nodes</from>
-      <to>Load Connection Relationships</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Connection Relationships</from>
-      <to>Load Workflow Nodes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -578,15 +503,6 @@
     <hop>
       <from>Load Pipeline Relationships</from>
       <to>Load Transform Types</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load File Modifications</from>
-      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -627,6 +543,33 @@
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load File Modifications</from>
+      <to>Load Execution Logging</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Execution Logging</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Execution Logging</from>
+      <to>error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

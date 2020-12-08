@@ -79,6 +79,152 @@
     </hop>
   </order>
   <transform>
+    <name>:AZ_HAS_SUBNET</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>AvailabilityZone</value>
+      </labels>
+      <properties>
+        <property>
+          <name>availabilityZoneId</name>
+          <value>s.availabilityZoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>regionName</name>
+          <value>re.regionName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Subnet</value>
+      </labels>
+      <properties>
+        <property>
+          <name>availabilityZoneId</name>
+          <value>s.availabilityZoneId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>subnetId</name>
+          <value>s.subnetId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>AZ_HAS_SUBNET</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>464</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>:EC2_DNS</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Transform</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>r.name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>r.pluginId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>r.pipelineName</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>EC2Instance</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>e.instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>vpcId</name>
+          <value>e.vpcId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>TRANSFORM_ON_EC2</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>:SUBNET_HAS_EC2</name>
     <type>Neo4JOutput</type>
     <description/>
@@ -213,154 +359,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>:EC2_DNS</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Transform</value>
-        <label/>
-        <value>Rest</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>r.name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pluginId</name>
-          <value>r.pluginId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
-          <value>r.pipelineName</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>EC2Instance</value>
-      </labels>
-      <properties>
-        <property>
-          <name>instanceId</name>
-          <value>e.instanceId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>vpcId</name>
-          <value>e.vpcId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>TRANSFORM_ON_EC2</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>608</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>:AZ_HAS_SUBNET</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>AvailabilityZone</value>
-      </labels>
-      <properties>
-        <property>
-          <name>availabilityZoneId</name>
-          <value>s.availabilityZoneId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>regionName</name>
-          <value>re.regionName</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Subnet</value>
-      </labels>
-      <properties>
-        <property>
-          <name>availabilityZoneId</name>
-          <value>s.availabilityZoneId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>subnetId</name>
-          <value>s.subnetId</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>AZ_HAS_SUBNET</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>464</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>:VPC_HAS_SUBNET</name>
     <type>Neo4JOutput</type>
     <description/>
@@ -422,6 +420,30 @@
     <GUI>
       <xloc>720</xloc>
       <yloc>352</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Generate 1 row</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+    </fields>
+    <limit>1</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <attributes/>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>464</yloc>
     </GUI>
   </transform>
   <transform>
@@ -679,7 +701,7 @@ RETURN distinct re.regionName, v.vpcId, s.availabilityZoneId, s.subnetId</cypher
       <schema_name/>
     </partitioning>
     <connection>lineage-graph</connection>
-    <cypher>match(r:Rest:Transform) where not(r.parsedUrl = '' or r.parsedUrl is null) return r.name, r.pluginId, r.pipelineName, r.parsedUrl;</cypher>
+    <cypher>match(r:Transform {pluginId: 'Rest'}) where not(r.parsedUrl = '' or r.parsedUrl is null) return r.name, r.pluginId, r.pipelineName, r.parsedUrl;</cypher>
     <batch_size/>
     <read_only>N</read_only>
     <retry>Y</retry>
@@ -716,30 +738,6 @@ RETURN distinct re.regionName, v.vpcId, s.availabilityZoneId, s.subnetId</cypher
     <GUI>
       <xloc>160</xloc>
       <yloc>608</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Generate 1 row</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-    </fields>
-    <limit>1</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <attributes/>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>464</yloc>
     </GUI>
   </transform>
   <transform>

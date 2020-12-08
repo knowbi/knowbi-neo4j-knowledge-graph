@@ -65,17 +65,12 @@
     </hop>
     <hop>
       <from>select</from>
-      <to>remove PRM_ETL_DIR from trans_path</to>
+      <to>remove ${etl.dir} from path</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>sort pipelines</from>
       <to>:Pipeline</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>remove PRM_ETL_DIR from trans_path</from>
-      <to>select pipelines</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -143,6 +138,11 @@
       <to>:TransformType</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>remove ${etl.dir} from path</from>
+      <to>select pipelines</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>:Pipeline</name>
@@ -171,14 +171,14 @@
       </labels>
       <properties>
         <property>
-          <name>filename</name>
-          <value>hpl_filename</value>
+          <name>pipelineName</name>
+          <value>pipeline</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
+          <name>filename</name>
+          <value>hpl_filename</value>
           <type>String</type>
           <primary>N</primary>
         </property>
@@ -640,6 +640,53 @@
     </GUI>
   </transform>
   <transform>
+    <name>remove ${etl.dir} from path</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');
+var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>hpl_path</name>
+        <rename>hpl_path</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>
+      <field>
+        <name>hpl_filename</name>
+        <rename>hpl_filename</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>remove .hpl</name>
     <type>ReplaceString</type>
     <description/>
@@ -668,43 +715,6 @@
     <GUI>
       <xloc>256</xloc>
       <yloc>288</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>remove PRM_ETL_DIR from trans_path</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>hpl_path</name>
-        <rename>hpl_path</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>576</yloc>
     </GUI>
   </transform>
   <transform>

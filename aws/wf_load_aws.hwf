@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>jb_load_aws</name>
+  <name>wf_load_aws</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
   <workflow_version/>
+  <workflow_status>0</workflow_status>
   <created_user>-</created_user>
   <created_date>2020/11/19 14:18:51.259</created_date>
   <modified_user>-</modified_user>

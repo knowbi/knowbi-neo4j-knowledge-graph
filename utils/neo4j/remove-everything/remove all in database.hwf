@@ -186,7 +186,7 @@
       </fields>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>240</xloc>
+      <xloc>288</xloc>
       <yloc>208</yloc>
       <attributes_hac/>
     </action>
@@ -263,9 +263,18 @@
       <to>Set ${NEO4J_LOGGING_CONNECTION}</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>drop all constraints</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
