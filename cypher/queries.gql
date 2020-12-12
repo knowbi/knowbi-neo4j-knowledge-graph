@@ -1,0 +1,93 @@
+// show subgraphs for all workflows -> pipelines -> transforms  
+match p=(w:Workflow)-[:ACTION_OF_WORKFLOW]-(a:Action {pluginId: 'PIPELINE'})-[:STARTS]-(pl:Pipeline)-[:TRANSFORM_OF_PIPELINE]-(t:Transform) return p; 
+
+// same as above, but as table for workflow, pipeline and transform names 
+match p=(w:Workflow)-[:ACTION_OF_WORKFLOW]-(a:Action {pluginId: 'PIPELINE'})-[:STARTS]-(pl:Pipeline)-[:TRANSFORM_OF_PIPELINE]-(t:Transform) return w.name, pl.pipelineName, t.name order by 1, 2, 3; 
+
+// same as first, but only for Rest plugins, excluded cleanup workflow and only Rest transforms 
+match p=(w:Workflow)-[:ACTION_OF_WORKFLOW]-(a:Action {pluginId: 'PIPELINE'})-[:STARTS]-(pl:Pipeline)-[:TRANSFORM_OF_PIPELINE]-(t:Transform) where not w.name contains 'remove all' and t.pluginId = 'Rest' return p ;
+
+// workflow -> transform chain for 'post' transforms of type 'Rest' 
+match p = ((w:Workflow)-[r*1..3]-(t:Transform)) where t.name contains 'posts' and t.pluginId = 'Rest' and none(x in nodes(p) where x:Commit) return p; 
+
+// files added per commit 
+match(c:Commit)-[r:ADDS]-(p:Pipeline) return c,r,p; 
+
+// files added or modified per commit  
+match(c:Commit)-[r:ADDS|:MODIFIES]-(p:Pipeline) return c,r,p; 
+
+
+
+
+// number of transforms by (plugin) type, ordered by usage 
+match(t:Transform) return distinct t.pluginId, count(t.pipelineName), count(t) order by count(t) desc, count(t.pipelineName) desc; 
+
+
+// FAILS
+// get all workflows that have a Rest call that fetches posts 
+match p = ((w:Workflow)-[r*1..3]-(t:Transform)) where t.name contains 'post' and not exists(:Commit) return p; 
+
+// get all workflows that have a Rest call that fetches posts 
+match p = ((w:Workflow)-[r*1..3]-(t:Transform)) where t.name contains 'user' and not exists(:Commit) return p; 
+
+
+
+
+// get all pipelines that use a machine in any AWS region 
+match (r:Region), (pi:Pipeline), p = allShortestPaths((r)-[*1..6]-(pi)) return p; 
+​
+// get all pipelines that use a machine in any AWS region 
+match (r:Region), (w:Workflow), p = allShortestPaths((r)-[*1..7]-(w)) WHERE NONE(x IN NODES(p) WHERE x:Commit ) return p; 
+
+
+// get all pipelines that use our ec2 instance 
+match (e:EC2Instance), (pi:Pipeline), p = allShortestPaths((e)-[*]-(pi)) WHERE NONE(x IN NODES(p) WHERE x:Commit ) return p; 
+
+match (e:EC2Instance), (pi:Pipeline), p = allShortestPaths((e)-[*]-(pi)) WHERE NONE(x IN NODES(p) WHERE x:Commit ) return distinct pi.pipelineName order by 1; 
+
+match (e:EC2Instance), (pi:Pipeline), p = allShortestPaths((e)-[*]-(pi)) WHERE NONE(x IN NODES(p) WHERE x:Commit or (x:Workflow and x.name contains 'remove')) return distinct pi.pipelineName order by 1; 
+
+
+match (r:Region), (pi:Pipeline), p = allShortestPaths((r)-[*1..6]-(pi)) WHERE NONE(x IN NODES(p) WHERE x:Commit ) return p;
+
+
+
+
+
+
+
+match(w:Workflow) match(t:Transform), p=allShortestPaths((w)-[*1..3]-(t)) where none(x in NODES(p) where x:Commit) return p; 
+
+
+
+match p = ((w:Workflow)-[*1..3]-(t:Transform))
+
+un
+
+
+MATCH p = (m:Organization)-[rels*1..4]-(n:Person) 
+WHERE 
+    n.name =~ "(?i)person1" AND
+    m.name =~ "(?i)organization1" AND
+    all(r IN rels WHERE r.score=1)
+RETURN p
+ORDER BY length(p)
+
+match(w:Workflow) match(t:Transform), p=allShortestPaths((w)-[*]-(t)) where ALL(x in NODES(p) where x.name contains 'post') return p; 
+
+match (e:EC2Instance), (pi:Pipeline), p = allShortestPaths((e)-[*]-(pi)) WHERE NONE(x IN NODES(p) WHERE x:Commit ) return p; 
+ 
+match (j:Job), (st:StepType {name: "DBLookup"}), p = allShortestPaths((j)-[*]-(st)) 
+WHERE NONE(x IN RELATIONSHIPS(p) WHERE type(x) = "HAS_CONNECTION" or type(x) = "USES_CONNECTION" )
+return p;
+
+
+
+
+match p = ((w:Workflow)-[r*1..3]-(t:Transform)) where t.name contains 'posts' and t.pluginId = 'Rest' and none(x in nodes(p) where x:Commit) return p; 
+
+
+
+
+// 07. number of transforms by (plugin) type, ordered by usage 
+match(t:Transform) return distinct t.pluginId, count(distinct t.pipelineName), count(t) order by count(t) desc, count(distinct t.pipelineName) desc; 
