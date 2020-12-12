@@ -31,68 +31,8 @@
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Load DMS</name>
-      <description/>
-      <type>WORKFLOW</type>
-      <attributes/>
-      <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/aws/dms/wf_load_dms.hwf</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>784</xloc>
-      <yloc>160</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Load RDS</name>
-      <description/>
-      <type>WORKFLOW</type>
-      <attributes/>
-      <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/aws/rds/wf_load_rds.hwf</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>896</xloc>
-      <yloc>160</yloc>
+      <xloc>128</xloc>
+      <yloc>48</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -121,8 +61,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>336</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>146</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -151,8 +91,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>244</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -181,8 +121,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>560</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>342</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -211,8 +151,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>440</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -241,8 +181,19 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>976</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>538</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <attributes/>
+      <parallel>N</parallel>
+      <nr>0</nr>
+      <xloc>128</xloc>
+      <yloc>636</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -293,29 +244,11 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load EC2</from>
-      <to>Load DMS</to>
+      <from>AWS Relations</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load DMS</from>
-      <to>Load RDS</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load RDS</from>
-      <to>AWS Relations</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>

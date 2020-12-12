@@ -31,8 +31,8 @@
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -61,8 +61,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>336</yloc>
+      <xloc>176</xloc>
+      <yloc>304</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -91,8 +91,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>208</yloc>
+      <xloc>176</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -121,8 +121,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>688</yloc>
+      <xloc>176</xloc>
+      <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -151,8 +151,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>448</yloc>
+      <xloc>176</xloc>
+      <yloc>416</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -162,8 +162,8 @@
       <attributes/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>1392</yloc>
+      <xloc>176</xloc>
+      <yloc>1360</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -176,8 +176,8 @@
       <logsubject/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>688</xloc>
-      <yloc>688</yloc>
+      <xloc>416</xloc>
+      <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -206,8 +206,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>1072</yloc>
+      <xloc>176</xloc>
+      <yloc>1040</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -236,8 +236,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>816</yloc>
+      <xloc>176</xloc>
+      <yloc>784</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -248,8 +248,8 @@
       <message/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>880</xloc>
-      <yloc>688</yloc>
+      <xloc>608</xloc>
+      <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -278,8 +278,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>944</yloc>
+      <xloc>176</xloc>
+      <yloc>912</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -308,8 +308,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>560</yloc>
+      <xloc>176</xloc>
+      <yloc>528</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -338,8 +338,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>1200</yloc>
+      <xloc>176</xloc>
+      <yloc>1168</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -368,8 +368,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>1296</yloc>
+      <xloc>176</xloc>
+      <yloc>1264</yloc>
       <attributes_hac/>
     </action>
   </actions>

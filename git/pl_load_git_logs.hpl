@@ -312,7 +312,7 @@ branch = branch.replace(branch.match(/\(/), '')
         <property>
           <name>date</name>
           <value>date</value>
-          <type>Date</type>
+          <type>LocalDateTime</type>
           <primary>N</primary>
         </property>
       </properties>

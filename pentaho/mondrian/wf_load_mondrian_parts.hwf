@@ -45,8 +45,8 @@
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>48</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -54,7 +54,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_roles.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_roles.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -80,8 +80,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>137</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -89,7 +89,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_dimensions.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_dimensions.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -125,8 +125,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>226</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -134,7 +134,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_measures.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_measures.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -170,8 +170,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>315</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -179,7 +179,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_calculatedmembers.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_calculatedmembers.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -215,8 +215,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>404</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -224,7 +224,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_other_dimensions.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_other_dimensions.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -260,8 +260,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>1056</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>493</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -269,7 +269,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/pentaho/mondrian/tr_load_other_measures.hpl</filename>
+      <filename>${PROJECT_HOME}/pentaho/mondrian/pl_load_other_measures.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -305,8 +305,8 @@
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>1264</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>582</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -316,8 +316,8 @@
       <attributes/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>1456</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>671</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -328,8 +328,8 @@
       <message/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>760</xloc>
-      <yloc>208</yloc>
+      <xloc>320</xloc>
+      <yloc>320</yloc>
       <attributes_hac/>
     </action>
   </actions>

@@ -67,8 +67,8 @@
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>752</xloc>
-      <yloc>528</yloc>
+      <xloc>224</xloc>
+      <yloc>320</yloc>
     </GUI>
   </transform>
   <transform>
@@ -209,8 +209,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>320</yloc>
+      <xloc>96</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
@@ -263,8 +263,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>128</yloc>
+      <xloc>224</xloc>
+      <yloc>80</yloc>
     </GUI>
   </transform>
   <transform>
@@ -342,8 +342,8 @@
     <executors_output_transform/>
     <attributes/>
     <GUI>
-      <xloc>992</xloc>
-      <yloc>320</yloc>
+      <xloc>400</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
@@ -421,8 +421,8 @@
     <executors_output_transform/>
     <attributes/>
     <GUI>
-      <xloc>1008</xloc>
-      <yloc>528</yloc>
+      <xloc>400</xloc>
+      <yloc>320</yloc>
     </GUI>
   </transform>
   <transform>
@@ -455,8 +455,8 @@
     </lookup>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>320</yloc>
+      <xloc>224</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

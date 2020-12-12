@@ -111,12 +111,12 @@
     <hop>
       <from>sort tables</from>
       <to>wait for transforms</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>wait for transforms</from>
       <to>tables</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>sort transforms</from>
@@ -1275,7 +1275,7 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </partitioning>
     <transforms>
       <transform>
-        <name>transforms</name>
+        <name>:Transform</name>
         <CopyNr>0</CopyNr>
       </transform>
     </transforms>

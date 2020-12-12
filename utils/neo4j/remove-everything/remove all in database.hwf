@@ -66,7 +66,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>304</yloc>
+      <yloc>282</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -101,7 +101,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>560</yloc>
+      <yloc>561</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -131,7 +131,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>400</yloc>
+      <yloc>375</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -166,7 +166,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>480</yloc>
+      <yloc>468</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -186,8 +186,8 @@
       </fields>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>208</yloc>
+      <xloc>240</xloc>
+      <yloc>189</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -208,7 +208,7 @@
       <parallel>N</parallel>
       <nr>0</nr>
       <xloc>240</xloc>
-      <yloc>656</yloc>
+      <yloc>654</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -263,18 +263,9 @@
       <to>Set ${NEO4J_LOGGING_CONNECTION}</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>drop all constraints</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>

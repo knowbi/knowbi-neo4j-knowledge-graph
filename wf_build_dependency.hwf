@@ -30,8 +30,8 @@
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>96</yloc>
+      <xloc>160</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -41,36 +41,8 @@
       <attributes/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>1216</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>change to read container</name>
-      <description/>
-      <type>SHELL</type>
-      <attributes/>
-      <filename/>
-      <work_directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <set_append_logfile>N</set_append_logfile>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <insertScript>Y</insertScript>
-      <script>PRIVATE_IP=$(/snap/bin/aws ec2 describe-instances --filter Name=tag:Name,Values=*neo4j* Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[PrivateIpAddress]' --output text)
-curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-write/stop
-curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
-
-</script>
-      <loglevel>Basic</loglevel>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>1216</yloc>
+      <xloc>160</xloc>
+      <yloc>925</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -92,8 +64,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>416</yloc>
+      <xloc>160</xloc>
+      <yloc>310</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -115,8 +87,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>656</yloc>
+      <xloc>160</xloc>
+      <yloc>556</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -127,8 +99,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <message/>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>992</xloc>
-      <yloc>416</yloc>
+      <xloc>512</xloc>
+      <yloc>433</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -150,8 +122,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>288</yloc>
+      <xloc>160</xloc>
+      <yloc>187</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -173,8 +145,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>544</yloc>
+      <xloc>160</xloc>
+      <yloc>433</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -203,8 +175,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>656</yloc>
+      <xloc>272</xloc>
+      <yloc>556</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -233,8 +205,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>544</yloc>
+      <xloc>272</xloc>
+      <yloc>433</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -263,8 +235,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>800</yloc>
+      <xloc>272</xloc>
+      <yloc>679</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -286,8 +258,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>800</yloc>
+      <xloc>160</xloc>
+      <yloc>679</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -316,8 +288,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       </parameters>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>416</yloc>
+      <xloc>272</xloc>
+      <yloc>310</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -339,8 +311,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>928</yloc>
+      <xloc>160</xloc>
+      <yloc>802</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -349,7 +321,7 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/pentaho/jb_load_pentaho.hwf</filename>
+      <filename>${PROJECT_HOME}/pentaho/wf_load_pentaho.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -369,8 +341,8 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>928</yloc>
+      <xloc>272</xloc>
+      <yloc>802</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -399,51 +371,12 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>288</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Set Env Vars</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${PROJECT_HOME}/utils/pl_env_set_vars.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>96</yloc>
+      <xloc>272</xloc>
+      <yloc>187</yloc>
       <attributes_hac/>
     </action>
   </actions>
   <hops>
-    <hop>
-      <from>change to read container</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>Clean Neo4j?</from>
       <to>database?</to>
@@ -536,24 +469,6 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
     </hop>
     <hop>
       <from>Load Pentaho</from>
-      <to>change to read container</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Pentaho?</from>
-      <to>change to read container</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Pentaho</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -590,33 +505,6 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
     </hop>
     <hop>
       <from>Clean Neo4j data</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Set Env Vars</from>
-      <to>Clean Neo4j?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>Set Env Vars</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Set Env Vars</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -677,6 +565,33 @@ curl -s -XPOST http://$PRIVATE_IP:4243/containers/neo4j-dependencies-read/start
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Pentaho?</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Pentaho</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Clean Neo4j?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
