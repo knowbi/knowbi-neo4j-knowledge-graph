@@ -49,7 +49,7 @@ NEO4J_COMM_USER|neo4j||
 |do.rdbms.columns|Y|include columns in RDBMS schema parsing (if 'N', only database, schema, table parsing)
 |git.tmp.dir|/tmp|temporary directory to store git parsing working files|
 |etl.kettle.properties.dir||directory to read kettle.properties file from (deprecated)|
-|etl.dir|/home/bart/git-customers/drivolution-dcn-auto|directory to read Hop workflows and pipelines from|
+|etl.dir|/customer/project/directory|directory to read Hop workflows and pipelines from|
 |neo4j.host|localhost|Neo4j database host|
 |neo4j.bolt.port|7687|Neo4j bolt port (default 7687)|
 |neo4j.browser.port|7474|Neo4j browser port (default 7474)|
