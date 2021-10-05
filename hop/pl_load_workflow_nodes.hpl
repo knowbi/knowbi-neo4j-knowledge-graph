@@ -126,7 +126,7 @@
     <connection>lineage-graph</connection>
     <batch_size>1000</batch_size>
     <key/>
-    <create_indexes>Y</create_indexes>
+    <create_indexes>N</create_indexes>
     <use_create>N</use_create>
     <only_create_relationships>N</only_create_relationships>
     <returning_graph>N</returning_graph>
@@ -1239,8 +1239,8 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     </partitioning>
     <transforms>
       <transform>
-        <name>actions</name>
         <CopyNr>0</CopyNr>
+        <name>actions</name>
       </transform>
     </transforms>
     <attributes/>
@@ -1262,8 +1262,8 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     </partitioning>
     <transforms>
       <transform>
-        <name>workflows</name>
         <CopyNr>0</CopyNr>
+        <name>workflows</name>
       </transform>
     </transforms>
     <attributes/>

@@ -218,7 +218,7 @@
     <connection>lineage-graph</connection>
     <batch_size>1000</batch_size>
     <key/>
-    <create_indexes>Y</create_indexes>
+    <create_indexes>N</create_indexes>
     <use_create>N</use_create>
     <only_create_relationships>N</only_create_relationships>
     <returning_graph>N</returning_graph>
@@ -325,49 +325,33 @@
     </partitioning>
     <failIfNoFile>Y</failIfNoFile>
     <calculation>
-      <field_name>C_TMP1</field_name>
       <calc_type>CONSTANT</calc_type>
       <field_a>MATCH (c:Connection)-[r]-(d:Database) where c.name='</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>String</value_type>
+      <field_name>C_TMP1</field_name>
+      <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
-      <remove>Y</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
+      <value_type>String</value_type>
     </calculation>
     <calculation>
-      <field_name>C_TMP2</field_name>
       <calc_type>CONSTANT</calc_type>
       <field_a>' return  c.name, d.name</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>String</value_type>
+      <field_name>C_TMP2</field_name>
+      <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
-      <remove>Y</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
+      <value_type>String</value_type>
     </calculation>
     <calculation>
-      <field_name>get_database</field_name>
       <calc_type>ADD3</calc_type>
       <field_a>C_TMP1</field_a>
       <field_b>connection</field_b>
       <field_c>C_TMP2</field_c>
-      <value_type>String</value_type>
+      <field_name>get_database</field_name>
+      <remove>N</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
+      <value_type>String</value_type>
     </calculation>
     <attributes/>
     <GUI>
@@ -391,6 +375,7 @@
 </cypher>
     <batch_size/>
     <read_only>Y</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>Y</cypher_from_field>
     <cypher_field>get_database</cypher_field>
@@ -1133,7 +1118,7 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     <connection>lineage-graph</connection>
     <batch_size>1000</batch_size>
     <key/>
-    <create_indexes>Y</create_indexes>
+    <create_indexes>N</create_indexes>
     <use_create>N</use_create>
     <only_create_relationships>N</only_create_relationships>
     <returning_graph>N</returning_graph>
@@ -1229,8 +1214,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </partitioning>
     <transforms>
       <transform>
-        <name>:Pipeline</name>
         <CopyNr>0</CopyNr>
+        <name>:Pipeline</name>
       </transform>
     </transforms>
     <attributes/>
@@ -1252,8 +1237,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </partitioning>
     <transforms>
       <transform>
-        <name>:Transform</name>
         <CopyNr>0</CopyNr>
+        <name>:Transform</name>
       </transform>
     </transforms>
     <attributes/>
@@ -1275,8 +1260,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </partitioning>
     <transforms>
       <transform>
-        <name>:Transform</name>
         <CopyNr>0</CopyNr>
+        <name>:Transform</name>
       </transform>
     </transforms>
     <attributes/>

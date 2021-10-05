@@ -11,15 +11,12 @@
   <modified_date>2019/04/06 10:40:52.651</modified_date>
   <parameters>
     </parameters>
-  <pass_batchid>N</pass_batchid>
   <actions>
     <action>
       <name>START</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
-      <start>Y</start>
-      <dummy>N</dummy>
       <repeat>N</repeat>
       <schedulerType>0</schedulerType>
       <intervalSeconds>0</intervalSeconds>
@@ -29,7 +26,6 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
@@ -40,7 +36,6 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>925</yloc>
       <attributes_hac/>
@@ -63,7 +58,6 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>310</yloc>
       <attributes_hac/>
@@ -86,7 +80,6 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>556</yloc>
       <attributes_hac/>
@@ -96,9 +89,7 @@
       <description/>
       <type>ABORT</type>
       <attributes/>
-      <message/>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>512</xloc>
       <yloc>433</yloc>
       <attributes_hac/>
@@ -121,7 +112,6 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>187</yloc>
       <attributes_hac/>
@@ -144,7 +134,6 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>433</yloc>
       <attributes_hac/>
@@ -174,13 +163,12 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>556</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Hop ETL</name>
+      <name>Load Hop</name>
       <description/>
       <type>WORKFLOW</type>
       <attributes/>
@@ -204,7 +192,6 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>433</yloc>
       <attributes_hac/>
@@ -234,7 +221,6 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>679</yloc>
       <attributes_hac/>
@@ -257,7 +243,6 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>679</yloc>
       <attributes_hac/>
@@ -287,13 +272,12 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>310</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Pentaho?</name>
+      <name>Reporting?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
@@ -310,13 +294,12 @@
       <successbooleancondition>false</successbooleancondition>
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>160</xloc>
       <yloc>802</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Pentaho</name>
+      <name>Load Reporting</name>
       <description/>
       <type>WORKFLOW</type>
       <attributes/>
@@ -340,7 +323,6 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>802</yloc>
       <attributes_hac/>
@@ -370,7 +352,6 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>272</xloc>
       <yloc>187</yloc>
       <attributes_hac/>
@@ -380,8 +361,6 @@
     <hop>
       <from>Clean Neo4j?</from>
       <to>database?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -389,26 +368,20 @@
     <hop>
       <from>AWS?</from>
       <to>Load AWS</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>ETL?</from>
-      <to>Load Hop ETL</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <to>Load Hop</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Hop ETL</from>
+      <from>Load Hop</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -416,8 +389,6 @@
     <hop>
       <from>Load git logs</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -425,8 +396,6 @@
     <hop>
       <from>git?</from>
       <to>Load git logs</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -434,8 +403,6 @@
     <hop>
       <from>database?</from>
       <to>Load Databases</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -443,35 +410,27 @@
     <hop>
       <from>Load Databases</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>git?</from>
-      <to>Pentaho?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <to>Reporting?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Pentaho?</from>
-      <to>Load Pentaho</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>Reporting?</from>
+      <to>Load Reporting</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pentaho</from>
+      <from>Load Reporting</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -479,8 +438,6 @@
     <hop>
       <from>Load AWS</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -488,8 +445,6 @@
     <hop>
       <from>Clean Neo4j?</from>
       <to>Clean Neo4j data</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -497,8 +452,6 @@
     <hop>
       <from>Clean Neo4j data</from>
       <to>database?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -506,8 +459,6 @@
     <hop>
       <from>Clean Neo4j data</from>
       <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -515,8 +466,6 @@
     <hop>
       <from>Load Databases</from>
       <to>ETL?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -524,17 +473,13 @@
     <hop>
       <from>database?</from>
       <to>ETL?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Hop ETL</from>
+      <from>Load Hop</from>
       <to>AWS?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -542,8 +487,6 @@
     <hop>
       <from>ETL?</from>
       <to>AWS?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -551,8 +494,6 @@
     <hop>
       <from>Load AWS</from>
       <to>git?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -560,26 +501,20 @@
     <hop>
       <from>AWS?</from>
       <to>git?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Pentaho?</from>
+      <from>Reporting?</from>
       <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pentaho</from>
+      <from>Load Reporting</from>
       <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -587,34 +522,12 @@
     <hop>
       <from>START</from>
       <to>Clean Neo4j?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
-    <notepad>
-      <note>TODO: apply correct index management in transformations</note>
-      <xloc>832</xloc>
-      <yloc>32</yloc>
-      <width>693</width>
-      <heigth>42</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-    </notepad>
   </notepads>
   <attributes>
     <group>

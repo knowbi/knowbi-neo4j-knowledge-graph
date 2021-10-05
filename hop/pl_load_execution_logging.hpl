@@ -24,17 +24,7 @@
   <order>
     <hop>
       <from>pipeline?</from>
-      <to>EXECUTION_OF_PIPELINE</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>pipeline?</from>
       <to>workflow?</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>workflow?</from>
-      <to>:EXECUTION_OF_WORKFLOW</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -50,6 +40,21 @@
     <hop>
       <from>cast dates</from>
       <to>pipeline?</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>pipeline?</from>
+      <to>EXECUTION_OF_PIPELINE</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>workflow?</from>
+      <to>wait for PL</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>wait for PL</from>
+      <to>:EXECUTION_OF_WORKFLOW</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -69,7 +74,7 @@
     <key/>
     <create_indexes>N</create_indexes>
     <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
+    <only_create_relationships>Y</only_create_relationships>
     <returning_graph>N</returning_graph>
     <return_graph_field>graph</return_graph_field>
     <from>
@@ -161,7 +166,7 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>608</xloc>
       <yloc>176</yloc>
     </GUI>
   </transform>
@@ -181,7 +186,7 @@
     <key/>
     <create_indexes>N</create_indexes>
     <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
+    <only_create_relationships>Y</only_create_relationships>
     <returning_graph>N</returning_graph>
     <return_graph_field>graph</return_graph_field>
     <from>
@@ -273,7 +278,7 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>528</xloc>
+      <xloc>608</xloc>
       <yloc>80</yloc>
     </GUI>
   </transform>
@@ -338,6 +343,60 @@
     </GUI>
   </transform>
   <transform>
+    <name>cast dates</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>e.executionStart</name>
+        <rename>e.executionStart</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy/MM/dd'T'HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>e.executionEnd</name>
+        <rename>e.executionEnd</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy/MM/dd'T'HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>get executions</name>
     <type>Neo4jCypherOutput</type>
     <description/>
@@ -348,7 +407,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>community-graph</connection>
+    <connection>lineage-graph</connection>
     <cypher>match(e:Execution)-[:EXECUTION_OF_PIPELINE]-(p) 
 return e.id, e.logLevel, e.durationMs, e.executionStart, e.executionEnd, e.linesInput, e.linesOutput, e.linesRead, e.linesWritten, e.linesRejected, p.name as pname, '' as wname 
 union 
@@ -356,6 +415,7 @@ match(e:Execution)-[:EXECUTION_OF_WORKFLOW]-(w)
 return e.id, e.logLevel, e.durationMs, e.executionStart, e.executionEnd, e.linesInput, e.linesOutput, e.linesRead, e.linesWritten, e.linesRejected,'' as pname, w.name as wname; </cypher>
     <batch_size/>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>N</cypher_from_field>
     <cypher_field/>
@@ -470,7 +530,7 @@ return e.id, e.logLevel, e.durationMs, e.executionStart, e.executionEnd, e.lines
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>:EXECUTION_OF_WORKFLOW</send_true_to>
+    <send_true_to>wait for PL</send_true_to>
     <send_false_to>Unknown output</send_false_to>
     <compare>
       <condition>
@@ -487,8 +547,8 @@ return e.id, e.logLevel, e.durationMs, e.executionStart, e.executionEnd, e.lines
     </GUI>
   </transform>
   <transform>
-    <name>cast dates</name>
-    <type>SelectValues</type>
+    <name>wait for PL</name>
+    <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -497,47 +557,16 @@ return e.id, e.logLevel, e.durationMs, e.executionStart, e.executionEnd, e.lines
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>e.executionStart</name>
-        <rename>e.executionStart</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>yyyy/MM/dd'T'HH:mm:ss</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>e.executionEnd</name>
-        <rename>e.executionEnd</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>yyyy/MM/dd'T'HH:mm:ss</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
+    <transforms>
+      <transform>
+        <CopyNr/>
+        <name>EXECUTION_OF_PIPELINE</name>
+      </transform>
+    </transforms>
     <attributes/>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>80</yloc>
+      <xloc>464</xloc>
+      <yloc>176</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
