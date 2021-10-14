@@ -1,2 +1,0 @@
-connection_name,database_type,url,host,port,database name,username,password,driver,version
-dcnauto,postgresql,jdbc:postgresql://localhost:5432/dcnauto,localhost,5432,dcnauto,postgres,postgres,org.postgresql.Driver,12.3

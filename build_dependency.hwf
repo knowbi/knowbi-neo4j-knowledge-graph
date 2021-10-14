@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>jb_build_dependency</name>
+  <name>build_dependency</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
   <workflow_version/>
+  <workflow_status>0</workflow_status>
   <created_user>-</created_user>
   <created_date>2019/04/06 10:40:52.651</created_date>
   <modified_user>-</modified_user>
@@ -13,7 +14,7 @@
     </parameters>
   <actions>
     <action>
-      <name>START</name>
+      <name>start</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
@@ -41,13 +42,13 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>database?</name>
+      <name>lineage-database?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
       <valuetype>variable</valuetype>
       <fieldname/>
-      <variablename>${do.rdbms}</variablename>
+      <variablename>${RDBMS_LINEAGE}</variablename>
       <fieldtype>string</fieldtype>
       <mask/>
       <comparevalue>Y</comparevalue>
@@ -95,13 +96,13 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Clean Neo4j?</name>
+      <name>clean-neo4j?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
       <valuetype>variable</valuetype>
       <fieldname/>
-      <variablename>${do.clean.neo4j.data}</variablename>
+      <variablename>${CLEAN_NEO4J_DATA}</variablename>
       <fieldtype>string</fieldtype>
       <mask/>
       <comparevalue>Y</comparevalue>
@@ -248,11 +249,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Databases</name>
+      <name>load-databases</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/rdbms/pl_read_db_queries.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/rdbms/read_db_queries.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -328,12 +329,12 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Clean Neo4j data</name>
+      <name>clean-neo4j-data</name>
       <description/>
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/utils/neo4j/remove-everything/remove all in database.hwf</filename>
+      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/clean-database.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -359,8 +360,8 @@
   </actions>
   <hops>
     <hop>
-      <from>Clean Neo4j?</from>
-      <to>database?</to>
+      <from>clean-neo4j?</from>
+      <to>lineage-database?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -401,14 +402,14 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>database?</from>
-      <to>Load Databases</to>
+      <from>lineage-database?</from>
+      <to>load-databases</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Databases</from>
+      <from>load-databases</from>
       <to>Abort job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
@@ -443,35 +444,35 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Clean Neo4j?</from>
-      <to>Clean Neo4j data</to>
+      <from>clean-neo4j?</from>
+      <to>clean-neo4j-data</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Clean Neo4j data</from>
-      <to>database?</to>
+      <from>clean-neo4j-data</from>
+      <to>lineage-database?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Clean Neo4j data</from>
+      <from>clean-neo4j-data</from>
       <to>Abort job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Databases</from>
+      <from>load-databases</from>
       <to>ETL?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>database?</from>
+      <from>lineage-database?</from>
       <to>ETL?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
@@ -520,11 +521,18 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>START</from>
-      <to>Clean Neo4j?</to>
+      <from>start</from>
+      <to>clean-neo4j?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Load git logs</from>
+      <to>Reporting?</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>

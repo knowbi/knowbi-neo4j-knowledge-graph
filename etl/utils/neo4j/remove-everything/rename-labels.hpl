@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>rename labels in blocks</name>
+    <name>rename-labels</name>
     <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -29,33 +29,33 @@
   </notepads>
   <order>
     <hop>
-      <from>build cypher</from>
-      <to>Copy</to>
+      <from>build-cypher</from>
+      <to>execute-cypher-copy</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>copyNr</from>
-      <to>build cypher</to>
+      <from>get-copy-num</from>
+      <to>build-cypher</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>oo</from>
-      <to>copyNr</to>
+      <from>generate-rows</from>
+      <to>get-copy-num</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Copy</from>
-      <to>done?</to>
+      <from>execute-cypher-copy</from>
+      <to>filter-row-count</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>done?</from>
-      <to>Abort</to>
+      <from>filter-row-count</from>
+      <to>abort</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Abort</name>
+    <name>abort</name>
     <type>Abort</type>
     <description/>
     <distribute>Y</distribute>
@@ -65,10 +65,10 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <row_threshold>0</row_threshold>
-    <message>All done!</message>
-    <always_log_rows>N</always_log_rows>
     <abort_option>ABORT</abort_option>
+    <always_log_rows>N</always_log_rows>
+    <message>All done!</message>
+    <row_threshold>0</row_threshold>
     <attributes/>
     <GUI>
       <xloc>928</xloc>
@@ -76,7 +76,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Copy</name>
+    <name>execute-cypher-copy</name>
     <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -90,9 +90,10 @@
     <cypher/>
     <batch_size>1</batch_size>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>Y</cypher_from_field>
-    <cypher_field>cypherCopy</cypher_field>
+    <cypher_field>cypher_copy</cypher_field>
     <unwind>N</unwind>
     <unwind_map/>
     <returning_graph>N</returning_graph>
@@ -100,7 +101,7 @@
     <mappings/>
     <returns>
       <return>
-        <name>rowCount</name>
+        <name>row_count</name>
         <type>Integer</type>
         <source_type/>
       </return>
@@ -112,7 +113,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>build cypher</name>
+    <name>build-cypher</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -128,9 +129,9 @@
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>
-//var copyLabel = "Customer"+copyNr;
+//var copy_label = "Customer"+copy_num;
 
-var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as nodeCount;";
+var cypher_copy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node_count;";
 
 
 </jsScript_script>
@@ -138,8 +139,8 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
     </jsScripts>
     <fields>
       <field>
-        <name>cypherCopy</name>
-        <rename>cypherCopy</rename>
+        <name>cypher_copy</name>
+        <rename>cypher_copy</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -153,7 +154,7 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
     </GUI>
   </transform>
   <transform>
-    <name>copyNr</name>
+    <name>get-copy-num</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -165,7 +166,7 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
     </partitioning>
     <fields>
       <field>
-        <name>copyNr</name>
+        <name>copy_num</name>
         <variable>${COPYNR}</variable>
         <type>Integer</type>
         <format>#</format>
@@ -184,7 +185,7 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
     </GUI>
   </transform>
   <transform>
-    <name>done?</name>
+    <name>filter-row-count</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -194,12 +195,12 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Abort</send_true_to>
+    <send_true_to>abort</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>rowCount</leftvalue>
+        <leftvalue>row_count</leftvalue>
         <function>=</function>
         <rightvalue/>
         <value>
@@ -220,7 +221,7 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
     </GUI>
   </transform>
   <transform>
-    <name>oo</name>
+    <name>generate-rows</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
@@ -231,12 +232,12 @@ var cypherCopy = "MATCH (n) WITH n LIMIT 100000 DELETE n RETURN count(n) as node
       <schema_name/>
     </partitioning>
     <fields>
-    </fields>
-    <limit>10</limit>
+</fields>
+    <interval_in_ms>5000</interval_in_ms>
+    <last_time_field>FiveSecondsAgo</last_time_field>
     <never_ending>N</never_ending>
-    <interval_in_ms/>
-    <row_time_field/>
-    <last_time_field/>
+    <limit>10</limit>
+    <row_time_field>now</row_time_field>
     <attributes/>
     <GUI>
       <xloc>144</xloc>

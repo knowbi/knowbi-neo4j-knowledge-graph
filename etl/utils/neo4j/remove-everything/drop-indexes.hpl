@@ -1,31 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>drop all indexes</name>
+    <name>drop-indexes</name>
+    <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
-    <directory>/</directory>
+    <pipeline_status>0</pipeline_status>
     <parameters>
     </parameters>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
     <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
-    
-    
-    
-    
     <created_user>-</created_user>
     <created_date>2018/07/05 07:27:40.726</created_date>
     <modified_user>-</modified_user>
@@ -37,23 +24,23 @@
   </notepads>
   <order>
     <hop>
-      <from>Get index list on database</from>
-      <to>remove "</to>
+      <from>get-index-list-database</from>
+      <to>remove-"</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>remove "</from>
-      <to>Build DROP INDEX cypher</to>
+      <from>remove-"</from>
+      <to>build-drop-cypher</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Build DROP INDEX cypher</from>
-      <to>perform DROP INDEX</to>
+      <from>build-drop-cypher</from>
+      <to>perform-drop-cypher</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Build DROP INDEX cypher</name>
+    <name>build-drop-cypher</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -63,15 +50,21 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <compatible>N</compatible>
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>
-var cypher = "DROP INDEX "+name;
-</jsScript_script>
+        <jsScript_script>var cypher;
+
+if(!name)
+{
+	cypher = "DROP "+description;
+}
+else
+{
+	cypher = "DROP INDEX "+name;
+}</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
@@ -85,16 +78,13 @@ var cypher = "DROP INDEX "+name;
       </field>
     </fields>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>736</xloc>
       <yloc>128</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
-    <name>Get index list on database</name>
+    <name>get-index-list-database</name>
     <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -108,6 +98,7 @@ var cypher = "DROP INDEX "+name;
     <cypher>call db.indexes()</cypher>
     <batch_size>1</batch_size>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>N</cypher_from_field>
     <cypher_field/>
@@ -129,16 +120,13 @@ var cypher = "DROP INDEX "+name;
       </return>
     </returns>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>160</xloc>
       <yloc>128</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
-    <name>perform DROP INDEX</name>
+    <name>perform-drop-cypher</name>
     <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -152,6 +140,7 @@ var cypher = "DROP INDEX "+name;
     <cypher/>
     <batch_size>1</batch_size>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>Y</cypher_from_field>
     <cypher_field>cypher</cypher_field>
@@ -162,16 +151,13 @@ var cypher = "DROP INDEX "+name;
     <mappings/>
     <returns/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1054</xloc>
       <yloc>128</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
-    <name>remove "</name>
+    <name>remove-"</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>Y</distribute>
@@ -194,19 +180,26 @@ var cypher = "DROP INDEX "+name;
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>description</in_stream_name>
+        <out_stream_name/>
+        <use_regex>yes</use_regex>
+        <replace_string>\"</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>458</xloc>
       <yloc>128</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform_error_handling>
   </transform_error_handling>
-  
-  
   <attributes/>
 </pipeline>

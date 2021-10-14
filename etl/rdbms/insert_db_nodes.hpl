@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>tr_insert_db_nodes</name>
+    <name>insert_db_nodes</name>
     <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -59,98 +59,108 @@
   </notepads>
   <order>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort database</to>
+      <from>get-variables</from>
+      <to>sort-database</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort database</from>
-      <to>Write Database</to>
+      <from>sort-database</from>
+      <to>write-database</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort Schema</to>
+      <from>get-variables</from>
+      <to>sort-schema</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort Table</to>
+      <from>get-variables</from>
+      <to>sort-table</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort Column</to>
+      <from>get-variables</from>
+      <to>sort-column</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort DataType</to>
+      <from>get-variables</from>
+      <to>sort-datatype</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Schema</from>
-      <to>Write Schema</to>
+      <from>sort-schema</from>
+      <to>write-schema</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Column</from>
-      <to>Write Column</to>
+      <from>sort-column</from>
+      <to>write-column</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort DataType</from>
-      <to>Write DataType</to>
+      <from>sort-datatype</from>
+      <to>write-datatype</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Nullable</from>
-      <to>Write Nullable</to>
+      <from>sort-nullable</from>
+      <to>write-nullable</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get Variables</from>
-      <to>Sort Nullable</to>
+      <from>get-variables</from>
+      <to>sort-nullable</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Read columns</from>
-      <to>Replace in string</to>
+      <from>read-columns</from>
+      <to>replace-in-database</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Replace in string</from>
-      <to>Get Variables</to>
+      <from>sort-schema</from>
+      <to>filter-schema</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Schema</from>
-      <to>Filter rows</to>
+      <from>filter-schema</from>
+      <to>write-user</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows</from>
-      <to>Write User</to>
+      <from>sort-table</from>
+      <to>filter-view</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort Table</from>
-      <to>Filter View</to>
+      <from>filter-view</from>
+      <to>write-view</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter View</from>
-      <to>Write View</to>
+      <from>filter-view</from>
+      <to>write-table</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter View</from>
-      <to>Write Table</to>
+      <from>read-version</from>
+      <to>cartesian-join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-in-database</from>
+      <to>cartesian-join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>cartesian-join</from>
+      <to>get-variables</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Filter View</name>
+    <name>filter-view</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -160,8 +170,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Write View</send_true_to>
-    <send_false_to>Write Table</send_false_to>
+    <send_true_to>write-view</send_true_to>
+    <send_false_to>write-table</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -181,12 +191,12 @@
     </compare>
     <attributes/>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>322</yloc>
+      <xloc>880</xloc>
+      <yloc>316</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Filter rows</name>
+    <name>filter-schema</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -208,12 +218,12 @@
     </compare>
     <attributes/>
     <GUI>
-      <xloc>680</xloc>
-      <yloc>236</yloc>
+      <xloc>880</xloc>
+      <yloc>232</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Get Variables</name>
+    <name>get-variables</name>
     <type>GetVariable</type>
     <description/>
     <distribute>N</distribute>
@@ -236,27 +246,15 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
-      <field>
-        <name>version</name>
-        <variable>${DB_VERSION}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>676</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Read columns</name>
+    <name>read-columns</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -266,7 +264,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>genconn</connection>
+    <connection>GENERIC_CONNECTION</connection>
     <sql>${PRM_QUERY}</sql>
     <limit>0</limit>
     <lookup/>
@@ -279,7 +277,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Replace in string</name>
+    <name>replace-in-database</name>
     <type>ReplaceString</type>
     <description/>
     <distribute>Y</distribute>
@@ -317,12 +315,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>280</xloc>
+      <xloc>268</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort Column</name>
+    <name>sort-column</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -341,7 +339,7 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>version</name>
+        <name>db_version</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -383,12 +381,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>494</yloc>
+      <xloc>880</xloc>
+      <yloc>484</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort DataType</name>
+    <name>sort-datatype</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -417,12 +415,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>580</yloc>
+      <xloc>880</xloc>
+      <yloc>568</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort Nullable</name>
+    <name>sort-nullable</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -451,12 +449,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>666</yloc>
+      <xloc>880</xloc>
+      <yloc>652</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort Schema</name>
+    <name>sort-schema</name>
     <type>SortRows</type>
     <description/>
     <distribute>N</distribute>
@@ -475,7 +473,7 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>version</name>
+        <name>db_version</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -501,12 +499,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>680</xloc>
-      <yloc>150</yloc>
+      <xloc>880</xloc>
+      <yloc>148</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort Table</name>
+    <name>sort-table</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -525,7 +523,7 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>version</name>
+        <name>db_version</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -559,12 +557,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>680</xloc>
-      <yloc>322</yloc>
+      <xloc>676</xloc>
+      <yloc>316</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Sort database</name>
+    <name>sort-database</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -583,7 +581,7 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>version</name>
+        <name>db_version</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -601,12 +599,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>680</xloc>
+      <xloc>880</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write Column</name>
+    <name>write-column</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -657,7 +655,7 @@
         </property>
         <property>
           <name>version</name>
-          <value>version</value>
+          <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -673,12 +671,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>480</yloc>
+      <xloc>1084</xloc>
+      <yloc>484</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write DataType</name>
+    <name>write-datatype</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -721,12 +719,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>580</yloc>
+      <xloc>1084</xloc>
+      <yloc>568</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write Database</name>
+    <name>write-database</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -759,7 +757,7 @@
         </property>
         <property>
           <name>version</name>
-          <value>version</value>
+          <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -775,12 +773,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
+      <xloc>1084</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write Nullable</name>
+    <name>write-nullable</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -823,12 +821,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>666</yloc>
+      <xloc>1084</xloc>
+      <yloc>652</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write Schema</name>
+    <name>write-schema</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -867,7 +865,7 @@
         </property>
         <property>
           <name>version</name>
-          <value>version</value>
+          <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -889,12 +887,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>144</yloc>
+      <xloc>1084</xloc>
+      <yloc>148</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write Table</name>
+    <name>write-table</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -939,7 +937,7 @@
         </property>
         <property>
           <name>version</name>
-          <value>version</value>
+          <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -955,12 +953,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>322</yloc>
+      <xloc>1084</xloc>
+      <yloc>316</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write User</name>
+    <name>write-user</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1003,12 +1001,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>236</yloc>
+      <xloc>1084</xloc>
+      <yloc>232</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Write View</name>
+    <name>write-view</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1053,7 +1051,7 @@
         </property>
         <property>
           <name>version</name>
-          <value>version</value>
+          <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1069,8 +1067,60 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>408</yloc>
+      <xloc>1084</xloc>
+      <yloc>400</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>cartesian-join</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <cache_size>500</cache_size>
+    <main/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue/>
+        <function>=</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>472</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-version</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GENERIC_CONNECTION</connection>
+    <sql>${PRM_VERSION_QUERY}</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>472</xloc>
+      <yloc>208</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

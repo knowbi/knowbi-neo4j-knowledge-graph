@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>drop all constraints</name>
+    <name>drop-constraints</name>
     <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -24,18 +24,18 @@
   </notepads>
   <order>
     <hop>
-      <from>Build DROP CONSTRAINT cypher</from>
-      <to>perform DROP CONSTRAINT</to>
+      <from>build-drop-cypher</from>
+      <to>perform-drop-cypher</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get constraints list on database</from>
-      <to>Build DROP CONSTRAINT cypher</to>
+      <from>get-constraints-list-on-database</from>
+      <to>build-drop-cypher</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Build DROP CONSTRAINT cypher</name>
+    <name>build-drop-cypher</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -51,8 +51,16 @@
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>
-var cypher = "DROP CONSTRAINT "+ name +";";
-</jsScript_script>
+var cypher;
+
+if(!name)
+{
+	"DROP  "+ description+";";
+}
+else
+{
+	"DROP  CONSTRAINT "+ name+";";
+}</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
@@ -72,7 +80,7 @@ var cypher = "DROP CONSTRAINT "+ name +";";
     </GUI>
   </transform>
   <transform>
-    <name>Get constraints list on database</name>
+    <name>get-constraints-list-on-database</name>
     <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -86,6 +94,7 @@ var cypher = "DROP CONSTRAINT "+ name +";";
     <cypher>call db.constraints()</cypher>
     <batch_size>1</batch_size>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>N</cypher_from_field>
     <cypher_field/>
@@ -118,7 +127,7 @@ var cypher = "DROP CONSTRAINT "+ name +";";
     </GUI>
   </transform>
   <transform>
-    <name>perform DROP CONSTRAINT</name>
+    <name>perform-drop-cypher</name>
     <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -132,6 +141,7 @@ var cypher = "DROP CONSTRAINT "+ name +";";
     <cypher/>
     <batch_size>1</batch_size>
     <read_only>N</read_only>
+    <nr_retries_on_error/>
     <retry>Y</retry>
     <cypher_from_field>Y</cypher_from_field>
     <cypher_field>cypher</cypher_field>

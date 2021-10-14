@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>remove all in database</name>
+  <name>remove-all-in-database</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
   <workflow_version/>
+  <workflow_status>0</workflow_status>
   <created_user>-</created_user>
   <created_date>2018/07/05 07:43:06.087</created_date>
   <modified_user>-</modified_user>
@@ -16,15 +17,12 @@
       <description/>
     </parameter>
   </parameters>
-  <pass_batchid>N</pass_batchid>
   <actions>
     <action>
-      <name>START</name>
+      <name>start</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
-      <start>Y</start>
-      <dummy>N</dummy>
       <repeat>N</repeat>
       <schedulerType>0</schedulerType>
       <intervalSeconds>0</intervalSeconds>
@@ -34,17 +32,16 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>drop all constraints</name>
+      <name>drop-constraints</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/utils/neo4j/remove-everything/drop all constraints.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/drop-constraints.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -64,17 +61,16 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>282</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>remove all nodes</name>
+      <name>remove-nodes</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/utils/neo4j/remove-everything/rename labels in blocks.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/rename-labels.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -99,17 +95,16 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>561</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>drop all indexes</name>
+      <name>drop-indexes</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/utils/neo4j/remove-everything/drop all indexes.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/drop-indexes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -129,17 +124,16 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>375</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>remove all relationships</name>
+      <name>remove-relationships</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/utils/neo4j/remove-everything/remove all relationships.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/remove-relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -164,13 +158,12 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>468</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>unset ${NEO4J_LOGGING_CONNECTION}</name>
+      <name>unset-${NEO4J_LOGGING_CONNECTION}</name>
       <description/>
       <type>SET_VARIABLES</type>
       <attributes/>
@@ -185,13 +178,12 @@
         </field>
       </fields>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>189</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Set ${NEO4J_LOGGING_CONNECTION}</name>
+      <name>set-${NEO4J_LOGGING_CONNECTION}</name>
       <description/>
       <type>SET_VARIABLES</type>
       <attributes/>
@@ -206,7 +198,6 @@
         </field>
       </fields>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>240</xloc>
       <yloc>654</yloc>
       <attributes_hac/>
@@ -214,55 +205,43 @@
   </actions>
   <hops>
     <hop>
-      <from>drop all constraints</from>
-      <to>drop all indexes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>drop-constraints</from>
+      <to>drop-indexes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>drop all indexes</from>
-      <to>remove all relationships</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>drop-indexes</from>
+      <to>remove-relationships</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>remove all relationships</from>
-      <to>remove all nodes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>remove-relationships</from>
+      <to>remove-nodes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>START</from>
-      <to>unset ${NEO4J_LOGGING_CONNECTION}</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>start</from>
+      <to>unset-${NEO4J_LOGGING_CONNECTION}</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>unset ${NEO4J_LOGGING_CONNECTION}</from>
-      <to>drop all constraints</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>unset-${NEO4J_LOGGING_CONNECTION}</from>
+      <to>drop-constraints</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>remove all nodes</from>
-      <to>Set ${NEO4J_LOGGING_CONNECTION}</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>remove-nodes</from>
+      <to>set-${NEO4J_LOGGING_CONNECTION}</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
