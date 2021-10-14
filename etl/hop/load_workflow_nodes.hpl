@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>pl_load_workflow_nodes</name>
+    <name>load_workflow_nodes</name>
     <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -24,48 +24,48 @@
   </notepads>
   <order>
     <hop>
-      <from>read workflows</from>
-      <to>select</to>
+      <from>read-workflows</from>
+      <to>select-fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select</from>
-      <to>null filename -> '-'</to>
+      <from>select-fields</from>
+      <to>replace-null-filename</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select</from>
-      <to>remove PRM_ETL_DIR from job_path</to>
+      <from>replace-null-filename</from>
+      <to>wait-for-workflows</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>remove PRM_ETL_DIR from job_path</from>
-      <to>workflows</to>
+      <from>wait-for-workflows</from>
+      <to>write-actions</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>null filename -> '-'</from>
-      <to>wait for jobs</to>
+      <from>select-fields</from>
+      <to>wait-for-actions</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>wait for jobs</from>
-      <to>actions</to>
+      <from>wait-for-actions</from>
+      <to>write-action-types</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select</from>
-      <to>wait for entries</to>
+      <from>select-fields</from>
+      <to>replace-file-path</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>wait for entries</from>
-      <to>action types</to>
+      <from>replace-file-path</from>
+      <to>write-workflows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>action types</name>
+    <name>write-action-types</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -108,12 +108,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>64</yloc>
+      <xloc>688</xloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>actions</name>
+    <name>write-actions</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -174,12 +174,12 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>192</yloc>
+      <xloc>880</xloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>null filename -> '-'</name>
+    <name>replace-null-filename</name>
     <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
@@ -206,12 +206,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>192</yloc>
+      <xloc>496</xloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>read workflows</name>
+    <name>read-workflows</name>
     <type>getXMLData</type>
     <description/>
     <distribute>Y</distribute>
@@ -235,7 +235,7 @@
     <rownum_field/>
     <encoding>UTF-8</encoding>
     <file>
-      <name>${etl.dir}</name>
+      <name>${PROJECT_DIR}</name>
       <filemask>.*.hwf</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1014,44 +1014,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>remove PRM_ETL_DIR from job_path</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>hwf_path</name>
-        <rename>hwf_path</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>128</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select</name>
+    <name>select-fields</name>
     <type>SelectValues</type>
     <description/>
     <distribute>N</distribute>
@@ -1064,170 +1027,222 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     <fields>
       <field>
         <name>hwf_name</name>
+        <rename/>
       </field>
       <field>
         <name>name</name>
+        <rename/>
       </field>
       <field>
         <name>description</name>
+        <rename/>
       </field>
       <field>
         <name>type</name>
+        <rename/>
       </field>
       <field>
         <name>start</name>
+        <rename/>
       </field>
       <field>
         <name>dummy</name>
+        <rename/>
       </field>
       <field>
         <name>repeat</name>
+        <rename/>
       </field>
       <field>
         <name>schedulerType</name>
+        <rename/>
       </field>
       <field>
         <name>intervalSeconds</name>
+        <rename/>
       </field>
       <field>
         <name>intervalMinutes</name>
+        <rename/>
       </field>
       <field>
         <name>hour</name>
+        <rename/>
       </field>
       <field>
         <name>minutes</name>
+        <rename/>
       </field>
       <field>
         <name>weekDay</name>
+        <rename/>
       </field>
       <field>
         <name>DayOfMonth</name>
+        <rename/>
       </field>
       <field>
         <name>parallel</name>
+        <rename/>
       </field>
       <field>
         <name>draw</name>
+        <rename/>
       </field>
       <field>
         <name>nr</name>
+        <rename/>
       </field>
       <field>
         <name>xloc</name>
+        <rename/>
       </field>
       <field>
         <name>yloc</name>
+        <rename/>
       </field>
       <field>
         <name>specification_method</name>
+        <rename/>
       </field>
       <field>
         <name>trans_object_id</name>
+        <rename/>
       </field>
       <field>
         <name>filename</name>
+        <rename/>
       </field>
       <field>
         <name>transname</name>
+        <rename/>
       </field>
       <field>
         <name>entry_jobname</name>
+        <rename/>
       </field>
       <field>
         <name>arg_from_previous</name>
+        <rename/>
       </field>
       <field>
         <name>params_from_previous</name>
+        <rename/>
       </field>
       <field>
         <name>exec_per_row</name>
+        <rename/>
       </field>
       <field>
         <name>clear_rows</name>
+        <rename/>
       </field>
       <field>
         <name>clear_files</name>
+        <rename/>
       </field>
       <field>
         <name>set_logfile</name>
+        <rename/>
       </field>
       <field>
         <name>logfile</name>
+        <rename/>
       </field>
       <field>
         <name>logext</name>
+        <rename/>
       </field>
       <field>
         <name>add_date</name>
+        <rename/>
       </field>
       <field>
         <name>add_time</name>
+        <rename/>
       </field>
       <field>
         <name>loglevel</name>
+        <rename/>
       </field>
       <field>
         <name>cluster</name>
+        <rename/>
       </field>
       <field>
         <name>slave_server_name</name>
+        <rename/>
       </field>
       <field>
         <name>set_append_logfile</name>
+        <rename/>
       </field>
       <field>
         <name>wait_until_finished</name>
+        <rename/>
       </field>
       <field>
         <name>follow_abort_remote</name>
+        <rename/>
       </field>
       <field>
         <name>create_parent_folder</name>
+        <rename/>
       </field>
       <field>
         <name>logging_remote_work</name>
+        <rename/>
       </field>
       <field>
         <name>run_configuration</name>
+        <rename/>
       </field>
       <field>
         <name>pass_all_parameters</name>
+        <rename/>
       </field>
       <field>
         <name>name_1</name>
+        <rename/>
       </field>
       <field>
         <name>stream_name</name>
+        <rename/>
       </field>
       <field>
         <name>value</name>
+        <rename/>
       </field>
       <field>
         <name>connection</name>
+        <rename/>
       </field>
       <field>
         <name>tablename</name>
+        <rename/>
       </field>
       <field>
         <name>schemaname</name>
+        <rename/>
       </field>
       <field>
         <name>hwf_filename</name>
+        <rename/>
       </field>
       <field>
         <name>hwf_path</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>304</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>wait for entries</name>
+    <name>wait-for-actions</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>
@@ -1240,17 +1255,17 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     <transforms>
       <transform>
         <CopyNr>0</CopyNr>
-        <name>actions</name>
+        <name>write-actions</name>
       </transform>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>64</yloc>
+      <xloc>496</xloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>wait for jobs</name>
+    <name>wait-for-workflows</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>
@@ -1263,17 +1278,17 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     <transforms>
       <transform>
         <CopyNr>0</CopyNr>
-        <name>workflows</name>
+        <name>write-workflows</name>
       </transform>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>192</yloc>
+      <xloc>688</xloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>workflows</name>
+    <name>write-workflows</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1328,8 +1343,39 @@ var hwf_path = replace(hwf_path,getVariable('PRM_ETL_DIR', ''),'');</jsScript_sc
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>128</yloc>
+      <xloc>688</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-file-path</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>hwf_path</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>${PROJECT_DIR}</replace_string>
+        <replace_by_string/>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>64</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

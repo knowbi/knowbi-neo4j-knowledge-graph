@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>wf_load_hop_etl</name>
+  <name>load_hop_etl</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
@@ -14,7 +14,7 @@
     </parameters>
   <actions>
     <action>
-      <name>Start</name>
+      <name>start</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
@@ -32,11 +32,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Pipelines Nodes</name>
+      <name>load-pipelines-nodes</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_pipeline_nodes.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_pipeline_nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -61,11 +61,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Workflow Nodes</name>
+      <name>load-workflow-nodes</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_workflow_nodes.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_workflow_nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -90,11 +90,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Pipeline Relationships</name>
+      <name>load-pipeline-relationships</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_pipeline_relationships.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_pipeline_relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -119,11 +119,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Workflow Relationships</name>
+      <name>load-workflow-relationships</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_workflow_relations.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_workflow_relations.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -158,7 +158,7 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>error</name>
+      <name>write-error-to-log</name>
       <description/>
       <type>WRITE_TO_LOG</type>
       <attributes/>
@@ -171,11 +171,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Parameters</name>
+      <name>load-parameters</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_parameters.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_parameters.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -200,11 +200,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Transform Types</name>
+      <name>load-transform-types</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_transformtypes.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_transformtypes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -229,21 +229,22 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Abort job</name>
+      <name>abort-job</name>
       <description/>
       <type>ABORT</type>
       <attributes/>
+      <messageAbort/>
       <parallel>N</parallel>
       <xloc>608</xloc>
       <yloc>656</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Transform Fields</name>
+      <name>load-transform-fields</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_transform_fields.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_transform_fields.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -268,11 +269,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Pipeline Hops</name>
+      <name>load-pipeline-hops</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_pipeline_hops.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_pipeline_hops.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -297,11 +298,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load File Modifications</name>
+      <name>load-file-modifications</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_file_modifications.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_file_modifications.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -326,11 +327,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Execution Logging</name>
+      <name>load-execution-logging</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/hop/pl_load_execution_logging.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_execution_logging.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -355,7 +356,7 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Create indexes</name>
+      <name>create-indexes</name>
       <description/>
       <type>NEO4J_CYPHER_SCRIPT</type>
       <attributes/>
@@ -380,162 +381,162 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
   </actions>
   <hops>
     <hop>
-      <from>Load Pipelines Nodes</from>
-      <to>error</to>
+      <from>load-pipelines-nodes</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Workflow Nodes</from>
-      <to>error</to>
+      <from>load-workflow-nodes</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pipeline Relationships</from>
-      <to>error</to>
+      <from>load-pipeline-relationships</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Workflow Relationships</from>
-      <to>error</to>
+      <from>load-workflow-relationships</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Parameters</from>
-      <to>error</to>
+      <from>load-parameters</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Transform Types</from>
-      <to>error</to>
+      <from>load-transform-types</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>error</from>
-      <to>Abort job</to>
+      <from>write-error-to-log</from>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Transform Types</from>
-      <to>Load Transform Fields</to>
+      <from>load-transform-types</from>
+      <to>load-transform-fields</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Transform Fields</from>
-      <to>Load Parameters</to>
+      <from>load-transform-fields</from>
+      <to>load-parameters</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Transform Fields</from>
-      <to>error</to>
+      <from>load-transform-fields</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pipeline Hops</from>
-      <to>Load Pipeline Relationships</to>
+      <from>load-pipeline-hops</from>
+      <to>load-pipeline-relationships</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pipeline Hops</from>
-      <to>error</to>
+      <from>load-pipeline-hops</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Parameters</from>
-      <to>Load File Modifications</to>
+      <from>load-parameters</from>
+      <to>load-file-modifications</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load File Modifications</from>
-      <to>error</to>
+      <from>load-file-modifications</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pipeline Relationships</from>
-      <to>Load Transform Types</to>
+      <from>load-pipeline-relationships</from>
+      <to>load-transform-types</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Workflow Nodes</from>
-      <to>Load Pipelines Nodes</to>
+      <from>load-workflow-nodes</from>
+      <to>load-pipelines-nodes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Pipelines Nodes</from>
-      <to>Load Workflow Relationships</to>
+      <from>load-pipelines-nodes</from>
+      <to>load-workflow-relationships</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Workflow Relationships</from>
-      <to>Load Pipeline Hops</to>
+      <from>load-workflow-relationships</from>
+      <to>load-pipeline-hops</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load File Modifications</from>
-      <to>Load Execution Logging</to>
+      <from>load-file-modifications</from>
+      <to>load-execution-logging</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Execution Logging</from>
+      <from>load-execution-logging</from>
       <to>Success</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Execution Logging</from>
-      <to>error</to>
+      <from>load-execution-logging</from>
+      <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Start</from>
-      <to>Create indexes</to>
+      <from>start</from>
+      <to>create-indexes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Create indexes</from>
-      <to>Load Workflow Nodes</to>
+      <from>create-indexes</from>
+      <to>load-workflow-nodes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

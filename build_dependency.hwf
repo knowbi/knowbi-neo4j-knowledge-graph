@@ -42,7 +42,7 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>lineage-database?</name>
+      <name>load-lineage-database?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
@@ -86,10 +86,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Abort job</name>
+      <name>abort-job</name>
       <description/>
       <type>ABORT</type>
       <attributes/>
+      <messageAbort/>
       <parallel>N</parallel>
       <xloc>512</xloc>
       <yloc>433</yloc>
@@ -118,7 +119,7 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>ETL?</name>
+      <name>load-lineage-etl?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
@@ -164,17 +165,17 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>556</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Load Hop</name>
+      <name>load-hop</name>
       <description/>
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/hop/wf_load_hop_etl.hwf</filename>
+      <filename>${PROJECT_HOME}/etl/hop/load_hop_etl.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -193,7 +194,7 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>433</yloc>
       <attributes_hac/>
     </action>
@@ -222,7 +223,7 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>679</yloc>
       <attributes_hac/>
     </action>
@@ -273,7 +274,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>310</yloc>
       <attributes_hac/>
     </action>
@@ -324,7 +325,7 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>802</yloc>
       <attributes_hac/>
     </action>
@@ -353,7 +354,7 @@
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>187</yloc>
       <attributes_hac/>
     </action>
@@ -361,7 +362,7 @@
   <hops>
     <hop>
       <from>clean-neo4j?</from>
-      <to>lineage-database?</to>
+      <to>load-lineage-database?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -374,22 +375,22 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>ETL?</from>
-      <to>Load Hop</to>
+      <from>load-lineage-etl?</from>
+      <to>load-hop</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Hop</from>
-      <to>Abort job</to>
+      <from>load-hop</from>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Load git logs</from>
-      <to>Abort job</to>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -402,7 +403,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>lineage-database?</from>
+      <from>load-lineage-database?</from>
       <to>load-databases</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
@@ -410,7 +411,7 @@
     </hop>
     <hop>
       <from>load-databases</from>
-      <to>Abort job</to>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -431,14 +432,14 @@
     </hop>
     <hop>
       <from>Load Reporting</from>
-      <to>Abort job</to>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Load AWS</from>
-      <to>Abort job</to>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
@@ -452,41 +453,41 @@
     </hop>
     <hop>
       <from>clean-neo4j-data</from>
-      <to>lineage-database?</to>
+      <to>load-lineage-database?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>clean-neo4j-data</from>
-      <to>Abort job</to>
+      <to>abort-job</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-databases</from>
-      <to>ETL?</to>
+      <to>load-lineage-etl?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>lineage-database?</from>
-      <to>ETL?</to>
+      <from>load-lineage-database?</from>
+      <to>load-lineage-etl?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Hop</from>
+      <from>load-hop</from>
       <to>AWS?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>ETL?</from>
+      <from>load-lineage-etl?</from>
       <to>AWS?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
