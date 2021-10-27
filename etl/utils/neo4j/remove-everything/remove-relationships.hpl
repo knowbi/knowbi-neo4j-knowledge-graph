@@ -40,25 +40,158 @@
     </hop>
     <hop>
       <from>get-total-count</from>
-      <to>total_count>0?</to>
+      <to>filter-total-count</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>calc-nr-batches</from>
-      <to>clone-nrBatches</to>
+      <from>clone-nr-batches</from>
+      <to>perform-delete</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>total_count>0?</from>
+      <from>filter-total-count</from>
       <to>calc-nr-batches</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>clone-nrBatches</from>
-      <to>perform-delete</to>
+      <from>calc-nr-batches</from>
+      <to>clone-nr-batches</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <transform>
+    <name>build-cypher</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var cypher_delete="MATCH (n) WITH n LIMIT "+batchsize;
+cypher_delete+=" DETACH DELETE n RETURN count(*) as deleteCount;";
+
+
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>cypher_delete</name>
+        <rename>cypher_delete</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>314</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>clone-nr-batches</name>
+    <type>CloneRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <addcloneflag>N</addcloneflag>
+    <addclonenum>Y</addclonenum>
+    <cloneflagfield/>
+    <clonenumfield>batch_num</clonenumfield>
+    <nrclonefield>nr_batches</nrclonefield>
+    <nrcloneinfield>Y</nrcloneinfield>
+    <nrclones>0</nrclones>
+    <attributes/>
+    <GUI>
+      <xloc>1058</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-batchsize</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>batchsize</name>
+        <variable>${BATCH_SIZE}</variable>
+        <type>Integer</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-total-count</name>
+    <type>Neo4jCypherOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <cypher>MATCH ()-[rel]-() 
+RETURN count(rel) AS total_count;</cypher>
+    <batch_size>1</batch_size>
+    <read_only>N</read_only>
+    <nr_retries_on_error/>
+    <retry>Y</retry>
+    <cypher_from_field>N</cypher_from_field>
+    <cypher_field/>
+    <unwind>N</unwind>
+    <unwind_map/>
+    <returning_graph>N</returning_graph>
+    <return_graph_field/>
+    <mappings/>
+    <returns>
+      <return>
+        <name>total_count</name>
+        <type>Integer</type>
+        <source_type/>
+      </return>
+    </returns>
+    <attributes/>
+    <GUI>
+      <xloc>500</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>perform-delete</name>
     <type>Neo4jCypherOutput</type>
@@ -102,153 +235,7 @@ RETURN count(*) as delete_count
     </GUI>
   </transform>
   <transform>
-    <name>get-batchsize</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>batchsize</name>
-        <variable>${BATCH_SIZE}</variable>
-        <type>Integer</type>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>128</xloc>
-      <yloc>64</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>build-cypher</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>
-var cypher_delete="MATCH (n) WITH n LIMIT "+batchsize;
-cypher_delete+=" DETACH DELETE n RETURN count(*) as deleteCount;";
-
-
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>cypher_delete</name>
-        <rename>cypher_delete</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>314</xloc>
-      <yloc>64</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>calc-nr-batches</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>
-var nr_batches = total_count / batchsize
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>nr_batches </name>
-        <rename>nr_batches </rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>872</xloc>
-      <yloc>64</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>get-total-count</name>
-    <type>Neo4jCypherOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <cypher>MATCH ()-[rel]-() 
-RETURN count(rel) AS total_count;</cypher>
-    <batch_size>1</batch_size>
-    <read_only>N</read_only>
-    <nr_retries_on_error/>
-    <retry>Y</retry>
-    <cypher_from_field>N</cypher_from_field>
-    <cypher_field/>
-    <unwind>N</unwind>
-    <unwind_map/>
-    <returning_graph>N</returning_graph>
-    <return_graph_field/>
-    <mappings/>
-    <returns>
-      <return>
-        <name>total_count</name>
-        <type>Integer</type>
-        <source_type/>
-      </return>
-    </returns>
-    <attributes/>
-    <GUI>
-      <xloc>500</xloc>
-      <yloc>64</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>total_count>0?</name>
+    <name>filter-total-count</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -284,8 +271,8 @@ RETURN count(rel) AS total_count;</cypher>
     </GUI>
   </transform>
   <transform>
-    <name>clone-nrBatches</name>
-    <type>CloneRow</type>
+    <name>calc-nr-batches</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -294,16 +281,29 @@ RETURN count(rel) AS total_count;</cypher>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <addcloneflag>N</addcloneflag>
-    <addclonenum>Y</addclonenum>
-    <cloneflagfield/>
-    <clonenumfield>batch_num</clonenumfield>
-    <nrclonefield>nr_batches </nrclonefield>
-    <nrcloneinfield>Y</nrcloneinfield>
-    <nrclones>0</nrclones>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var nr_batches = total_count/batchsize</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>nr_batches</name>
+        <rename>nr_batches</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
     <attributes/>
     <GUI>
-      <xloc>1058</xloc>
+      <xloc>872</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
