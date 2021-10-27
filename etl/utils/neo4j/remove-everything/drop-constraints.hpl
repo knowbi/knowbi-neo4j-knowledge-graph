@@ -55,11 +55,11 @@ var cypher;
 
 if(!name)
 {
-	"DROP  "+ description+";";
+	cypher="DROP  "+ description+";";
 }
 else
 {
-	"DROP  CONSTRAINT "+ name+";";
+	cypher="DROP  CONSTRAINT "+ name+";";
 }</jsScript_script>
       </jsScript>
     </jsScripts>
