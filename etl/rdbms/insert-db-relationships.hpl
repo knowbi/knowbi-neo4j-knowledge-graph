@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>DB_DRIVER</name>
-        <default_value>com.simba.googlebigquery.jdbc42.Driver</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
@@ -21,12 +21,12 @@
       </parameter>
       <parameter>
         <name>DB_TYPE</name>
-        <default_value>bigquery</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>DB_URL</name>
-        <default_value>jdbc:bigquery://https://www.googleapis.com/bigquery/v2:443;ProjectId=data-lake-dwh-sls;OAuthType=0;OAuthPvtKeyPath=/home/hans/projects/TVH/monitoring.json;OAuthServiceAcctEmail=id-data-lake-monitoring@data-lake-monitoring.iam.gserviceaccount.com;Timeout=120</default_value>
+        <default_value/>
         <description/>
       </parameter>
       <parameter>
@@ -35,13 +35,13 @@
         <description/>
       </parameter>
       <parameter>
-        <name>DB_VERSION</name>
+        <name>DB_VERSION_QUERY</name>
         <default_value/>
         <description/>
       </parameter>
       <parameter>
         <name>PRM_QUERY</name>
-        <default_value>select distinct c.table_catalog as current_database, c.table_schema, '' as schema_owner, c.table_name, c.column_name, c.data_type, c.is_nullable, t.table_type FROM `region-eu`.INFORMATION_SCHEMA.COLUMNS c left outer join `region-eu`.INFORMATION_SCHEMA.TABLES t on t.table_catalog = c.table_catalog and t.table_schema = c.table_schema and t.table_name = c.table_name</default_value>
+        <default_value/>
         <description/>
       </parameter>
     </parameters>
@@ -343,7 +343,7 @@
       <schema_name/>
     </partitioning>
     <connection>GENERIC_CONNECTION</connection>
-    <sql>${PRM_VERSION_QUERY}</sql>
+    <sql>${DB_VERSION_QUERY}</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

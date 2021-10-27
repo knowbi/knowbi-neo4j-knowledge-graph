@@ -327,7 +327,7 @@ else
         <input/>
       </variable_mapping>
       <variable_mapping>
-        <variable>PRM_VERSION_QUERY</variable>
+        <variable>DB_VERSION_QUERY</variable>
         <field>version_query</field>
         <input/>
       </variable_mapping>
@@ -406,7 +406,7 @@ else
         <input/>
       </variable_mapping>
       <variable_mapping>
-        <variable>PRM_VERSION_QUERY</variable>
+        <variable>DB_VERSION_QUERY</variable>
         <field>version_query</field>
         <input/>
       </variable_mapping>
