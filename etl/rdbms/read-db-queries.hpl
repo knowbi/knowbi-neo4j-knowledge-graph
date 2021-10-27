@@ -9,11 +9,6 @@
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
     <parameters>
-      <parameter>
-        <name>DRIVOLUTION_HOME</name>
-        <default_value>C:\Users\Lokke\Documents\Know.bi\Drivolution</default_value>
-        <description/>
-      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
