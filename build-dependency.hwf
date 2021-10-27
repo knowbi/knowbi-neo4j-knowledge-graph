@@ -11,7 +11,57 @@
   <modified_user>-</modified_user>
   <modified_date>2019/04/06 10:40:52.651</modified_date>
   <parameters>
-    </parameters>
+    <parameter>
+      <name>AWS_DIR</name>
+      <default_value/>
+      <description>The directory containing the aws files needed for building the graph</description>
+    </parameter>
+    <parameter>
+      <name>AWS_LINEAGE</name>
+      <default_value>N</default_value>
+      <description>Indicates if lineage on aws must be loaded</description>
+    </parameter>
+    <parameter>
+      <name>CLEAN_NEO4J_DATA</name>
+      <default_value>Y</default_value>
+      <description>Indicates if the data in Neo4j graph must be removed</description>
+    </parameter>
+    <parameter>
+      <name>CONFIG_DIR</name>
+      <default_value>${DRIVOLUTION_HOME}/drivolution-config</default_value>
+      <description>The directory containing the configuration for the project</description>
+    </parameter>
+    <parameter>
+      <name>CONFIG_ENV</name>
+      <default_value>db2</default_value>
+      <description>The configuration environment of the project</description>
+    </parameter>
+    <parameter>
+      <name>ETL_LINEAGE</name>
+      <default_value>Y</default_value>
+      <description>Indicates if lineage on Hop etl must be loaded</description>
+    </parameter>
+    <parameter>
+      <name>GIT_LINEAGE</name>
+      <default_value>Y</default_value>
+      <description>Indicates if lineage on Git must be loaded</description>
+    </parameter>
+    <parameter>
+      <name>GIT_TMP_DIR</name>
+      <default_value>C:\tmp</default_value>
+      <description>The directory to temporary store the git logs</description>
+    </parameter>
+    <parameter>
+      <name>PROJECT_DIR</name>
+      <default_value>${DRIVOLUTION_HOME}/drivolution-dwh-dcn-auto</default_value>
+      <description>The project directory used to built the lineage</description>
+    </parameter>
+    <parameter>
+      <name>RDBMS_LINEAGE</name>
+      <default_value>Y</default_value>
+      <description>Indicates if lineage on rdbms must be loaded</description>
+    </parameter>
+  </parameters>
   <actions>
     <action>
       <name>start</name>
