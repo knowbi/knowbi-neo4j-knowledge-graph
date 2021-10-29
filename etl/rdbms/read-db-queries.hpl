@@ -84,28 +84,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>wait-for-create-db-nodes</from>
-      <to>create-db-relationships</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>read-database-queries</from>
       <to>lookup-query</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lookup-query</from>
-      <to>wait-for-create-db-nodes</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>lookup-query</from>
-      <to>create-db-nodes</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>calc-url</from>
       <to>lookup-query</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>lookup-query</from>
+      <to>create-database-nodes</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -280,164 +270,6 @@ else
     </GUI>
   </transform>
   <transform>
-    <name>create-db-nodes</name>
-    <type>PipelineExecutor</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/etl/rdbms/insert-db-nodes.hpl</filename>
-    <group_size>1</group_size>
-    <group_field/>
-    <group_time/>
-    <parameters>
-      <variable_mapping>
-        <variable>DB_DRIVER</variable>
-        <field>driver</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_PASSWORD</variable>
-        <field>password</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_TYPE</variable>
-        <field>plugin_id</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_URL</variable>
-        <field>database_url</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_USERNAME</variable>
-        <field>username</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>PRM_QUERY</variable>
-        <field>db_info_query</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_VERSION_QUERY</variable>
-        <field>version_query</field>
-        <input/>
-      </variable_mapping>
-      <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    <execution_result_target_transform/>
-    <execution_time_field>ExecutionTime</execution_time_field>
-    <execution_result_field>ExecutionResult</execution_result_field>
-    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
-    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
-    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
-    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
-    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
-    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
-    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
-    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
-    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
-    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
-    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
-    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
-    <result_rows_target_transform/>
-    <result_files_target_transform/>
-    <result_files_file_name_field>FileName</result_files_file_name_field>
-    <executors_output_transform/>
-    <attributes/>
-    <GUI>
-      <xloc>1914</xloc>
-      <yloc>192</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>create-db-relationships</name>
-    <type>PipelineExecutor</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <run_configuration>local</run_configuration>
-    <filename>${PROJECT_HOME}/etl/rdbms/insert-db-relationships.hpl</filename>
-    <group_size>1</group_size>
-    <group_field/>
-    <group_time/>
-    <parameters>
-      <variable_mapping>
-        <variable>DB_DRIVER</variable>
-        <field>driver</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_PASSWORD</variable>
-        <field>password</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_TYPE</variable>
-        <field>plugin_id</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_URL</variable>
-        <field>database_url</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_USERNAME</variable>
-        <field>username</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>PRM_QUERY</variable>
-        <field>db_info_query</field>
-        <input/>
-      </variable_mapping>
-      <variable_mapping>
-        <variable>DB_VERSION_QUERY</variable>
-        <field>version_query</field>
-        <input/>
-      </variable_mapping>
-      <inherit_all_vars>Y</inherit_all_vars>
-    </parameters>
-    <execution_result_target_transform/>
-    <execution_time_field>ExecutionTime</execution_time_field>
-    <execution_result_field>ExecutionResult</execution_result_field>
-    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
-    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
-    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
-    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
-    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
-    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
-    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
-    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
-    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
-    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
-    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
-    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
-    <result_rows_target_transform/>
-    <result_files_target_transform/>
-    <result_files_file_name_field>FileName</result_files_file_name_field>
-    <executors_output_transform/>
-    <attributes/>
-    <GUI>
-      <xloc>1920</xloc>
-      <yloc>320</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>denormaliser-connection</name>
     <type>Denormaliser</type>
     <description/>
@@ -554,7 +386,7 @@ else
     <name>lookup-query</name>
     <type>StreamLookup</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1241,8 +1073,8 @@ else
     </GUI>
   </transform>
   <transform>
-    <name>wait-for-create-db-nodes</name>
-    <type>BlockUntilTransformsFinish</type>
+    <name>create-database-nodes</name>
+    <type>WorkflowExecutor</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1251,16 +1083,71 @@ else
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>create-db-nodes</name>
-      </transform>
-    </transforms>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}\etl\rdbms\create-database-nodes.hwf</filename>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <variablemapping>
+        <variable>DB_DRIVER</variable>
+        <field>driver</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_PASSWORD</variable>
+        <field>password</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_TYPE</variable>
+        <field>plugin_id</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_URL</variable>
+        <field>database_url</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_USERNAME</variable>
+        <field>username</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_VERSION_QUERY</variable>
+        <field>version_query</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>PRM_QUERY</variable>
+        <field>db_info_query</field>
+        <input/>
+      </variablemapping>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
     <attributes/>
     <GUI>
-      <xloc>1712</xloc>
-      <yloc>320</yloc>
+      <xloc>1936</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
