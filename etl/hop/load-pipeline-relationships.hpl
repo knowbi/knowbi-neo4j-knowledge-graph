@@ -203,14 +203,8 @@
     <failIfNoFile>Y</failIfNoFile>
     <calculation>
       <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>MATCH (n:Connection)-[r]-(m:Database) where n.connection='</field_a>
-      <field_b/>
-      <field_c/>
       <field_name>C_TMP1</field_name>
-      <grouping_symbol/>
       <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -218,14 +212,8 @@
     </calculation>
     <calculation>
       <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>' return  n.connection, m.database</field_a>
-      <field_b/>
-      <field_c/>
       <field_name>C_TMP2</field_name>
-      <grouping_symbol/>
       <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -233,14 +221,10 @@
     </calculation>
     <calculation>
       <calc_type>ADD3</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>C_TMP1</field_a>
       <field_b>connection</field_b>
       <field_c>C_TMP2</field_c>
       <field_name>get_database</field_name>
-      <grouping_symbol/>
       <remove>N</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -249,237 +233,6 @@
     <attributes/>
     <GUI>
       <xloc>306</xloc>
-      <yloc>316</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-connection</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>connection</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>1210</xloc>
-      <yloc>584</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-connection-2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>connection</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>758</xloc>
-      <yloc>720</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>get-database</name>
-    <type>Neo4jCypherOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <cypher>MATCH (n:Connection)-[r]-(m:Database) where n.connection='${PRM_CONNECTION}' return  n.connection, m.database
-</cypher>
-    <batch_size/>
-    <read_only>N</read_only>
-    <nr_retries_on_error/>
-    <retry>Y</retry>
-    <cypher_from_field>Y</cypher_from_field>
-    <cypher_field>get_database</cypher_field>
-    <unwind>N</unwind>
-    <unwind_map/>
-    <returning_graph>N</returning_graph>
-    <return_graph_field/>
-    <mappings/>
-    <returns>
-      <return>
-        <name>n.connection</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-      <return>
-        <name>m.database</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-    </returns>
-    <attributes/>
-    <GUI>
-      <xloc>532</xloc>
-      <yloc>316</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-schema</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>schema</name>
-        <value>public</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1210</xloc>
-      <yloc>450</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>lookup-database</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>get-database</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>connection</name>
-        <field>n.connection</field>
-      </key>
-      <value>
-        <name>m.database</name>
-        <rename>database</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>532</xloc>
-      <yloc>182</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>rename-table-ext</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>connection</name>
-        <rename/>
-      </field>
-      <field>
-        <name>lookup_table</name>
-        <rename/>
-      </field>
-      <field>
-        <name>lookup_schema</name>
-        <rename/>
-      </field>
-      <field>
-        <name>table_ext</name>
-        <rename>table</rename>
-      </field>
-      <field>
-        <name>schema</name>
-        <rename/>
-      </field>
-      <field>
-        <name>fields</name>
-        <rename/>
-      </field>
-      <field>
-        <name>sql</name>
-        <rename/>
-      </field>
-      <field>
-        <name>hpl_name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>pipeline</name>
-        <rename/>
-      </field>
-      <field>
-        <name>database</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1210</xloc>
       <yloc>316</yloc>
     </GUI>
   </transform>
@@ -546,6 +299,87 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
+    <name>filter-connection</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>connection</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>1210</xloc>
+      <yloc>584</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-connection-2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>connection</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>758</xloc>
+      <yloc>720</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-sql-not-null</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>extract-tables</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>sql</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>984</xloc>
+      <yloc>182</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>filter-tables</name>
     <type>FilterRows</type>
     <description/>
@@ -573,8 +407,8 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
-    <name>write-has_connection</name>
-    <type>Neo4JOutput</type>
+    <name>get-database</name>
+    <type>Neo4jCypherOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -584,55 +418,40 @@ function splitQuery(value, index, array) {
       <schema_name/>
     </partitioning>
     <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
+    <cypher>MATCH (n:Connection)-[r]-(m:Database) where n.connection='${PRM_CONNECTION}' return  n.connection, m.database
+</cypher>
+    <batch_size/>
+    <read_only>N</read_only>
+    <nr_retries_on_error/>
+    <retry>Y</retry>
+    <cypher_from_field>Y</cypher_from_field>
+    <cypher_field>get_database</cypher_field>
+    <unwind>N</unwind>
+    <unwind_map/>
     <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Pipeline</value>
-      </labels>
-      <properties>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Connection</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>connection</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>HAS_CONNECTION</relationship_value>
-    <relprops/>
+    <return_graph_field/>
+    <mappings/>
+    <returns>
+      <return>
+        <name>n.connection</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+      <return>
+        <name>m.database</name>
+        <type>String</type>
+        <source_type>String</source_type>
+      </return>
+    </returns>
     <attributes/>
     <GUI>
-      <xloc>1662</xloc>
-      <yloc>584</yloc>
+      <xloc>532</xloc>
+      <yloc>316</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>write-has_transform</name>
-    <type>Neo4JOutput</type>
+    <name>lookup-database</name>
+    <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -641,133 +460,27 @@ function splitQuery(value, index, array) {
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Transform</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pluginId</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Pipeline</value>
-      </labels>
-      <properties>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>TRANSFORM_OF_PIPELINE</relationship_value>
-    <relprops/>
+    <from>get-database</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>connection</name>
+        <field>n.connection</field>
+      </key>
+      <value>
+        <name>m.database</name>
+        <rename>database</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
     <attributes/>
     <GUI>
-      <xloc>758</xloc>
-      <yloc>48</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-of_type</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Transform</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pluginId</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>TransformType</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>OF_TYPE</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1210</xloc>
-      <yloc>48</yloc>
+      <xloc>532</xloc>
+      <yloc>182</yloc>
     </GUI>
   </transform>
   <transform>
@@ -990,6 +703,95 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
+    <name>rename-table-ext</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>name</name>
+      </field>
+      <field>
+        <name>type</name>
+      </field>
+      <field>
+        <name>connection</name>
+      </field>
+      <field>
+        <name>lookup_table</name>
+      </field>
+      <field>
+        <name>lookup_schema</name>
+      </field>
+      <field>
+        <name>table_ext</name>
+        <rename>table</rename>
+      </field>
+      <field>
+        <name>schema</name>
+      </field>
+      <field>
+        <name>fields</name>
+      </field>
+      <field>
+        <name>sql</name>
+      </field>
+      <field>
+        <name>hpl_name</name>
+      </field>
+      <field>
+        <name>pipeline</name>
+      </field>
+      <field>
+        <name>database</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1210</xloc>
+      <yloc>316</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-schema</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>schema</name>
+        <value>public</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1210</xloc>
+      <yloc>450</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>select-values</name>
     <type>SelectValues</type>
     <description/>
@@ -1003,51 +805,39 @@ function splitQuery(value, index, array) {
     <fields>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>type</name>
-        <rename/>
       </field>
       <field>
         <name>connection</name>
-        <rename/>
       </field>
       <field>
         <name>lookup_table</name>
-        <rename/>
       </field>
       <field>
         <name>lookup_schema</name>
-        <rename/>
       </field>
       <field>
         <name>table</name>
-        <rename/>
       </field>
       <field>
         <name>schema</name>
-        <rename/>
       </field>
       <field>
         <name>fields</name>
-        <rename/>
       </field>
       <field>
         <name>sql</name>
-        <rename/>
       </field>
       <field>
         <name>hpl_name</name>
-        <rename/>
       </field>
       <field>
         <name>pipeline</name>
-        <rename/>
       </field>
       <field>
         <name>database</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1127,7 +917,7 @@ function splitQuery(value, index, array) {
         <presorted>N</presorted>
       </field>
       <field>
-        <name>transformation</name>
+        <name>pipeline</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1166,33 +956,6 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
-    <name>filter-sql-not-null</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>extract-tables</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>sql</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>984</xloc>
-      <yloc>182</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>split-tables</name>
     <type>SplitFieldToRows3</type>
     <description/>
@@ -1208,7 +971,6 @@ function splitQuery(value, index, array) {
     <delimiter_is_regex>N</delimiter_is_regex>
     <newfield>table_ext</newfield>
     <resetrownumber>Y</resetrownumber>
-    <rownum_field/>
     <splitfield>arrTables</splitfield>
     <attributes/>
     <GUI>
@@ -1237,14 +999,302 @@ function splitQuery(value, index, array) {
         <name>connection</name>
       </field>
     </fields>
-    <count_field/>
     <count_rows>N</count_rows>
-    <error_description/>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>
       <xloc>984</xloc>
       <yloc>584</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-has-transform</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-has_transform</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>984</xloc>
+      <yloc>48</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-has-transform-2</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-has_transform</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1662</xloc>
+      <yloc>450</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-uses-connection</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-uses_connection</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1436</xloc>
+      <yloc>584</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-uses-table</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-uses_table</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1210</xloc>
+      <yloc>718</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-has_connection</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Pipeline</value>
+      </labels>
+      <properties>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Connection</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>connection</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>HAS_CONNECTION</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1662</xloc>
+      <yloc>584</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-has_transform</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Transform</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Pipeline</value>
+      </labels>
+      <properties>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>TRANSFORM_OF_PIPELINE</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>758</xloc>
+      <yloc>48</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-of_type</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Transform</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>TransformType</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>OF_TYPE</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1210</xloc>
+      <yloc>48</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1461,98 +1511,6 @@ function splitQuery(value, index, array) {
     <GUI>
       <xloc>1436</xloc>
       <yloc>316</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-write-has-transform</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-has_transform</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>984</xloc>
-      <yloc>48</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-write-has-transform-2</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-has_transform</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1662</xloc>
-      <yloc>450</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-write-uses-connection</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-uses_connection</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1436</xloc>
-      <yloc>584</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-write-uses-table</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-uses_table</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1210</xloc>
-      <yloc>718</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
