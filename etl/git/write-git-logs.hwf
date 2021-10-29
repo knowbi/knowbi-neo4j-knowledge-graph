@@ -14,12 +14,12 @@
     </parameters>
   <actions>
     <action>
-      <name>write-git-log</name>
+      <name>write-git-log-linux</name>
       <description/>
       <type>SHELL</type>
       <attributes/>
       <filename/>
-      <work_directory/>
+      <work_directory>${PROJECT_DIR}</work_directory>
       <arg_from_previous>N</arg_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -29,11 +29,11 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>cd ${PROJECT_DIR} &amp;&amp; git log --all --format='%d;%H;%cn;%ce;%cd;%s' --all > ${GIT_TMP_DIR}/git.csv</script>
+      <script>git log --all --format='%d;%H;%cn;%ce;%cd;%s' --all > ${GIT_TMP_DIR}/git.csv</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>160</yloc>
+      <xloc>245</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -50,7 +50,7 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <xloc>160</xloc>
+      <xloc>64</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -60,8 +60,8 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>592</yloc>
+      <xloc>1150</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -89,8 +89,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>256</yloc>
+      <xloc>426</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -118,37 +118,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>336</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>get-commit-files</name>
-      <description/>
-      <type>SHELL</type>
-      <attributes/>
-      <filename/>
-      <work_directory>${Internal.Entry.Current.Folder}</work_directory>
-      <arg_from_previous>N</arg_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <set_append_logfile>N</set_append_logfile>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <insertScript>Y</insertScript>
-      <script>cd ${PROJECT_DIR}
-
-while read p; do
-	hash=$(cut -d\; -f 2 &lt;&lt;&lt; $p)
-	git show --name-status --pretty="format:" $hash | while read x; do echo $hash $x; done >> ${GIT_TMP_DIR}/gp-commit-details.csv
-done &lt; ${GIT_TMP_DIR}/git.csv
-</script>
-      <loglevel>Basic</loglevel>
-      <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>416</yloc>
+      <xloc>607</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -176,21 +147,73 @@ done &lt; ${GIT_TMP_DIR}/git.csv
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>512</yloc>
+      <xloc>969</xloc>
+      <yloc>64</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>read-commit-hashes</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}\etl\git\read-commit-hashes.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>788</xloc>
+      <yloc>64</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>write-git-log-windows</name>
+      <description/>
+      <type>SHELL</type>
+      <attributes/>
+      <filename/>
+      <work_directory>${PROJECT_DIR}</work_directory>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>Y</insertScript>
+      <script>git log --all --format='%%d;%%H;%%cn;%%ce;%%cd;%%s' --all > ${GIT_TMP_DIR}/git.csv</script>
+      <loglevel>Basic</loglevel>
+      <parallel>N</parallel>
+      <xloc>245</xloc>
+      <yloc>192</yloc>
       <attributes_hac/>
     </action>
   </actions>
   <hops>
     <hop>
       <from>start</from>
-      <to>write-git-log</to>
+      <to>write-git-log-linux</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>write-git-log</from>
+      <from>write-git-log-linux</from>
       <to>load-git-logs</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
@@ -204,13 +227,6 @@ done &lt; ${GIT_TMP_DIR}/git.csv
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-git-relationships</from>
-      <to>get-commit-files</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>load-file-relationships</from>
       <to>success</to>
       <enabled>Y</enabled>
@@ -218,8 +234,29 @@ done &lt; ${GIT_TMP_DIR}/git.csv
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>get-commit-files</from>
+      <from>load-git-relationships</from>
+      <to>read-commit-hashes</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>read-commit-hashes</from>
       <to>load-file-relationships</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>write-git-log-linux</from>
+      <to>write-git-log-windows</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>write-git-log-windows</from>
+      <to>load-git-logs</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

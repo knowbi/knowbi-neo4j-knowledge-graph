@@ -24,16 +24,6 @@
   </notepads>
   <order>
     <hop>
-      <from>calc-file</from>
-      <to>get-label</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>get-label</from>
-      <to>sort-commit-file</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>sort-commit-file</from>
       <to>write-file-label</to>
       <enabled>Y</enabled>
@@ -45,18 +35,23 @@
     </hop>
     <hop>
       <from>read-git-commit-details</from>
-      <to>parse-commit-details</to>
+      <to>calc-file</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>parse-commit-details</from>
-      <to>calc-file</to>
+      <from>calc-file</from>
+      <to>filter-hash</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>filter-hash</from>
+      <to>sort-commit-file</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>read-git-commit-details</name>
-    <type>CSVInput</type>
+    <name>calc-file</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -65,36 +60,230 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${GIT_TMP_DIR}/gp-commit-details.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>####</separator>
-    <enclosure/>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>Y</newline_possible>
-    <encoding/>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var operations = {
+	M: 'MODIFIES',
+	A: 'ADDS',
+	D: 'DELETES',
+	R: 'RENAMES',
+	C: 'COPIES',
+	U: 'UPDATES'
+};
+
+var file = null;
+var operation = null;
+var extension = null;
+var file_name = null;
+var hash;
+var label = 'File'; 
+
+if(status.slice(-1)==";")
+{
+ 	hash=status.replace(";",'')
+	label = 'Hash'; 
+}
+else
+{
+	file = files.replace(/^.*[\\\/]/, '')
+
+	operation = operations[status];
+
+	extension = files.split('.').pop();
+
+	file_name = file.split('.').slice(0, -1).join('.');
+
+	if(file.endsWith('.hpl')){
+ 		 label = 'Pipeline'; 
+	}
+	if(file.endsWith('hwf')){
+  		label = 'Workflow'; 
+	}
+}</jsScript_script>
+      </jsScript>
+    </jsScripts>
     <fields>
       <field>
-        <name>line</name>
+        <name>file</name>
+        <rename>file</rename>
         <type>String</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
         <length>-1</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>operation</name>
+        <rename>operation</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>extension</name>
+        <rename>extension</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>file_name</name>
+        <rename>file_name</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>hash</name>
+        <rename>hash</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>label</name>
+        <rename>label</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
       </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>128</xloc>
+      <xloc>328</xloc>
       <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-commit-file</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>hash</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>file</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>operation</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>extension</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>file_name</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>728</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-commitoperation</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>Y</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Commit</value>
+      </labels>
+      <properties>
+        <property>
+          <name>commit</name>
+          <value>hash</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label>label</label>
+        <value/>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>file</value>
+          <type/>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship>operation</relationship>
+    <relationship_value>COMMITOPERATION</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>728</xloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
@@ -156,90 +345,8 @@
     </GUI>
   </transform>
   <transform>
-    <name>sort-commit-file</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>${java.io.tmpdir}</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>commit_hash</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>diff_type</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>commit_file</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>file</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>operation</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>extension</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>file_name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>128</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>calc-file</name>
-    <type>ScriptValueMod</type>
+    <name>read-git-commit-details</name>
+    <type>TextFileInput2</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -248,72 +355,110 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var file = commit_file.replace(/^.*[\\\/]/, '')
-
-var operations = {
-	M: 'MODIFIES',
-	A: 'ADDS',
-	D: 'DELETES',
-	R: 'RENAMES',
-	C: 'COPIES',
-	U: 'UPDATES'
-};
-
-var operation = operations[diff_type];
-
-var extension = commit_file.split('.').pop();
-
-var file_name = file.split('.').slice(0, -1).join('.');</jsScript_script>
-      </jsScript>
-    </jsScripts>
+    <accept_filenames>N</accept_filenames>
+    <passing_through_fields>N</passing_through_fields>
+    <accept_field/>
+    <accept_transform_name/>
+    <separator>	</separator>
+    <enclosure>"</enclosure>
+    <enclosure_breaks>N</enclosure_breaks>
+    <escapechar/>
+    <header>N</header>
+    <nr_headerlines>1</nr_headerlines>
+    <footer>N</footer>
+    <nr_footerlines>1</nr_footerlines>
+    <line_wrapped>N</line_wrapped>
+    <nr_wraps>1</nr_wraps>
+    <layout_paged>N</layout_paged>
+    <nr_lines_per_page>80</nr_lines_per_page>
+    <nr_lines_doc_header>0</nr_lines_doc_header>
+    <noempty>Y</noempty>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <rownumByFile>N</rownumByFile>
+    <rownum_field/>
+    <format>mixed</format>
+    <encoding/>
+    <length>Characters</length>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <file>
+      <name>${GIT_TMP_DIR}/gp-commit-details.csv</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <type>CSV</type>
+      <compression>None</compression>
+    </file>
+    <filters>
+    </filters>
     <fields>
       <field>
-        <name>file</name>
-        <rename>file</rename>
+        <name>status</name>
         <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>N</replace>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
       </field>
       <field>
-        <name>operation</name>
-        <rename>operation</rename>
+        <name>files</name>
         <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <ifnull/>
+        <position>-1</position>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>extension</name>
-        <rename>extension</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>file_name</name>
-        <rename>file_name</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
       </field>
     </fields>
+    <limit>0</limit>
+    <error_ignored>N</error_ignored>
+    <skip_bad_files>N</skip_bad_files>
+    <file_error_field/>
+    <file_error_message_field/>
+    <error_line_skipped>N</error_line_skipped>
+    <error_count_field/>
+    <error_fields_field/>
+    <error_text_field/>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <date_format_lenient>Y</date_format_lenient>
+    <date_format_locale>en_US</date_format_locale>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>128</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>write-commitoperation</name>
-    <type>Neo4JOutput</type>
+    <name>filter-hash</name>
+    <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -322,130 +467,28 @@ var file_name = file.split('.').slice(0, -1).join('.');</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Commit</value>
-      </labels>
-      <properties>
-        <property>
-          <name>commit</name>
-          <value>commit_hash</value>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>label</leftvalue>
+        <function>&lt;></function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
           <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label>label</label>
-        <value/>
-      </labels>
-      <properties>
-        <property>
-          <name>filename</name>
-          <value>file</value>
-          <type/>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship>operation</relationship>
-    <relationship_value>COMMITOPERATION</relationship_value>
-    <relprops/>
+          <text>Hash</text>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>N</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>304</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>get-label</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-var label = 'File'; 
-
-if(file.endsWith('.hpl')){
-  label = 'Pipeline'; 
-}
-if(file.endsWith('hwf')){
-  label = 'Workflow'; 
-}</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>label</name>
-        <rename>label</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>128</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>parse-commit-details</name>
-    <type>StringCut</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <cut_from>0</cut_from>
-        <cut_to>40</cut_to>
-        <in_stream_name>line</in_stream_name>
-        <out_stream_name>commit_hash</out_stream_name>
-      </field>
-      <field>
-        <cut_from>41</cut_from>
-        <cut_to>42</cut_to>
-        <in_stream_name>line</in_stream_name>
-        <out_stream_name>diff_type</out_stream_name>
-      </field>
-      <field>
-        <cut_from>43</cut_from>
-        <cut_to>50000</cut_to>
-        <in_stream_name>line</in_stream_name>
-        <out_stream_name>commit_file</out_stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>288</xloc>
+      <xloc>528</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>

@@ -9,11 +9,6 @@
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
     <parameters>
-      <parameter>
-        <name>PRM_ETL_DIR</name>
-        <default_value/>
-        <description/>
-      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
@@ -321,67 +316,6 @@ branch = branch.replace(branch.match(/\(/), '')
     </GUI>
   </transform>
   <transform>
-    <name>parse-date</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>branch</name>
-        <rename/>
-      </field>
-      <field>
-        <name>hash</name>
-        <rename/>
-      </field>
-      <field>
-        <name>user</name>
-        <rename/>
-      </field>
-      <field>
-        <name>mail</name>
-        <rename/>
-      </field>
-      <field>
-        <name>date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>message</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>date</name>
-        <rename>date</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>EEE MMM dd HH:mm:ss yyyy</conversion_mask>
-        <date_format_lenient>true</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>128</xloc>
-      <yloc>80</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>get-previous-hash</name>
     <type>AnalyticQuery</type>
     <description/>
@@ -405,6 +339,61 @@ branch = branch.replace(branch.match(/\(/), '')
     <attributes/>
     <GUI>
       <xloc>554</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>parse-date</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>branch</name>
+      </field>
+      <field>
+        <name>hash</name>
+      </field>
+      <field>
+        <name>user</name>
+      </field>
+      <field>
+        <name>mail</name>
+      </field>
+      <field>
+        <name>date</name>
+      </field>
+      <field>
+        <name>message</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>date</name>
+        <rename>date</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>EEE MMM dd HH:mm:ss yyyy</conversion_mask>
+        <date_format_lenient>true</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
       <yloc>80</yloc>
     </GUI>
   </transform>

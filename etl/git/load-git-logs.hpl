@@ -135,50 +135,6 @@
     </hop>
   </order>
   <transform>
-    <name>dummy</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <GUI>
-      <xloc>696</xloc>
-      <yloc>516</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-branch</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>branch</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>516</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>calc-branches</name>
     <type>ScriptValueMod</type>
     <description/>
@@ -221,6 +177,49 @@ branch = branch.replace(branch.match(/\(/), '')
     <GUI>
       <xloc>896</xloc>
       <yloc>516</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>calc-tags</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>if(indexOf(tag, 'tag: ') > -1 &amp;&amp; !indexOf(tag, 'origin/') > -1) {
+  tag = tag.replace(tag.match(/\(/), '')
+	  .replace(tag.match(/\)/), '')
+	  .replace(/^.*[\\\/]/, '')
+      .replace('tag: ', '');
+}else{
+  tag = null;
+}
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>tag</name>
+        <rename>tag</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>896</xloc>
+      <yloc>656</yloc>
     </GUI>
   </transform>
   <transform>
@@ -434,8 +433,25 @@ branch = branch.replace(branch.match(/\(/), '')
     </GUI>
   </transform>
   <transform>
-    <name>replace-user-by-email</name>
-    <type>SetValueField</type>
+    <name>dummy</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>696</xloc>
+      <yloc>516</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-branch</name>
+    <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -444,16 +460,74 @@ branch = branch.replace(branch.match(/\(/), '')
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>user</name>
-        <replaceby>email</replaceby>
-      </field>
-    </fields>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>branch</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>516</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-tag</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>tag</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>1296</xloc>
+      <yloc>656</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-user</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>select-fields</send_true_to>
+    <send_false_to>replace-user-by-email</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>user</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
     <attributes/>
     <GUI>
       <xloc>296</xloc>
-      <yloc>376</yloc>
+      <yloc>236</yloc>
     </GUI>
   </transform>
   <transform>
@@ -494,89 +568,6 @@ branch = branch.replace(branch.match(/\(/), '')
     </GUI>
   </transform>
   <transform>
-    <name>select-branch</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>branch</name>
-        <rename/>
-      </field>
-      <field>
-        <name>branch</name>
-        <rename>tag</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>296</xloc>
-      <yloc>516</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>user</name>
-        <rename/>
-      </field>
-      <field>
-        <name>email</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-tag</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>tag</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>1296</xloc>
-      <yloc>656</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>parse-date</name>
     <type>SelectValues</type>
     <description/>
@@ -590,27 +581,21 @@ branch = branch.replace(branch.match(/\(/), '')
     <fields>
       <field>
         <name>branch</name>
-        <rename/>
       </field>
       <field>
         <name>hash</name>
-        <rename/>
       </field>
       <field>
         <name>user</name>
-        <rename/>
       </field>
       <field>
         <name>email</name>
-        <rename/>
       </field>
       <field>
         <name>date</name>
-        <rename/>
       </field>
       <field>
         <name>message</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -635,247 +620,6 @@ branch = branch.replace(branch.match(/\(/), '')
     <GUI>
       <xloc>296</xloc>
       <yloc>96</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>sort-branch</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>branch</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1096</xloc>
-      <yloc>516</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>sort-email</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>email</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>sort-tag</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>tag</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1096</xloc>
-      <yloc>656</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>calc-tags</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>if(indexOf(tag, 'tag: ') > -1 &amp;&amp; !indexOf(tag, 'origin/') > -1) {
-  tag = tag.replace(tag.match(/\(/), '')
-	  .replace(tag.match(/\)/), '')
-	  .replace(/^.*[\\\/]/, '')
-      .replace('tag: ', '');
-}else{
-  tag = null;
-}
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>tag</name>
-        <rename>tag</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>896</xloc>
-      <yloc>656</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-user</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>select-fields</send_true_to>
-    <send_false_to>replace-user-by-email</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>user</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>296</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-create-branches</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>create-branches</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1496</xloc>
-      <yloc>656</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-create-commits</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>create-commits</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>896</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-create-users</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>create-users</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1296</xloc>
-      <yloc>516</yloc>
     </GUI>
   </transform>
   <transform>
@@ -921,9 +665,9 @@ branch = branch.replace(branch.match(/\(/), '')
       <filemask>git.csv</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name/>
-      <filemask/>
+      <include_subfolders>Y</include_subfolders>
+      <name>C:\tmp</name>
+      <filemask>git.csv</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
@@ -1053,6 +797,253 @@ branch = branch.replace(branch.match(/\(/), '')
     <GUI>
       <xloc>96</xloc>
       <yloc>376</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-user-by-email</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>user</name>
+        <replaceby>email</replaceby>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>296</xloc>
+      <yloc>376</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>select-branch</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>branch</name>
+      </field>
+      <field>
+        <name>branch</name>
+        <rename>tag</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>296</xloc>
+      <yloc>516</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>select-fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>user</name>
+      </field>
+      <field>
+        <name>email</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>236</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-branch</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>branch</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1096</xloc>
+      <yloc>516</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-email</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>email</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>236</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-tag</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>tag</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1096</xloc>
+      <yloc>656</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-create-branches</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>create-branches</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1496</xloc>
+      <yloc>656</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-create-commits</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>create-commits</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>896</xloc>
+      <yloc>236</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-create-users</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>create-users</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1296</xloc>
+      <yloc>516</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
