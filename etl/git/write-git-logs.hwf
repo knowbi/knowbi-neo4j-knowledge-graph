@@ -11,7 +11,17 @@
   <modified_user>-</modified_user>
   <modified_date>2020/02/11 09:52:12.183</modified_date>
   <parameters>
-    </parameters>
+    <parameter>
+      <name>GIT_TMP_DIR</name>
+      <default_value/>
+      <description/>
+    </parameter>
+    <parameter>
+      <name>PROJECT_DIR</name>
+      <default_value/>
+      <description/>
+    </parameter>
+  </parameters>
   <actions>
     <action>
       <name>write-git-log-linux</name>

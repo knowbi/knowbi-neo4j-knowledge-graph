@@ -40,10 +40,53 @@
     </hop>
     <hop>
       <from>sort-commit-file</from>
+      <to>sort-file</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-commit-file</from>
+      <to>block-until-write-files-finish</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>block-until-write-files-finish</from>
       <to>write-commitoperation</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>sort-file</from>
+      <to>filter-label</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>filter-label</from>
+      <to>write-files</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>block-until-write-files-finish</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-files</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>calc-file</name>
     <type>ScriptValueMod</type>
@@ -154,7 +197,7 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>345</xloc>
+      <xloc>364</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -190,8 +233,72 @@ else
     </compare>
     <attributes/>
     <GUI>
-      <xloc>562</xloc>
+      <xloc>600</xloc>
       <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-label</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>label</leftvalue>
+            <function>&lt;></function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Workflow</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>label</leftvalue>
+            <function>&lt;></function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Pipeline</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>file_name</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>256</yloc>
     </GUI>
   </transform>
   <transform>
@@ -368,8 +475,50 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>779</xloc>
+      <xloc>836</xloc>
       <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-file</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>file_name</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>label</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>836</xloc>
+      <yloc>256</yloc>
     </GUI>
   </transform>
   <transform>
@@ -426,8 +575,56 @@ else
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>996</xloc>
+      <xloc>1308</xloc>
       <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-files</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>File</value>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>file</value>
+          <type/>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1308</xloc>
+      <yloc>256</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
