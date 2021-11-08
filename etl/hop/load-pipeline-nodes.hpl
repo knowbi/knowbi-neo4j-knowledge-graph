@@ -1059,14 +1059,14 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
       </labels>
       <properties>
         <property>
-          <name>pipelineName</name>
-          <value>pipeline</value>
+          <name>filename</name>
+          <value>hpl_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>filename</name>
-          <value>hpl_filename</value>
+          <name>pipelineName</name>
+          <value>pipeline</value>
           <type>String</type>
           <primary>N</primary>
         </property>

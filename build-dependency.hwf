@@ -28,12 +28,12 @@
     </parameter>
     <parameter>
       <name>CONFIG_DIR</name>
-      <default_value/>
+      <default_value>C:\Users\Lokke\Documents\Know.bi\Drivolution\drivolution-config	</default_value>
       <description>The directory containing the configuration for the project</description>
     </parameter>
     <parameter>
       <name>CONFIG_ENV</name>
-      <default_value/>
+      <default_value>db2</default_value>
       <description>The configuration environment of the project</description>
     </parameter>
     <parameter>
@@ -48,12 +48,12 @@
     </parameter>
     <parameter>
       <name>GIT_TMP_DIR</name>
-      <default_value/>
+      <default_value>C:\tmp</default_value>
       <description>The directory to temporary store the git logs</description>
     </parameter>
     <parameter>
       <name>PROJECT_DIR</name>
-      <default_value/>
+      <default_value>C:\Users\Lokke\Documents\Know.bi\Drivolution\drivolution-dwh-dcn-auto</default_value>
       <description>The project directory used to built the lineage</description>
     </parameter>
     <parameter>
@@ -269,6 +269,16 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>GIT_TMP_DIR</name>
+          <stream_name/>
+          <value>${GIT_TMP_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>PROJECT_DIR</name>
+          <stream_name/>
+          <value>${PROJECT_DIR}</value>
+        </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
