@@ -104,36 +104,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sort-table</from>
-      <to>filter-view</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view</from>
-      <to>write-has_view</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view</from>
-      <to>write-has_table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sort-column</from>
-      <to>filter-view-2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view-2</from>
-      <to>write-has_column view</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view-2</from>
-      <to>write-has_column</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>replace-in-database</from>
       <to>cartesian-join</to>
       <enabled>Y</enabled>
@@ -146,6 +116,16 @@
     <hop>
       <from>read-version</from>
       <to>cartesian-join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-table</from>
+      <to>write-has_table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-column</from>
+      <to>write-has_column</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -202,79 +182,7 @@
     <attributes/>
     <GUI>
       <xloc>912</xloc>
-      <yloc>150</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-view</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>write-has_view</send_true_to>
-    <send_false_to>write-has_table</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>table_type</leftvalue>
-        <function>=</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>VIEW</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>912</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-view-2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>write-has_column view</send_true_to>
-    <send_false_to>write-has_column</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>table_type</leftvalue>
-        <function>=</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>VIEW</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>912</xloc>
-      <yloc>408</yloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
@@ -351,7 +259,7 @@
     <attributes/>
     <GUI>
       <xloc>496</xloc>
-      <yloc>208</yloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
@@ -459,8 +367,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>408</yloc>
+      <xloc>912</xloc>
+      <yloc>424</yloc>
     </GUI>
   </transform>
   <transform>
@@ -575,8 +483,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>704</xloc>
-      <yloc>236</yloc>
+      <xloc>912</xloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
@@ -606,19 +514,19 @@
       </labels>
       <properties>
         <property>
-          <name>table</name>
+          <name>name</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -639,25 +547,25 @@
       </labels>
       <properties>
         <property>
-          <name>column</name>
+          <name>name</name>
           <value>column_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>table</name>
+          <name>tableName</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -676,107 +584,7 @@
     <attributes/>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>408</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-has_column view</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>View</value>
-      </labels>
-      <properties>
-        <property>
-          <name>table</name>
-          <value>table_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>table_schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>current_database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>version</name>
-          <value>db_version</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Column</value>
-      </labels>
-      <properties>
-        <property>
-          <name>column</name>
-          <value>column_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>table</name>
-          <value>table_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>table_schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>current_database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>version</name>
-          <value>db_version</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>HAS_COLUMN</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1120</xloc>
-      <yloc>494</yloc>
+      <yloc>424</yloc>
     </GUI>
   </transform>
   <transform>
@@ -806,7 +614,7 @@
       </labels>
       <properties>
         <property>
-          <name>database</name>
+          <name>name</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -827,13 +635,13 @@
       </labels>
       <properties>
         <property>
-          <name>schema</name>
+          <name>name</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -882,13 +690,13 @@
       </labels>
       <properties>
         <property>
-          <name>schema</name>
+          <name>name</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -909,19 +717,19 @@
       </labels>
       <properties>
         <property>
-          <name>table</name>
+          <name>name</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -940,95 +748,7 @@
     <attributes/>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>236</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-has_view</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Schema</value>
-      </labels>
-      <properties>
-        <property>
-          <name>schema</name>
-          <value>table_schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>current_database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>version</name>
-          <value>db_version</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>View</value>
-      </labels>
-      <properties>
-        <property>
-          <name>table</name>
-          <value>table_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>table_schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>current_database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>version</name>
-          <value>db_version</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>HAS_VIEW</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1120</xloc>
-      <yloc>322</yloc>
+      <yloc>304</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1058,25 +778,25 @@
       </labels>
       <properties>
         <property>
-          <name>column</name>
+          <name>name</name>
           <value>column_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>table</name>
+          <name>tableName</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -1110,7 +830,7 @@
     <attributes/>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>666</yloc>
+      <yloc>664</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1140,25 +860,25 @@
       </labels>
       <properties>
         <property>
-          <name>column</name>
+          <name>name</name>
           <value>column_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>table</name>
+          <name>tableName</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -1179,7 +899,7 @@
       </labels>
       <properties>
         <property>
-          <name>datatype</name>
+          <name>name</name>
           <value>data_type</value>
           <type>String</type>
           <primary>Y</primary>
@@ -1192,7 +912,7 @@
     <attributes/>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>580</yloc>
+      <yloc>544</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1262,7 +982,7 @@
     <attributes/>
     <GUI>
       <xloc>1120</xloc>
-      <yloc>150</yloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

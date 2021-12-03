@@ -129,21 +129,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sort-table</from>
-      <to>filter-view</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view</from>
-      <to>write-view</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-view</from>
-      <to>write-table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>read-version</from>
       <to>cartesian-join</to>
       <enabled>Y</enabled>
@@ -156,6 +141,11 @@
     <hop>
       <from>cartesian-join</from>
       <to>get-variables</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-table</from>
+      <to>write-table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -212,43 +202,7 @@
     <attributes/>
     <GUI>
       <xloc>880</xloc>
-      <yloc>232</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-view</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>write-view</send_true_to>
-    <send_false_to>write-table</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>table_type</leftvalue>
-        <function>=</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>VIEW</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>880</xloc>
-      <yloc>316</yloc>
+      <yloc>260</yloc>
     </GUI>
   </transform>
   <transform>
@@ -325,7 +279,7 @@
     <attributes/>
     <GUI>
       <xloc>472</xloc>
-      <yloc>208</yloc>
+      <yloc>162</yloc>
     </GUI>
   </transform>
   <transform>
@@ -434,7 +388,7 @@
     <attributes/>
     <GUI>
       <xloc>880</xloc>
-      <yloc>484</yloc>
+      <yloc>456</yloc>
     </GUI>
   </transform>
   <transform>
@@ -510,7 +464,7 @@
     <attributes/>
     <GUI>
       <xloc>880</xloc>
-      <yloc>568</yloc>
+      <yloc>554</yloc>
     </GUI>
   </transform>
   <transform>
@@ -594,7 +548,7 @@
     <attributes/>
     <GUI>
       <xloc>880</xloc>
-      <yloc>148</yloc>
+      <yloc>162</yloc>
     </GUI>
   </transform>
   <transform>
@@ -651,8 +605,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>676</xloc>
-      <yloc>316</yloc>
+      <xloc>880</xloc>
+      <yloc>358</yloc>
     </GUI>
   </transform>
   <transform>
@@ -682,25 +636,25 @@
       </labels>
       <properties>
         <property>
-          <name>column</name>
+          <name>name</name>
           <value>column_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>table</name>
+          <name>tableName</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -724,7 +678,7 @@
     <attributes/>
     <GUI>
       <xloc>1084</xloc>
-      <yloc>484</yloc>
+      <yloc>456</yloc>
     </GUI>
   </transform>
   <transform>
@@ -754,7 +708,7 @@
       </labels>
       <properties>
         <property>
-          <name>database</name>
+          <name>name</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -808,7 +762,7 @@
       </labels>
       <properties>
         <property>
-          <name>datatype</name>
+          <name>name</name>
           <value>data_type</value>
           <type>String</type>
           <primary>Y</primary>
@@ -826,7 +780,7 @@
     <attributes/>
     <GUI>
       <xloc>1084</xloc>
-      <yloc>568</yloc>
+      <yloc>554</yloc>
     </GUI>
   </transform>
   <transform>
@@ -904,13 +858,13 @@
       </labels>
       <properties>
         <property>
-          <name>schema</name>
+          <name>name</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -940,7 +894,7 @@
     <attributes/>
     <GUI>
       <xloc>1084</xloc>
-      <yloc>148</yloc>
+      <yloc>162</yloc>
     </GUI>
   </transform>
   <transform>
@@ -970,19 +924,19 @@
       </labels>
       <properties>
         <property>
-          <name>table</name>
+          <name>name</name>
           <value>table_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>schema</name>
+          <name>schemaName</name>
           <value>table_schema</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>database</name>
+          <name>databaseName</name>
           <value>current_database</value>
           <type>String</type>
           <primary>Y</primary>
@@ -992,6 +946,12 @@
           <value>db_version</value>
           <type>String</type>
           <primary>Y</primary>
+        </property>
+        <property>
+          <name>tableType</name>
+          <value>table_type</value>
+          <type>String</type>
+          <primary>N</primary>
         </property>
       </properties>
     </from>
@@ -1006,7 +966,7 @@
     <attributes/>
     <GUI>
       <xloc>1084</xloc>
-      <yloc>316</yloc>
+      <yloc>358</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1036,7 +996,7 @@
       </labels>
       <properties>
         <property>
-          <name>user</name>
+          <name>name</name>
           <value>schema_owner</value>
           <type>String</type>
           <primary>Y</primary>
@@ -1054,73 +1014,7 @@
     <attributes/>
     <GUI>
       <xloc>1084</xloc>
-      <yloc>232</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-view</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>View</value>
-      </labels>
-      <properties>
-        <property>
-          <name>table</name>
-          <value>table_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>table_schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>current_database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>version</name>
-          <value>db_version</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1084</xloc>
-      <yloc>400</yloc>
+      <yloc>260</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
