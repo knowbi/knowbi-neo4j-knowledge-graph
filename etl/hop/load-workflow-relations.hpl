@@ -21,61 +21,16 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>TODO: add select values + unique sorts</note>
-      <xloc>194</xloc>
-      <yloc>979</yloc>
-      <width>460</width>
-      <heigth>42</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-    </notepad>
   </notepads>
   <order>
-    <hop>
-      <from>read-workflows</from>
-      <to>select-fields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>read-workflows</from>
-      <to>filter-filename</to>
-      <enabled>Y</enabled>
-    </hop>
     <hop>
       <from>filter-filename</from>
       <to>replace-backward-slash</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>replace-backward-slash</from>
-      <to>get-short-filename</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>get-short-filename</from>
-      <to>select-values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>unique-connection</from>
       <to>filter-connection</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>read-workflows</from>
-      <to>sort-connection</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -138,6 +93,26 @@
       <to>write-starts-workflow</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>replace-backward-slash</from>
+      <to>select-values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-workflows</from>
+      <to>select-fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-workflows</from>
+      <to>sort-connection</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-workflows</from>
+      <to>filter-filename</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>filter-connection</name>
@@ -162,7 +137,7 @@
     </compare>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
+      <xloc>516</xloc>
       <yloc>296</yloc>
     </GUI>
   </transform>
@@ -194,50 +169,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>get-short-filename</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var short_filename = filename_slash.split("/").pop().slice(0, -4);
-var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>short_filename</name>
-        <rename>short_filename</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>short_filename_with_ext</name>
-        <rename>short_filename_with_ext</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>128</xloc>
-      <yloc>420</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>read-workflows</name>
     <type>getXMLData</type>
     <description/>
@@ -248,8 +179,8 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>hwf_filename</include_field>
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -981,7 +912,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <IsAFile>N</IsAFile>
     <XmlField/>
     <prunePath/>
-    <shortFileFieldName>V_FILENAME</shortFileFieldName>
+    <shortFileFieldName/>
     <pathFieldName/>
     <hiddenFieldName/>
     <lastModificationTimeFieldName/>
@@ -1009,7 +940,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <fields>
       <field>
         <in_stream_name>filename</in_stream_name>
-        <out_stream_name>filename_slash</out_stream_name>
+        <out_stream_name>hpl_filename</out_stream_name>
         <use_regex>no</use_regex>
         <replace_string>\\</replace_string>
         <replace_by_string>/</replace_by_string>
@@ -1042,6 +973,9 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
         <name>hwf_name</name>
       </field>
       <field>
+        <name>hwf_filename</name>
+      </field>
+      <field>
         <name>name</name>
       </field>
       <field>
@@ -1051,7 +985,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
+      <xloc>516</xloc>
       <yloc>48</yloc>
     </GUI>
   </transform>
@@ -1074,19 +1008,19 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
         <name>name</name>
       </field>
       <field>
-        <name>short_filename</name>
-      </field>
-      <field>
         <name>type</name>
       </field>
       <field>
-        <name>short_filename_with_ext</name>
+        <name>hpl_filename</name>
+      </field>
+      <field>
+        <name>hwf_filename</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>322</xloc>
+      <xloc>128</xloc>
       <yloc>420</yloc>
     </GUI>
   </transform>
@@ -1107,7 +1041,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <free_memory/>
     <compress>N</compress>
     <compress_variable/>
-    <unique_rows>N</unique_rows>
+    <unique_rows>Y</unique_rows>
     <fields>
       <field>
         <name>connection</name>
@@ -1121,7 +1055,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <attributes/>
     <GUI>
       <xloc>322</xloc>
-      <yloc>296</yloc>
+      <yloc>172</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1141,7 +1075,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <free_memory/>
     <compress>N</compress>
     <compress_variable/>
-    <unique_rows>N</unique_rows>
+    <unique_rows>Y</unique_rows>
     <fields>
       <field>
         <name>type</name>
@@ -1160,15 +1094,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
         <presorted>N</presorted>
       </field>
       <field>
-        <name>name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>short_filename</name>
+        <name>hwf_filename</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1178,7 +1104,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>516</xloc>
+      <xloc>322</xloc>
       <yloc>420</yloc>
     </GUI>
   </transform>
@@ -1208,7 +1134,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <use_contains>N</use_contains>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
+      <xloc>516</xloc>
       <yloc>420</yloc>
     </GUI>
   </transform>
@@ -1237,7 +1163,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>
-      <xloc>516</xloc>
+      <xloc>322</xloc>
       <yloc>296</yloc>
     </GUI>
   </transform>
@@ -1260,7 +1186,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>904</xloc>
+      <xloc>710</xloc>
       <yloc>420</yloc>
     </GUI>
   </transform>
@@ -1283,7 +1209,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>904</xloc>
+      <xloc>710</xloc>
       <yloc>172</yloc>
     </GUI>
   </transform>
@@ -1306,7 +1232,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>904</xloc>
+      <xloc>710</xloc>
       <yloc>48</yloc>
     </GUI>
   </transform>
@@ -1329,7 +1255,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>904</xloc>
+      <xloc>710</xloc>
       <yloc>296</yloc>
     </GUI>
   </transform>
@@ -1371,12 +1297,6 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
           <type>String</type>
           <primary>Y</primary>
         </property>
-        <property>
-          <name>pluginId</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
       </properties>
     </from>
     <to>
@@ -1387,8 +1307,8 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
       </labels>
       <properties>
         <property>
-          <name>name</name>
-          <value>hwf_name</value>
+          <name>filename</name>
+          <value>hwf_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1399,7 +1319,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1098</xloc>
+      <xloc>904</xloc>
       <yloc>48</yloc>
     </GUI>
   </transform>
@@ -1430,8 +1350,8 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
       </labels>
       <properties>
         <property>
-          <name>name</name>
-          <value>hwf_name</value>
+          <name>filename</name>
+          <value>hwf_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1457,7 +1377,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1098</xloc>
+      <xloc>904</xloc>
       <yloc>296</yloc>
     </GUI>
   </transform>
@@ -1521,7 +1441,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1098</xloc>
+      <xloc>904</xloc>
       <yloc>172</yloc>
     </GUI>
   </transform>
@@ -1574,7 +1494,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
       <properties>
         <property>
           <name>filename</name>
-          <value>short_filename_with_ext</value>
+          <value>hpl_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1585,7 +1505,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1098</xloc>
+      <xloc>904</xloc>
       <yloc>420</yloc>
     </GUI>
   </transform>
@@ -1623,7 +1543,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
         </property>
         <property>
           <name>workflowName</name>
-          <value>short_filename</value>
+          <value>hwf_name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1637,8 +1557,8 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
       </labels>
       <properties>
         <property>
-          <name>workflowName</name>
-          <value>short_filename</value>
+          <name>filename</name>
+          <value>hwf_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1649,7 +1569,7 @@ var short_filename_with_ext = filename_slash.split("/").pop();</jsScript_script>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>904</xloc>
+      <xloc>516</xloc>
       <yloc>544</yloc>
     </GUI>
   </transform>

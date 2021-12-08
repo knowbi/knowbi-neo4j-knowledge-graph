@@ -21,26 +21,6 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>TODO: add (select and) unique sort</note>
-      <xloc>271</xloc>
-      <yloc>92</yloc>
-      <width>414</width>
-      <heigth>42</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-    </notepad>
   </notepads>
   <order>
     <hop>
@@ -50,6 +30,11 @@
     </hop>
     <hop>
       <from>remove-extension</from>
+      <to>sort-transform</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-transform</from>
       <to>write-hop</to>
       <enabled>Y</enabled>
     </hop>
@@ -179,7 +164,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>319</xloc>
+      <xloc>334</xloc>
       <yloc>199</yloc>
     </GUI>
   </transform>
@@ -246,16 +231,60 @@
     </to>
     <relationship/>
     <relationship_value>PRECEDES</relationship_value>
-    <relprops>
-      <relprop>
-        <name/>
-        <value>enabled</value>
-        <type>Boolean</type>
-      </relprop>
-    </relprops>
+    <relprops/>
     <attributes/>
     <GUI>
-      <xloc>481</xloc>
+      <xloc>688</xloc>
+      <yloc>199</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>sort-transform</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>from</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>to</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>pipeline</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>511</xloc>
       <yloc>199</yloc>
     </GUI>
   </transform>

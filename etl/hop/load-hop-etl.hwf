@@ -114,8 +114,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1615</xloc>
-      <yloc>64</yloc>
+      <xloc>313</xloc>
+      <yloc>336</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -143,7 +143,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1181</xloc>
+      <xloc>1615</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -153,8 +153,8 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1398</xloc>
-      <yloc>400</yloc>
+      <xloc>1615</xloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -166,8 +166,8 @@
       <loglevel>Basic</loglevel>
       <logsubject/>
       <parallel>N</parallel>
-      <xloc>964</xloc>
-      <yloc>240</yloc>
+      <xloc>960</xloc>
+      <yloc>448</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -195,8 +195,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>530</xloc>
-      <yloc>400</yloc>
+      <xloc>747</xloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -225,7 +225,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>313</xloc>
-      <yloc>240</yloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -234,8 +234,8 @@
       <type>ABORT</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1181</xloc>
-      <yloc>240</yloc>
+      <xloc>1168</xloc>
+      <yloc>448</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -263,8 +263,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>313</xloc>
-      <yloc>400</yloc>
+      <xloc>530</xloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -292,8 +292,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1398</xloc>
-      <yloc>64</yloc>
+      <xloc>313</xloc>
+      <yloc>200</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -321,8 +321,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>964</xloc>
-      <yloc>400</yloc>
+      <xloc>1181</xloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -350,8 +350,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1181</xloc>
-      <yloc>400</yloc>
+      <xloc>1398</xloc>
+      <yloc>608</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -402,7 +402,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>964</xloc>
+      <xloc>1398</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -431,8 +431,95 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>747</xloc>
-      <yloc>400</yloc>
+      <xloc>964</xloc>
+      <yloc>608</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-connection-nodes</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/etl/hop/load-connection-nodes.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>964</xloc>
+      <yloc>64</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-connection-database</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/etl/hop/load-connection-database.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>1181</xloc>
+      <yloc>64</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-transform-table-relationship</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/etl/hop/load-transform-table-relationship.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>313</xloc>
+      <yloc>472</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -468,42 +555,42 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-parameters-pipeline</from>
       <to>write-error-to-log</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-transform-types</from>
       <to>write-error-to-log</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>write-error-to-log</from>
       <to>abort-job</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
       <from>load-transform-types</from>
       <to>load-transform-fields</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-transform-fields</from>
       <to>load-parameters-pipeline</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-transform-fields</from>
       <to>write-error-to-log</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -524,15 +611,8 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-file-modifications</from>
       <to>write-error-to-log</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-pipeline-relationships</from>
-      <to>load-transform-types</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -552,21 +632,21 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-file-modifications</from>
       <to>load-execution-logging</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-execution-logging</from>
       <to>success</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-execution-logging</from>
       <to>write-error-to-log</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -585,7 +665,56 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>load-parameters-pipeline</from>
+      <to>load-parameters-workflow</to>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-parameters-workflow</from>
+      <to>load-file-modifications</to>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-parameters-workflow</from>
+      <to>write-error-to-log</to>
+      <enabled>N</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-connection-nodes</from>
+      <to>load-connection-database</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-connection-nodes</from>
+      <to>write-error-to-log</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-connection-database</from>
+      <to>write-error-to-log</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>load-pipelines-nodes</from>
+      <to>load-connection-nodes</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-connection-database</from>
       <to>load-workflow-relationship-hops</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
@@ -599,28 +728,21 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-workflow-relationship-hops</from>
-      <to>write-error-to-log</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-parameters-pipeline</from>
-      <to>load-parameters-workflow</to>
+      <from>load-pipeline-relationships</from>
+      <to>load-transform-table-relationship</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-parameters-workflow</from>
-      <to>load-file-modifications</to>
-      <enabled>Y</enabled>
+      <from>load-transform-table-relationship</from>
+      <to>load-transform-types</to>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-parameters-workflow</from>
+      <from>load-transform-table-relationship</from>
       <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>

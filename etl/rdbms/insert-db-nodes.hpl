@@ -229,6 +229,18 @@
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
+      <field>
+        <name>DB_HOST</name>
+        <variable>${DB_HOST}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
     </fields>
     <attributes/>
     <GUI>
@@ -716,6 +728,12 @@
         <property>
           <name>version</name>
           <value>db_version</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>

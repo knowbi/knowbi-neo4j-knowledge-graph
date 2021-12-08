@@ -9,21 +9,6 @@
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
     <parameters>
-      <parameter>
-        <name>CONFIG_DIR</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>CONFIG_ENV</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>PROJECT_DIR</name>
-        <default_value/>
-        <description/>
-      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
@@ -334,6 +319,11 @@ else
       <variablemapping>
         <variable>PRM_QUERY</variable>
         <field>db_info_query</field>
+        <input/>
+      </variablemapping>
+      <variablemapping>
+        <variable>DB_HOST</variable>
+        <field>hostname</field>
         <input/>
       </variablemapping>
       <inherit_all_vars>Y</inherit_all_vars>

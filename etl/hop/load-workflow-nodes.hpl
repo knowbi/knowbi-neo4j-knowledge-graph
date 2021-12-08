@@ -55,161 +55,10 @@
     </hop>
     <hop>
       <from>select-fields</from>
-      <to>replace-file-path</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>replace-file-path</from>
       <to>write-workflows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <transform>
-    <name>write-action-types</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>Y</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>ActionType</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>688</xloc>
-      <yloc>304</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-actions</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Action</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>workflowName</name>
-          <value>hwf_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pluginId</name>
-          <value>type</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>filename</name>
-          <value>filename</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
-    </to>
-    <relationship/>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>880</xloc>
-      <yloc>184</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-null-filename</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>filename</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>184</yloc>
-    </GUI>
-  </transform>
   <transform>
     <name>read-workflows</name>
     <type>getXMLData</type>
@@ -221,8 +70,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>hwf_filename</include_field>
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -999,8 +848,8 @@
     <IsAFile>N</IsAFile>
     <XmlField/>
     <prunePath/>
-    <shortFileFieldName>hwf_filename</shortFileFieldName>
-    <pathFieldName>hwf_path</pathFieldName>
+    <shortFileFieldName/>
+    <pathFieldName/>
     <hiddenFieldName/>
     <lastModificationTimeFieldName/>
     <uriNameFieldName/>
@@ -1011,6 +860,38 @@
     <GUI>
       <xloc>112</xloc>
       <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-null-filename</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>filename</name>
+        <value>-</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>184</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1027,211 +908,156 @@
     <fields>
       <field>
         <name>hwf_name</name>
-        <rename/>
       </field>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>description</name>
-        <rename/>
       </field>
       <field>
         <name>type</name>
-        <rename/>
       </field>
       <field>
         <name>start</name>
-        <rename/>
       </field>
       <field>
         <name>dummy</name>
-        <rename/>
       </field>
       <field>
         <name>repeat</name>
-        <rename/>
       </field>
       <field>
         <name>schedulerType</name>
-        <rename/>
       </field>
       <field>
         <name>intervalSeconds</name>
-        <rename/>
       </field>
       <field>
         <name>intervalMinutes</name>
-        <rename/>
       </field>
       <field>
         <name>hour</name>
-        <rename/>
       </field>
       <field>
         <name>minutes</name>
-        <rename/>
       </field>
       <field>
         <name>weekDay</name>
-        <rename/>
       </field>
       <field>
         <name>DayOfMonth</name>
-        <rename/>
       </field>
       <field>
         <name>parallel</name>
-        <rename/>
       </field>
       <field>
         <name>draw</name>
-        <rename/>
       </field>
       <field>
         <name>nr</name>
-        <rename/>
       </field>
       <field>
         <name>xloc</name>
-        <rename/>
       </field>
       <field>
         <name>yloc</name>
-        <rename/>
       </field>
       <field>
         <name>specification_method</name>
-        <rename/>
       </field>
       <field>
         <name>trans_object_id</name>
-        <rename/>
       </field>
       <field>
         <name>filename</name>
-        <rename/>
       </field>
       <field>
         <name>transname</name>
-        <rename/>
       </field>
       <field>
         <name>entry_jobname</name>
-        <rename/>
       </field>
       <field>
         <name>arg_from_previous</name>
-        <rename/>
       </field>
       <field>
         <name>params_from_previous</name>
-        <rename/>
       </field>
       <field>
         <name>exec_per_row</name>
-        <rename/>
       </field>
       <field>
         <name>clear_rows</name>
-        <rename/>
       </field>
       <field>
         <name>clear_files</name>
-        <rename/>
       </field>
       <field>
         <name>set_logfile</name>
-        <rename/>
       </field>
       <field>
         <name>logfile</name>
-        <rename/>
       </field>
       <field>
         <name>logext</name>
-        <rename/>
       </field>
       <field>
         <name>add_date</name>
-        <rename/>
       </field>
       <field>
         <name>add_time</name>
-        <rename/>
       </field>
       <field>
         <name>loglevel</name>
-        <rename/>
       </field>
       <field>
         <name>cluster</name>
-        <rename/>
       </field>
       <field>
         <name>slave_server_name</name>
-        <rename/>
       </field>
       <field>
         <name>set_append_logfile</name>
-        <rename/>
       </field>
       <field>
         <name>wait_until_finished</name>
-        <rename/>
       </field>
       <field>
         <name>follow_abort_remote</name>
-        <rename/>
       </field>
       <field>
         <name>create_parent_folder</name>
-        <rename/>
       </field>
       <field>
         <name>logging_remote_work</name>
-        <rename/>
       </field>
       <field>
         <name>run_configuration</name>
-        <rename/>
       </field>
       <field>
         <name>pass_all_parameters</name>
-        <rename/>
       </field>
       <field>
         <name>name_1</name>
-        <rename/>
       </field>
       <field>
         <name>stream_name</name>
-        <rename/>
       </field>
       <field>
         <name>value</name>
-        <rename/>
       </field>
       <field>
         <name>connection</name>
-        <rename/>
       </field>
       <field>
         <name>tablename</name>
-        <rename/>
       </field>
       <field>
         <name>schemaname</name>
-        <rename/>
       </field>
       <field>
         <name>hwf_filename</name>
-        <rename/>
-      </field>
-      <field>
-        <name>hwf_path</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1288,6 +1114,120 @@
     </GUI>
   </transform>
   <transform>
+    <name>write-action-types</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>Y</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>ActionType</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>304</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-actions</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Action</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>workflowName</name>
+          <value>hwf_name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>locationX</name>
+          <value>xloc</value>
+          <type>Integer</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>locationY</name>
+          <value>yloc</value>
+          <type>Integer</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>184</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>write-workflows</name>
     <type>Neo4JOutput</type>
     <description/>
@@ -1325,12 +1265,6 @@
           <type>String</type>
           <primary>N</primary>
         </property>
-        <property>
-          <name>path</name>
-          <value>hwf_path</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
       </properties>
     </from>
     <to>
@@ -1344,37 +1278,6 @@
     <attributes/>
     <GUI>
       <xloc>688</xloc>
-      <yloc>64</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-file-path</name>
-    <type>ReplaceString</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>hwf_path</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>${PROJECT_DIR}</replace_string>
-        <replace_by_string/>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-        <is_unicode>no</is_unicode>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>496</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>

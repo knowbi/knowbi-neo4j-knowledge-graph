@@ -17,6 +17,11 @@
       <description/>
     </parameter>
     <parameter>
+      <name>DB_HOST</name>
+      <default_value/>
+      <description/>
+    </parameter>
+    <parameter>
       <name>DB_PASSWORD</name>
       <default_value/>
       <description/>
@@ -124,6 +129,11 @@
           <stream_name/>
           <value>${PRM_QUERY}</value>
         </parameter>
+        <parameter>
+          <name>DB_HOST</name>
+          <stream_name/>
+          <value>${DB_HOST}</value>
+        </parameter>
       </parameters>
       <parallel>N</parallel>
       <xloc>198</xloc>
@@ -187,6 +197,11 @@
           <name>PRM_QUERY</name>
           <stream_name/>
           <value>${PRM_QUERY}</value>
+        </parameter>
+        <parameter>
+          <name>DB_HOST</name>
+          <stream_name/>
+          <value>${DB_HOST}</value>
         </parameter>
       </parameters>
       <parallel>N</parallel>

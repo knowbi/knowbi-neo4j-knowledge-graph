@@ -24,51 +24,6 @@
   </notepads>
   <order>
     <hop>
-      <from>read-pipelines</from>
-      <to>remove-hpl</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>select-values</from>
-      <to>filter-table-used</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>get-database</from>
-      <to>lookup-database</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>remove-hpl</from>
-      <to>lookup-database</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>lookup-database</from>
-      <to>select-values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>remove-hpl</from>
-      <to>calc-cypher</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>calc-cypher</from>
-      <to>get-database</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-table-used</from>
-      <to>replace-schema</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>select-values</from>
-      <to>remove-in-file-path</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>sort-pipelines</from>
       <to>write-pipeline</to>
       <enabled>Y</enabled>
@@ -89,16 +44,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>replace-schema</from>
-      <to>select-tables</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>select-tables</from>
-      <to>sort-tables</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>select-values</from>
       <to>select-type</to>
       <enabled>Y</enabled>
@@ -106,16 +51,6 @@
     <hop>
       <from>select-type</from>
       <to>sort-types</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sort-tables</from>
-      <to>wait-for-write-transforms</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>wait-for-write-transforms</from>
-      <to>write-tables</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -139,162 +74,21 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>remove-in-file-path</from>
+      <from>read-pipelines</from>
+      <to>replace_extension</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>select-values</from>
       <to>select-pipelines</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>replace_extension</from>
+      <to>select-values</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <transform>
-    <name>calc-cypher</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <calc_type>CONSTANT</calc_type>
-      <field_a>MATCH (c:Connection)-[r]-(d:Database) where c.name='</field_a>
-      <field_name>C_TMP1</field_name>
-      <remove>Y</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>CONSTANT</calc_type>
-      <field_a>' return  c.name, d.name</field_a>
-      <field_name>C_TMP2</field_name>
-      <remove>Y</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>ADD3</calc_type>
-      <field_a>C_TMP1</field_a>
-      <field_b>connection</field_b>
-      <field_c>C_TMP2</field_c>
-      <field_name>get_database</field_name>
-      <remove>N</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
-    <attributes/>
-    <GUI>
-      <xloc>270</xloc>
-      <yloc>400</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-table-used</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>table</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>840</xloc>
-      <yloc>288</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>get-database</name>
-    <type>Neo4jCypherOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <cypher>MATCH (n:Connection)-[r]-(m:Database) where n.connection='${PRM_CONNECTION}' return  n.connection, m.database
-</cypher>
-    <batch_size/>
-    <read_only>Y</read_only>
-    <nr_retries_on_error/>
-    <retry>Y</retry>
-    <cypher_from_field>Y</cypher_from_field>
-    <cypher_field>get_database</cypher_field>
-    <unwind>N</unwind>
-    <unwind_map/>
-    <returning_graph>N</returning_graph>
-    <return_graph_field/>
-    <mappings/>
-    <returns>
-      <return>
-        <name>c.name</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-      <return>
-        <name>d.name</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-    </returns>
-    <attributes/>
-    <GUI>
-      <xloc>460</xloc>
-      <yloc>400</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>lookup-database</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>get-database</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>connection</name>
-        <field>c.name</field>
-      </key>
-      <value>
-        <name>d.name</name>
-        <rename>database</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>460</xloc>
-      <yloc>288</yloc>
-    </GUI>
-  </transform>
   <transform>
     <name>read-pipelines</name>
     <type>getXMLData</type>
@@ -306,8 +100,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>hpl_filename</include_field>
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -462,6 +256,36 @@
         <trim_type>none</trim_type>
         <repeat>N</repeat>
       </field>
+      <field>
+        <name>locX</name>
+        <xpath>GUI/xloc</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>locY</name>
+        <xpath>GUI/yloc</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
     </fields>
     <limit>0</limit>
     <loopxpath>/pipeline/transform</loopxpath>
@@ -469,8 +293,8 @@
     <IsAFile>N</IsAFile>
     <XmlField/>
     <prunePath/>
-    <shortFileFieldName>hpl_filename</shortFileFieldName>
-    <pathFieldName>hpl_path</pathFieldName>
+    <shortFileFieldName>pipeline</shortFileFieldName>
+    <pathFieldName/>
     <hiddenFieldName/>
     <lastModificationTimeFieldName/>
     <uriNameFieldName/>
@@ -479,15 +303,15 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>288</yloc>
+      <xloc>112</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>remove-hpl</name>
+    <name>replace_extension</name>
     <type>ReplaceString</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -496,8 +320,8 @@
     </partitioning>
     <fields>
       <field>
-        <in_stream_name>hpl_filename</in_stream_name>
-        <out_stream_name>pipeline</out_stream_name>
+        <in_stream_name>pipeline</in_stream_name>
+        <out_stream_name/>
         <use_regex>no</use_regex>
         <replace_string>.hpl</replace_string>
         <replace_by_string/>
@@ -510,93 +334,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>270</xloc>
-      <yloc>288</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>remove-in-file-path</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var hpl_path = replace(hpl_path,getVariable('etl.dir', ''),'');
-var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
-</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>hpl_path</name>
-        <rename>hpl_path</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-      <field>
-        <name>hpl_filename</name>
-        <rename>hpl_filename</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>650</xloc>
-      <yloc>576</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-schema</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>schema</name>
-        <value>public</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>database</name>
-        <value>unknown</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1030</xloc>
-      <yloc>288</yloc>
+      <xloc>320</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -617,47 +356,12 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
       <field>
         <name>hpl_filename</name>
       </field>
-      <field>
-        <name>hpl_path</name>
-      </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>840</xloc>
-      <yloc>576</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-tables</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>connection</name>
-      </field>
-      <field>
-        <name>database</name>
-      </field>
-      <field>
-        <name>schema</name>
-      </field>
-      <field>
-        <name>table</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1220</xloc>
-      <yloc>288</yloc>
+      <xloc>752</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -679,14 +383,23 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
         <name>pipeline</name>
       </field>
       <field>
+        <name>hpl_filename</name>
+      </field>
+      <field>
         <name>type</name>
+      </field>
+      <field>
+        <name>locX</name>
+      </field>
+      <field>
+        <name>locY</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>840</xloc>
-      <yloc>432</yloc>
+      <xloc>752</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -708,8 +421,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </fields>
     <attributes/>
     <GUI>
-      <xloc>840</xloc>
-      <yloc>144</yloc>
+      <xloc>752</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -734,41 +447,26 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
         <name>connection</name>
       </field>
       <field>
-        <name>lookup_table</name>
-      </field>
-      <field>
-        <name>lookup_schema</name>
-      </field>
-      <field>
-        <name>table</name>
-      </field>
-      <field>
-        <name>schema</name>
-      </field>
-      <field>
-        <name>sql</name>
-      </field>
-      <field>
         <name>pipeline</name>
       </field>
       <field>
         <name>xml</name>
       </field>
       <field>
-        <name>database</name>
-      </field>
-      <field>
         <name>hpl_filename</name>
       </field>
       <field>
-        <name>hpl_path</name>
+        <name>locX</name>
+      </field>
+      <field>
+        <name>locY</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>650</xloc>
-      <yloc>288</yloc>
+      <xloc>544</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -806,77 +504,11 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
-      <field>
-        <name>hpl_path</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1030</xloc>
-      <yloc>576</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>sort-tables</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>connection</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>database</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>schema</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>table</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1410</xloc>
-      <yloc>288</yloc>
+      <xloc>976</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -925,8 +557,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1030</xloc>
-      <yloc>432</yloc>
+      <xloc>976</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -959,8 +591,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1030</xloc>
-      <yloc>144</yloc>
+      <xloc>976</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -982,8 +614,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1220</xloc>
-      <yloc>432</yloc>
+      <xloc>1184</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1005,31 +637,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1220</xloc>
-      <yloc>144</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>wait-for-write-transforms</name>
-    <type>BlockUntilTransformsFinish</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <transforms>
-      <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-transform</name>
-      </transform>
-    </transforms>
-    <attributes/>
-    <GUI>
-      <xloc>1600</xloc>
-      <yloc>288</yloc>
+      <xloc>1184</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1059,22 +668,16 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
       </labels>
       <properties>
         <property>
-          <name>filename</name>
-          <value>hpl_filename</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>pipelineName</name>
+          <name>name</name>
           <value>pipeline</value>
           <type>String</type>
           <primary>N</primary>
         </property>
         <property>
-          <name>path</name>
-          <value>hpl_path</value>
+          <name>filename</name>
+          <value>hpl_filename</value>
           <type>String</type>
-          <primary>N</primary>
+          <primary>Y</primary>
         </property>
       </properties>
     </from>
@@ -1088,78 +691,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1220</xloc>
-      <yloc>576</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-tables</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Table</value>
-      </labels>
-      <properties>
-        <property>
-          <name>table</name>
-          <value>table</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>schema</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>database</value>
-          <type/>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Connection</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>connection</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>TABLE_CONNECTION</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1790</xloc>
-      <yloc>288</yloc>
+      <xloc>1184</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1201,10 +734,16 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
           <primary>Y</primary>
         </property>
         <property>
-          <name>pluginId</name>
-          <value>type</value>
+          <name>locationX</name>
+          <value>locX</value>
           <type>String</type>
-          <primary>Y</primary>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>locationY</name>
+          <value>locY</value>
+          <type>String</type>
+          <primary>N</primary>
         </property>
       </properties>
     </from>
@@ -1218,8 +757,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1410</xloc>
-      <yloc>432</yloc>
+      <xloc>1408</xloc>
+      <yloc>240</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1266,8 +805,8 @@ var hpl_filename = replace(hpl_filename,getVariable('etl.dir', ''),'');
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1410</xloc>
-      <yloc>144</yloc>
+      <xloc>1408</xloc>
+      <yloc>96</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
