@@ -28,12 +28,12 @@
     </parameter>
     <parameter>
       <name>CONFIG_DIR</name>
-      <default_value>C:\Users\Lokke\Documents\Know.bi\Drivolution\drivolution-config	</default_value>
+      <default_value/>
       <description>The directory containing the configuration for the project</description>
     </parameter>
     <parameter>
       <name>CONFIG_ENV</name>
-      <default_value>db2</default_value>
+      <default_value/>
       <description>The configuration environment of the project</description>
     </parameter>
     <parameter>
@@ -48,12 +48,12 @@
     </parameter>
     <parameter>
       <name>GIT_TMP_DIR</name>
-      <default_value>C:\tmp</default_value>
+      <default_value/>
       <description>The directory to temporary store the git logs</description>
     </parameter>
     <parameter>
       <name>PROJECT_DIR</name>
-      <default_value>C:\Users\Lokke\Documents\Know.bi\Drivolution\drivolution-dwh-dcn-auto</default_value>
+      <default_value/>
       <description>The project directory used to built the lineage</description>
     </parameter>
     <parameter>
@@ -88,7 +88,7 @@
       <attributes/>
       <parallel>N</parallel>
       <xloc>160</xloc>
-      <yloc>848</yloc>
+      <yloc>844</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -110,7 +110,7 @@
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <xloc>160</xloc>
-      <yloc>310</yloc>
+      <yloc>324</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -132,7 +132,7 @@
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <xloc>160</xloc>
-      <yloc>556</yloc>
+      <yloc>584</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -142,7 +142,7 @@
       <attributes/>
       <parallel>N</parallel>
       <xloc>512</xloc>
-      <yloc>433</yloc>
+      <yloc>454</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -164,29 +164,7 @@
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <xloc>160</xloc>
-      <yloc>187</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>load-lineage-etl?</name>
-      <description/>
-      <type>SIMPLE_EVAL</type>
-      <attributes/>
-      <valuetype>variable</valuetype>
-      <fieldname>${PRM_ETL}</fieldname>
-      <variablename>${ETL_LINEAGE}</variablename>
-      <fieldtype>string</fieldtype>
-      <mask/>
-      <comparevalue>Y</comparevalue>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>equal</successnumbercondition>
-      <successbooleancondition>false</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
-      <parallel>N</parallel>
-      <xloc>160</xloc>
-      <yloc>433</yloc>
+      <yloc>194</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -215,7 +193,29 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <xloc>336</xloc>
-      <yloc>556</yloc>
+      <yloc>584</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-lineage-etl?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <attributes/>
+      <valuetype>variable</valuetype>
+      <fieldname>${PRM_ETL}</fieldname>
+      <variablename>${ETL_LINEAGE}</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <xloc>160</xloc>
+      <yloc>454</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -244,7 +244,7 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <xloc>336</xloc>
-      <yloc>433</yloc>
+      <yloc>454</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -283,7 +283,7 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <xloc>336</xloc>
-      <yloc>679</yloc>
+      <yloc>714</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -305,7 +305,7 @@
       <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <xloc>160</xloc>
-      <yloc>679</yloc>
+      <yloc>714</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -331,10 +331,25 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>PROJECT_DIR</name>
+          <stream_name/>
+          <value>${PROJECT_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>CONFIG_DIR</name>
+          <stream_name/>
+          <value>${CONFIG_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>CONFIG_ENV</name>
+          <stream_name/>
+          <value>${CONFIG_ENV}</value>
+        </parameter>
       </parameters>
       <parallel>N</parallel>
       <xloc>336</xloc>
-      <yloc>310</yloc>
+      <yloc>324</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -363,7 +378,7 @@
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <xloc>336</xloc>
-      <yloc>187</yloc>
+      <yloc>194</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -373,13 +388,6 @@
       <to>load-lineage-database?</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-aws?</from>
-      <to>load-aws</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -425,13 +433,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-aws</from>
-      <to>abort-job</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>clean-neo4j?</from>
       <to>clean-neo4j-data</to>
       <enabled>Y</enabled>
@@ -467,34 +468,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-hop</from>
-      <to>load-aws?</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-lineage-etl?</from>
-      <to>load-aws?</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-aws</from>
-      <to>load-git?</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-aws?</from>
-      <to>load-git?</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>start</from>
       <to>clean-neo4j?</to>
       <enabled>Y</enabled>
@@ -511,6 +484,48 @@
     <hop>
       <from>load-git-logs</from>
       <to>Success</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-lineage-etl?</from>
+      <to>load-aws?</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-aws?</from>
+      <to>load-git?</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-aws?</from>
+      <to>load-aws</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-aws</from>
+      <to>load-git?</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-aws</from>
+      <to>abort-job</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-hop</from>
+      <to>load-aws?</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

@@ -35,82 +35,6 @@
     </hop>
   </order>
   <transform>
-    <name>write-pipeline-parameters</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>N</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>Y</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Pipeline</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>filename_only</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Parameter</value>
-      </labels>
-      <properties>
-        <property>
-          <name>name</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>usedBy</name>
-          <value>filename_only</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>defaultValue</name>
-          <value>default_value</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>description</name>
-          <value>description</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>HAS_PARAMETER</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>240</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>read-pipelines</name>
     <type>getXMLData</type>
     <description/>
@@ -121,8 +45,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>pipeline</include_field>
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -236,6 +160,88 @@
     <attributes/>
     <GUI>
       <xloc>360</xloc>
+      <yloc>240</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-pipeline-parameters</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>Y</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Pipeline</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>filename_only</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>filename</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Parameter</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>usedBy</name>
+          <value>filename_only</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>defaultValue</name>
+          <value>default_value</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>description</name>
+          <value>description</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>HAS_PARAMETER</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
       <yloc>240</yloc>
     </GUI>
   </transform>

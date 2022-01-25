@@ -378,21 +378,27 @@
     <fields>
       <field>
         <name>name</name>
+        <rename/>
       </field>
       <field>
         <name>pipeline</name>
+        <rename/>
       </field>
       <field>
         <name>hpl_filename</name>
+        <rename/>
       </field>
       <field>
         <name>type</name>
+        <rename/>
       </field>
       <field>
         <name>locX</name>
+        <rename/>
       </field>
       <field>
         <name>locY</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -742,6 +748,12 @@
         <property>
           <name>locationY</name>
           <value>locY</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>pluginId</name>
+          <value>type</value>
           <type>String</type>
           <primary>N</primary>
         </property>

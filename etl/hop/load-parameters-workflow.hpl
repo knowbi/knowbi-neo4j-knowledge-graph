@@ -45,8 +45,8 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>workflow</include_field>
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -192,6 +192,12 @@
         <property>
           <name>name</name>
           <value>filename_only</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+        <property>
+          <name>filename</name>
+          <value>workflow</value>
           <type>String</type>
           <primary>Y</primary>
         </property>

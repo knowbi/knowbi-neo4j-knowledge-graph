@@ -16,7 +16,7 @@
     <created_date>2021/12/08 14:47:27.873</created_date>
     <modified_user>-</modified_user>
     <modified_date>2021/12/08 14:47:27.873</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -172,14 +172,8 @@
     <failIfNoFile>Y</failIfNoFile>
     <calculation>
       <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>MATCH (n:Connection)-[r]-(m:Database) where n.name='</field_a>
-      <field_b/>
-      <field_c/>
       <field_name>C_TMP1</field_name>
-      <grouping_symbol/>
       <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -187,14 +181,8 @@
     </calculation>
     <calculation>
       <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>' return  n.name, m.name, m.host</field_a>
-      <field_b/>
-      <field_c/>
       <field_name>C_TMP2</field_name>
-      <grouping_symbol/>
       <remove>Y</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -202,14 +190,10 @@
     </calculation>
     <calculation>
       <calc_type>ADD3</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
       <field_a>C_TMP1</field_a>
       <field_b>connection</field_b>
       <field_c>C_TMP2</field_c>
       <field_name>get_database</field_name>
-      <grouping_symbol/>
       <remove>N</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
@@ -219,6 +203,63 @@
     <GUI>
       <xloc>508</xloc>
       <yloc>468</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>calc-schema</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var schema_split;
+var table_split;
+
+if(indexOf(table_ext, ".")> -1)
+{
+	schema_split=table_ext.split(".")[0];
+	 table_split=table_ext.split(".")[1];
+}
+else
+{
+	schema_split="public";
+	 table_split=table_ext;
+}</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>schema_split</name>
+        <rename>schema_split</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>table_split</name>
+        <rename>table_split</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1744</xloc>
+      <yloc>282</yloc>
     </GUI>
   </transform>
   <transform>
@@ -284,6 +325,60 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
+    <name>filter-connection</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>connection</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>302</xloc>
+      <yloc>282</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-lookup-tables</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>lookup_table</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>1126</xloc>
+      <yloc>464</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>filter-sql-not-null</name>
     <type>FilterRows</type>
     <description/>
@@ -308,6 +403,33 @@ function splitQuery(value, index, array) {
     <GUI>
       <xloc>1126</xloc>
       <yloc>282</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-tables</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>select-fields</send_true_to>
+    <send_false_to>filter-lookup-tables</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>table</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>920</xloc>
+      <yloc>654</yloc>
     </GUI>
   </transform>
   <transform>
@@ -356,33 +478,6 @@ function splitQuery(value, index, array) {
     <GUI>
       <xloc>714</xloc>
       <yloc>468</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-tables</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>select-fields</send_true_to>
-    <send_false_to>filter-lookup-tables</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>table</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>920</xloc>
-      <yloc>654</yloc>
     </GUI>
   </transform>
   <transform>
@@ -696,6 +791,10 @@ function splitQuery(value, index, array) {
         <name>database</name>
         <rename/>
       </field>
+      <field>
+        <name>host</name>
+        <rename/>
+      </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
@@ -737,6 +836,134 @@ function splitQuery(value, index, array) {
     </GUI>
   </transform>
   <transform>
+    <name>select-fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>type</name>
+        <rename/>
+      </field>
+      <field>
+        <name>connection</name>
+        <rename/>
+      </field>
+      <field>
+        <name>table</name>
+        <rename/>
+      </field>
+      <field>
+        <name>schema</name>
+        <rename/>
+      </field>
+      <field>
+        <name>fields</name>
+        <rename/>
+      </field>
+      <field>
+        <name>sql</name>
+        <rename/>
+      </field>
+      <field>
+        <name>hpl_name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>pipeline</name>
+        <rename/>
+      </field>
+      <field>
+        <name>database</name>
+        <rename/>
+      </field>
+      <field>
+        <name>host</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1126</xloc>
+      <yloc>654</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>select-lookup-tables</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>type</name>
+        <rename/>
+      </field>
+      <field>
+        <name>connection</name>
+        <rename/>
+      </field>
+      <field>
+        <name>lookup_table</name>
+        <rename>table</rename>
+      </field>
+      <field>
+        <name>lookup_schema</name>
+        <rename>schema</rename>
+      </field>
+      <field>
+        <name>fields</name>
+        <rename/>
+      </field>
+      <field>
+        <name>sql</name>
+        <rename/>
+      </field>
+      <field>
+        <name>hpl_name</name>
+        <rename/>
+      </field>
+      <field>
+        <name>pipeline</name>
+        <rename/>
+      </field>
+      <field>
+        <name>database</name>
+        <rename/>
+      </field>
+      <field>
+        <name>host</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1332</xloc>
+      <yloc>464</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>select-values</name>
     <type>SelectValues</type>
     <description/>
@@ -750,39 +977,55 @@ function splitQuery(value, index, array) {
     <fields>
       <field>
         <name>name</name>
+        <rename/>
       </field>
       <field>
         <name>type</name>
+        <rename/>
       </field>
       <field>
         <name>connection</name>
+        <rename/>
       </field>
       <field>
         <name>lookup_table</name>
+        <rename/>
       </field>
       <field>
         <name>lookup_schema</name>
+        <rename/>
       </field>
       <field>
         <name>table</name>
+        <rename/>
       </field>
       <field>
         <name>schema</name>
+        <rename/>
       </field>
       <field>
         <name>fields</name>
+        <rename/>
       </field>
       <field>
         <name>sql</name>
+        <rename/>
       </field>
       <field>
         <name>hpl_name</name>
+        <rename/>
       </field>
       <field>
         <name>pipeline</name>
+        <rename/>
       </field>
       <field>
         <name>database</name>
+        <rename/>
+      </field>
+      <field>
+        <name>host</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -916,7 +1159,6 @@ function splitQuery(value, index, array) {
     <delimiter_is_regex>N</delimiter_is_regex>
     <newfield>table_ext</newfield>
     <resetrownumber>Y</resetrownumber>
-    <rownum_field/>
     <splitfield>arrTables</splitfield>
     <attributes/>
     <GUI>
@@ -989,6 +1231,12 @@ function splitQuery(value, index, array) {
           <type>String</type>
           <primary>Y</primary>
         </property>
+        <property>
+          <name>host</name>
+          <value>host</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
       </properties>
     </to>
     <relationship/>
@@ -998,237 +1246,6 @@ function splitQuery(value, index, array) {
     <GUI>
       <xloc>1744</xloc>
       <yloc>654</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-connection</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>connection</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>302</xloc>
-      <yloc>282</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-lookup-tables</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>connection</name>
-        <rename/>
-      </field>
-      <field>
-        <name>lookup_table</name>
-        <rename>table</rename>
-      </field>
-      <field>
-        <name>lookup_schema</name>
-        <rename>schema</rename>
-      </field>
-      <field>
-        <name>fields</name>
-        <rename/>
-      </field>
-      <field>
-        <name>sql</name>
-        <rename/>
-      </field>
-      <field>
-        <name>hpl_name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>pipeline</name>
-        <rename/>
-      </field>
-      <field>
-        <name>database</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1332</xloc>
-      <yloc>464</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>connection</name>
-        <rename/>
-      </field>
-      <field>
-        <name>table</name>
-        <rename/>
-      </field>
-      <field>
-        <name>schema</name>
-        <rename/>
-      </field>
-      <field>
-        <name>fields</name>
-        <rename/>
-      </field>
-      <field>
-        <name>sql</name>
-        <rename/>
-      </field>
-      <field>
-        <name>hpl_name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>pipeline</name>
-        <rename/>
-      </field>
-      <field>
-        <name>database</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1126</xloc>
-      <yloc>654</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>calc-schema</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var schema_split;
-var table_split;
-
-if(indexOf(table_ext, ".")> -1)
-{
-	schema_split=table_ext.split(".")[0];
-	 table_split=table_ext.split(".")[1];
-}
-else
-{
-	schema_split="public";
-	 table_split=table_ext;
-}</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>schema_split</name>
-        <rename>schema_split</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-      <field>
-        <name>table_split</name>
-        <rename>table_split</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1744</xloc>
-      <yloc>282</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-lookup-tables</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>lookup_table</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>1126</xloc>
-      <yloc>464</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

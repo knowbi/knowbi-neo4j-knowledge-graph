@@ -115,7 +115,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>313</xloc>
-      <yloc>336</yloc>
+      <yloc>392</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -153,8 +153,8 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1615</xloc>
-      <yloc>608</yloc>
+      <xloc>1398</xloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -167,7 +167,7 @@
       <logsubject/>
       <parallel>N</parallel>
       <xloc>960</xloc>
-      <yloc>448</yloc>
+      <yloc>392</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -196,36 +196,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>747</xloc>
-      <yloc>608</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>load-transform-types</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-transformtypes.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <xloc>313</xloc>
-      <yloc>608</yloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -235,7 +206,7 @@
       <attributes/>
       <parallel>N</parallel>
       <xloc>1168</xloc>
-      <yloc>448</yloc>
+      <yloc>392</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -263,8 +234,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>530</xloc>
-      <yloc>608</yloc>
+      <xloc>313</xloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -293,7 +264,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>313</xloc>
-      <yloc>200</yloc>
+      <yloc>228</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -322,36 +293,7 @@
       </parameters>
       <parallel>N</parallel>
       <xloc>1181</xloc>
-      <yloc>608</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>load-execution-logging</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-execution-logging.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <xloc>1398</xloc>
-      <yloc>608</yloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -432,7 +374,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       </parameters>
       <parallel>N</parallel>
       <xloc>964</xloc>
-      <yloc>608</yloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -519,7 +461,36 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       </parameters>
       <parallel>N</parallel>
       <xloc>313</xloc>
-      <yloc>472</yloc>
+      <yloc>556</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-transform-fields-relationship</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/etl/hop/load-transform-fields-relationship.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>530</xloc>
+      <yloc>720</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -555,42 +526,21 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-parameters-pipeline</from>
       <to>write-error-to-log</to>
-      <enabled>N</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-transform-types</from>
-      <to>write-error-to-log</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>write-error-to-log</from>
       <to>abort-job</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>load-transform-types</from>
-      <to>load-transform-fields</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-transform-fields</from>
-      <to>load-parameters-pipeline</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>load-transform-fields</from>
       <to>write-error-to-log</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -611,7 +561,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-file-modifications</from>
       <to>write-error-to-log</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -627,27 +577,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <to>load-pipeline-hops</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-file-modifications</from>
-      <to>load-execution-logging</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-execution-logging</from>
-      <to>success</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load-execution-logging</from>
-      <to>write-error-to-log</to>
-      <enabled>N</enabled>
-      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -667,21 +596,21 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-parameters-pipeline</from>
       <to>load-parameters-workflow</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-parameters-workflow</from>
       <to>load-file-modifications</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-parameters-workflow</from>
       <to>write-error-to-log</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -736,16 +665,44 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     </hop>
     <hop>
       <from>load-transform-table-relationship</from>
-      <to>load-transform-types</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
+      <to>write-error-to-log</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>load-transform-table-relationship</from>
+      <to>load-transform-fields</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-transform-fields</from>
+      <to>load-transform-fields-relationship</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-transform-fields-relationship</from>
+      <to>load-parameters-pipeline</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-transform-fields-relationship</from>
       <to>write-error-to-log</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load-file-modifications</from>
+      <to>success</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

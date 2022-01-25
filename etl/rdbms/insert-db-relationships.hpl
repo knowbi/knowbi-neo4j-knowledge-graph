@@ -544,8 +544,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -583,8 +583,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -665,8 +665,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -720,8 +720,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -753,8 +753,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -820,8 +820,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -902,8 +902,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -972,8 +972,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>version</name>
-          <value>db_version</value>
+          <name>host</name>
+          <value>DB_HOST</value>
           <type>String</type>
           <primary>Y</primary>
         </property>

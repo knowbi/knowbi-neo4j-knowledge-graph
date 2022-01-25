@@ -59,11 +59,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>filter-file-name</from>
-      <to>exclude-files</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>concat-full-filename</from>
       <to>select-extension-type-2</to>
       <enabled>Y</enabled>
@@ -166,6 +161,11 @@
     <hop>
       <from>filter-file_reference</from>
       <to>create-files</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>filter-file-name</from>
+      <to>exclude-files</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -411,7 +411,7 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
       <schema_name/>
     </partitioning>
     <send_true_to/>
-    <send_false_to>exclude-files</send_false_to>
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
@@ -443,6 +443,33 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
     <GUI>
       <xloc>264</xloc>
       <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-file_reference</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>file_reference</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>872</xloc>
+      <yloc>596</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1570,7 +1597,7 @@ Uncaught file operation transform
           <name>pluginId</name>
           <value>pluginId</value>
           <type>String</type>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
         <property>
           <name>workflowName</name>
@@ -1682,7 +1709,7 @@ Uncaught file operation transform
           <name>pluginId</name>
           <value>pluginId</value>
           <type>String</type>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
         <property>
           <name>pipelineName</name>
@@ -1794,7 +1821,7 @@ Uncaught file operation transform
           <name>pluginId</name>
           <value>pluginId</value>
           <type>String</type>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
         <property>
           <name>pipelineName</name>
@@ -1868,33 +1895,6 @@ Uncaught file operation transform
     <GUI>
       <xloc>1936</xloc>
       <yloc>456</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>filter-file_reference</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>file_reference</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <GUI>
-      <xloc>872</xloc>
-      <yloc>596</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

@@ -1211,6 +1211,12 @@
           <type>Integer</type>
           <primary>N</primary>
         </property>
+        <property>
+          <name>pluginId</name>
+          <value>type</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
       </properties>
     </from>
     <to>

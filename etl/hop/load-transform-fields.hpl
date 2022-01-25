@@ -29,33 +29,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>remove-hpl</from>
-      <to>select-fields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>switch-type</from>
       <to>read-table-output</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>switch-type</from>
-      <to>read-insert-update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>switch-type</from>
-      <to>read-dblookup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>select-fields</from>
-      <to>filter-type</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>filter-type</from>
-      <to>switch-type</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -64,18 +39,53 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>select-transform-field</from>
+      <to>sort-transform-field</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>sort-transform-field</from>
+      <to>write-fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>read-table-output</from>
-      <to>select-values</to>
+      <to>select-transform-field</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>switch-type</from>
+      <to>read-insert-update</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>read-insert-update</from>
-      <to>select-values</to>
+      <to>read-insert-update-key</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-insert-update</from>
+      <to>read-insert-update-value</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-insert-update-key</from>
+      <to>select-transform-field</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>read-insert-update-value</from>
+      <to>select-transform-field</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>switch-type</from>
+      <to>read-dblookup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>read-dblookup</from>
-      <to>select-values</to>
+      <to>read-dblookup-key</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -85,68 +95,63 @@
     </hop>
     <hop>
       <from>read-update</from>
-      <to>select-values</to>
+      <to>read-update-key</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>calc-cypher</from>
-      <to>get-database</to>
+      <from>read-dblookup</from>
+      <to>read-dblookup-value</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>get-database</from>
-      <to>lookup-database</to>
+      <from>read-update</from>
+      <to>read-update-value</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-values</from>
-      <to>lookup-database</to>
+      <from>read-dblookup-key</from>
+      <to>select-transform-field</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lookup-database</from>
-      <to>replace-null-schema</to>
+      <from>read-dblookup-value</from>
+      <to>select-transform-field</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-values</from>
-      <to>calc-cypher</to>
+      <from>read-update-key</from>
+      <to>select-transform-field</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-values</from>
-      <to>select-step-field</to>
+      <from>read-update-value</from>
+      <to>select-transform-field</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-step-field</from>
-      <to>sort-step-field</to>
+      <from>remove-hpl</from>
+      <to>filter-type</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>replace-null-schema</from>
-      <to>select-field-column</to>
+      <from>sort-transform-field</from>
+      <to>block-write-fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-field-column</from>
-      <to>sort-field-column</to>
+      <from>block-write-fields</from>
+      <to>write-has-fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sort-field-column</from>
-      <to>write-field-uses-column</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sort-step-field</from>
-      <to>write-step-has-field</to>
+      <from>filter-type</from>
+      <to>switch-type</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>calc-cypher</name>
-    <type>Calculator</type>
+    <name>block-write-fields</name>
+    <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -155,73 +160,15 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>MATCH (n:Connection)-[r]-(m:Database) where n.name='</field_a>
-      <field_b/>
-      <field_c/>
-      <field_name>C_TMP1</field_name>
-      <grouping_symbol/>
-      <remove>Y</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>CONSTANT</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>' return  n.name, m.name</field_a>
-      <field_b/>
-      <field_c/>
-      <field_name>C_TMP2</field_name>
-      <grouping_symbol/>
-      <remove>Y</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>ADD3</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>C_TMP1</field_a>
-      <field_b>connection_1</field_b>
-      <field_c>C_TMP2</field_c>
-      <field_name>get_database</field_name>
-      <grouping_symbol/>
-      <remove>N</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>String</value_type>
-    </calculation>
+    <transforms>
+      <transform>
+        <name>write-fields</name>
+      </transform>
+    </transforms>
     <attributes/>
     <GUI>
-      <xloc>1424</xloc>
-      <yloc>376</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>other-step-types</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <GUI>
-      <xloc>992</xloc>
-      <yloc>376</yloc>
+      <xloc>1492</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -256,13 +203,13 @@
     </compare>
     <attributes/>
     <GUI>
-      <xloc>776</xloc>
-      <yloc>244</yloc>
+      <xloc>472</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>get-database</name>
-    <type>Neo4jCypherOutput</type>
+    <name>other-step-types</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -271,241 +218,15 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>lineage-graph</connection>
-    <cypher>MATCH (n:Connection)-[r]-(m:Database) where n.connection='${PRM_CONNECTION}' return  n.connection, m.database
-</cypher>
-    <batch_size/>
-    <read_only>N</read_only>
-    <nr_retries_on_error/>
-    <retry>Y</retry>
-    <cypher_from_field>Y</cypher_from_field>
-    <cypher_field>get_database</cypher_field>
-    <unwind>N</unwind>
-    <unwind_map/>
-    <returning_graph>N</returning_graph>
-    <return_graph_field/>
-    <mappings/>
-    <returns>
-      <return>
-        <name>n.name</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-      <return>
-        <name>m.name</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-    </returns>
     <attributes/>
     <GUI>
-      <xloc>1424</xloc>
-      <yloc>508</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-null-schema</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>schema_1</name>
-        <value>public</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>database</name>
-        <value>unknown</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1640</xloc>
-      <yloc>376</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>lookup-database</name>
-    <type>StreamLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <from>get-database</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
-        <name>connection_1</name>
-        <field>n.name</field>
-      </key>
-      <value>
-        <name>m.name</name>
-        <rename>database</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>1640</xloc>
-      <yloc>244</yloc>
+      <xloc>880</xloc>
+      <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
     <name>read-dblookup</name>
-    <type>getXMLData</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <namespaceaware>N</namespaceaware>
-    <ignorecomments>N</ignorecomments>
-    <readurl>N</readurl>
-    <validating>N</validating>
-    <usetoken>N</usetoken>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <rownum_field/>
-    <encoding>UTF-8</encoding>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>connection</name>
-        <xpath>../../connection</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>schema</name>
-        <xpath>../schema</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>table</name>
-        <xpath>../table</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>column_name</name>
-        <xpath>field</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>Y</repeat>
-      </field>
-      <field>
-        <name>field_name</name>
-        <xpath>name</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>Y</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <loopxpath>/step/lookup/key</loopxpath>
-    <IsInFields>Y</IsInFields>
-    <IsAFile>N</IsAFile>
-    <XmlField>xml</XmlField>
-    <prunePath/>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <GUI>
-      <xloc>1208</xloc>
-      <yloc>376</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-values</name>
-    <type>SelectValues</type>
+    <type>Dummy</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -514,150 +235,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>xml</name>
-      </remove>
-    </fields>
     <attributes/>
     <GUI>
-      <xloc>1424</xloc>
-      <yloc>244</yloc>
+      <xloc>880</xloc>
+      <yloc>448</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>switch-type</name>
-    <type>SwitchCase</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cases>
-      <case>
-        <target_transform>Read DBLookup</target_transform>
-        <value>DBLookup</value>
-      </case>
-      <case>
-        <target_transform>read TableOutput</target_transform>
-        <value>TableOutput</value>
-      </case>
-      <case>
-        <target_transform>read Insert/Update</target_transform>
-        <value>InsertUpdate</value>
-      </case>
-      <case>
-        <target_transform>read Update</target_transform>
-        <value>Update</value>
-      </case>
-    </cases>
-    <case_value_decimal/>
-    <case_value_format/>
-    <case_value_group/>
-    <case_value_type>String</case_value_type>
-    <default_target_transform>Dummy (do nothing)</default_target_transform>
-    <fieldname>type</fieldname>
-    <use_contains>N</use_contains>
-    <attributes/>
-    <GUI>
-      <xloc>992</xloc>
-      <yloc>244</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-field-uses-column</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Field</value>
-      </labels>
-      <properties>
-        <property>
-          <name>field</name>
-          <value>field_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>stepName</name>
-          <value>name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>transName</name>
-          <value>transformation</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label/>
-        <value>Column</value>
-      </labels>
-      <properties>
-        <property>
-          <name>column</name>
-          <value>column_name</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>table</name>
-          <value>table_1</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>schema</name>
-          <value>schema_1</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-        <property>
-          <name>database</name>
-          <value>database</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship/>
-    <relationship_value>FIELD_USES_COLUMN</relationship_value>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1856</xloc>
-      <yloc>640</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>read-insert-update</name>
+    <name>read-dblookup-key</name>
     <type>getXMLData</type>
     <description/>
     <distribute>Y</distribute>
@@ -689,52 +274,7 @@
     </file>
     <fields>
       <field>
-        <name>connection</name>
-        <xpath>../../connection</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>schema</name>
-        <xpath>../schema</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>table</name>
-        <xpath>../table</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>column_name</name>
+        <name>field_name</name>
         <xpath>name</xpath>
         <element_type>node</element_type>
         <result_type>valueof</result_type>
@@ -746,26 +286,11 @@
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>field_name</name>
-        <xpath>field</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
+        <repeat>Y</repeat>
       </field>
     </fields>
     <limit>0</limit>
-    <loopxpath>/step/lookup/key</loopxpath>
+    <loopxpath>/transform/lookup/key</loopxpath>
     <IsInFields>Y</IsInFields>
     <IsAFile>N</IsAFile>
     <XmlField>xml</XmlField>
@@ -780,8 +305,229 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>1208</xloc>
-      <yloc>244</yloc>
+      <xloc>1288</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-dblookup-value</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>field_name</name>
+        <xpath>rename</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>/transform/lookup/value</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>xml</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>1288</xloc>
+      <yloc>544</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-insert-update</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>288</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-insert-update-key</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>field_name</name>
+        <xpath>field</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>/transform/lookup/key</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>xml</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>1288</xloc>
+      <yloc>288</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-insert-update-value</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>field_name</name>
+        <xpath>rename</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>/transform/lookup/value</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>xml</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>1288</xloc>
+      <yloc>368</yloc>
     </GUI>
   </transform>
   <transform>
@@ -817,66 +563,6 @@
     </file>
     <fields>
       <field>
-        <name>connection</name>
-        <xpath>../../connection</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>schema</name>
-        <xpath>../../schema</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>table</name>
-        <xpath>../../table</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>column_name</name>
-        <xpath>column_name</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>Y</repeat>
-      </field>
-      <field>
         <name>field_name</name>
         <xpath>stream_name</xpath>
         <element_type>node</element_type>
@@ -893,7 +579,7 @@
       </field>
     </fields>
     <limit>0</limit>
-    <loopxpath>/step/fields/field</loopxpath>
+    <loopxpath>/transform/fields/field</loopxpath>
     <IsInFields>Y</IsInFields>
     <IsAFile>N</IsAFile>
     <XmlField>xml</XmlField>
@@ -908,136 +594,8 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>1208</xloc>
-      <yloc>112</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>read-update</name>
-    <type>getXMLData</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <namespaceaware>N</namespaceaware>
-    <ignorecomments>N</ignorecomments>
-    <readurl>N</readurl>
-    <validating>N</validating>
-    <usetoken>N</usetoken>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <rownum_field/>
-    <encoding>UTF-8</encoding>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>connection</name>
-        <xpath>../../connection</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>schema</name>
-        <xpath>../schema</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>table</name>
-        <xpath>../table</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>column_name</name>
-        <xpath>field</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>Y</repeat>
-      </field>
-      <field>
-        <name>field_name</name>
-        <xpath>name</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>Y</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <loopxpath>/step/lookup/key</loopxpath>
-    <IsInFields>Y</IsInFields>
-    <IsAFile>N</IsAFile>
-    <XmlField>xml</XmlField>
-    <prunePath/>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <GUI>
-      <xloc>1208</xloc>
-      <yloc>508</yloc>
+      <xloc>880</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1209,12 +767,12 @@
       </field>
     </fields>
     <limit>0</limit>
-    <loopxpath>/transformation/step</loopxpath>
+    <loopxpath>/pipeline/transform</loopxpath>
     <IsInFields>N</IsInFields>
     <IsAFile>N</IsAFile>
     <XmlField/>
     <prunePath/>
-    <shortFileFieldName>transformation_name</shortFileFieldName>
+    <shortFileFieldName>pipeline_name</shortFileFieldName>
     <pathFieldName/>
     <hiddenFieldName/>
     <lastModificationTimeFieldName/>
@@ -1224,8 +782,161 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>244</yloc>
+      <xloc>64</xloc>
+      <yloc>192</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-update</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>624</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-update-key</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>field_name</name>
+        <xpath>name</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>/transform/lookup/key</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>xml</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>1288</xloc>
+      <yloc>624</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>read-update-value</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>field_name</name>
+        <xpath>rename</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>/transform/lookup/value</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>xml</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>1288</xloc>
+      <yloc>704</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1241,8 +952,8 @@
     </partitioning>
     <fields>
       <field>
-        <in_stream_name>transformation_name</in_stream_name>
-        <out_stream_name>transformation</out_stream_name>
+        <in_stream_name>pipeline_name</in_stream_name>
+        <out_stream_name>pipeline</out_stream_name>
         <use_regex>no</use_regex>
         <replace_string>.hpl</replace_string>
         <replace_by_string/>
@@ -1255,12 +966,12 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>344</xloc>
-      <yloc>244</yloc>
+      <xloc>268</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>select-fields</name>
+    <name>select-transform-field</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1276,19 +987,7 @@
         <rename/>
       </field>
       <field>
-        <name>type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>connection</name>
-        <rename/>
-      </field>
-      <field>
-        <name>lookup_table</name>
-        <rename/>
-      </field>
-      <field>
-        <name>lookup_schema</name>
+        <name>pipeline</name>
         <rename/>
       </field>
       <field>
@@ -1300,114 +999,26 @@
         <rename/>
       </field>
       <field>
-        <name>sql</name>
-        <rename/>
-      </field>
-      <field>
-        <name>transformation_name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>transformation</name>
-        <rename/>
-      </field>
-      <field>
-        <name>xml</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>244</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-field-column</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <field>
         <name>field_name</name>
         <rename/>
       </field>
       <field>
-        <name>database</name>
-        <rename/>
-      </field>
-      <field>
-        <name>schema_1</name>
-        <rename/>
-      </field>
-      <field>
-        <name>table_1</name>
-        <rename/>
-      </field>
-      <field>
-        <name>column_name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>transformation</name>
+        <name>pipeline_name</name>
         <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1640</xloc>
-      <yloc>508</yloc>
+      <xloc>1084</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>select-step-field</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>transformation</name>
-        <rename/>
-      </field>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <field>
-        <name>field_name</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1640</xloc>
-      <yloc>112</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>sort-field-column</name>
+    <name>sort-transform-field</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1423,6 +1034,14 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
+        <name>pipeline</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
         <name>name</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
@@ -1438,48 +1057,16 @@
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
-      <field>
-        <name>database</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>schema_1</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>table_1</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>column_name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1640</xloc>
-      <yloc>640</yloc>
+      <xloc>1288</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>sort-step-field</name>
-    <type>SortRows</type>
+    <name>switch-type</name>
+    <type>SwitchCase</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1488,47 +1075,96 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>transformation</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>field_name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
+    <cases>
+      <case>
+        <target_transform>read-dblookup</target_transform>
+        <value>DBLookup</value>
+      </case>
+      <case>
+        <target_transform>read-table-output</target_transform>
+        <value>TableOutput</value>
+      </case>
+      <case>
+        <target_transform>read-insert-update</target_transform>
+        <value>InsertUpdate</value>
+      </case>
+      <case>
+        <target_transform>read-update</target_transform>
+        <value>Update</value>
+      </case>
+    </cases>
+    <case_value_type>String</case_value_type>
+    <default_target_transform>other-step-types</default_target_transform>
+    <fieldname>type</fieldname>
+    <use_contains>N</use_contains>
     <attributes/>
     <GUI>
-      <xloc>1856</xloc>
-      <yloc>112</yloc>
+      <xloc>676</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>write-step-has-field</name>
+    <name>write-fields</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Field</value>
+      </labels>
+      <properties>
+        <property>
+          <name>name</name>
+          <value>field_name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>transformName</name>
+          <value>name</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>pipelineName</name>
+          <value>pipeline</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels/>
+      <properties/>
+    </to>
+    <relationship/>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1492</xloc>
+      <yloc>192</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-has-fields</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1550,7 +1186,7 @@
       <read_only_from_node>N</read_only_from_node>
       <labels>
         <label/>
-        <value>Step</value>
+        <value>Transform</value>
       </labels>
       <properties>
         <property>
@@ -1560,8 +1196,8 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>transName</name>
-          <value>transformation</value>
+          <name>pipelineName</name>
+          <value>pipeline</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1581,26 +1217,26 @@
           <primary>Y</primary>
         </property>
         <property>
-          <name>stepName</name>
+          <name>transformName</name>
           <value>name</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>transName</name>
-          <value>transformation</value>
+          <name>pipelineName</name>
+          <value>pipeline</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
       </properties>
     </to>
     <relationship/>
-    <relationship_value>STEP_HAS_FIELD</relationship_value>
+    <relationship_value>HAS_FIELD</relationship_value>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1856</xloc>
-      <yloc>244</yloc>
+      <xloc>1696</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

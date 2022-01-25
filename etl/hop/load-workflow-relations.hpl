@@ -54,11 +54,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>wait-for-starts-workflow</from>
-      <to>write-starts-pipeline</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>filter-connection</from>
       <to>wait-for-write-starts-pipeline</to>
       <enabled>Y</enabled>
@@ -111,6 +106,16 @@
     <hop>
       <from>read-workflows</from>
       <to>filter-filename</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>wait-for-starts-workflow</from>
+      <to>replace-project-home</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-project-home</from>
+      <to>write-starts-pipeline</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1129,7 +1134,11 @@
         <value>WORKFLOW</value>
       </case>
     </cases>
+    <case_value_decimal/>
+    <case_value_format/>
+    <case_value_group/>
     <case_value_type>None</case_value_type>
+    <default_target_transform/>
     <fieldname>type</fieldname>
     <use_contains>N</use_contains>
     <attributes/>
@@ -1186,8 +1195,8 @@
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
-      <yloc>420</yloc>
+      <xloc>516</xloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1506,7 +1515,7 @@
     <attributes/>
     <GUI>
       <xloc>904</xloc>
-      <yloc>420</yloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1569,8 +1578,39 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>516</xloc>
-      <yloc>544</yloc>
+      <xloc>710</xloc>
+      <yloc>420</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-project-home</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>hpl_filename</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>${PROJECT_HOME}</replace_string>
+        <replace_by_string>${PROJECT_HOME}</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>710</xloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
