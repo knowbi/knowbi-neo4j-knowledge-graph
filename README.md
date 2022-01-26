@@ -1,6 +1,10 @@
 > Load Hop and other lineage data to Neo4j
 
 # (Meta)data Lineage in Neo4j through Apache Hop 
+![](https://img.shields.io/badge/status-active-brightgreen)
+![](https://img.shields.io/badge/hop-v0.99-blue)
+![](https://img.shields.io/badge/neo4j-v4.3.6-blue)
+![](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 
 Data lineage information is an indispensable part of data engineering projects. This repository provides a start to parsing your lineage information in a Neo4j graph database using Apache Hop. 
 
