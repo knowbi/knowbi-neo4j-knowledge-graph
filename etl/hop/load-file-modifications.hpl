@@ -21,26 +21,6 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>exclude ConcatFields, no file operations there</note>
-      <xloc>544</xloc>
-      <yloc>64</yloc>
-      <width>536</width>
-      <heigth>42</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-    </notepad>
   </notepads>
   <order>
     <hop>
@@ -54,23 +34,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>select-extension-type-2</from>
+      <from>select-extension-type</from>
       <to>sort-extension-type</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>concat-full-filename</from>
-      <to>select-extension-type-2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>concat-full-filename</from>
-      <to>select-extension-type</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>select-extension-type</from>
-      <to>sort-type</to>
+      <from>select-fields</from>
+      <to>sort-files</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -109,16 +79,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>exclude-files</from>
-      <to>determine-filename</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>replace-null</from>
-      <to>concat-full-filename</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>select-hpl</from>
       <to>filter-input</to>
       <enabled>Y</enabled>
@@ -149,12 +109,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>determine-filename</from>
-      <to>replace-null</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>sort-type</from>
+      <from>sort-files</from>
       <to>filter-file_reference</to>
       <enabled>Y</enabled>
     </hop>
@@ -164,65 +119,36 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>filter-file-name</from>
+      <from>determine-filename</from>
       <to>exclude-files</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>filter-file-name</from>
+      <to>get-project-dir</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-project-dir</from>
+      <to>determine-filename</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>exclude-files</from>
+      <to>replace-slash</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-slash</from>
+      <to>select-fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-slash</from>
+      <to>select-extension-type</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <transform>
-    <name>concat-full-filename</name>
-    <type>ConcatFields</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator>/</separator>
-    <enclosure/>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <format/>
-    <encoding/>
-    <fields>
-      <field>
-        <name>path</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>short_filename</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-    <ConcatFields>
-      <targetFieldName>filename</targetFieldName>
-      <targetFieldLength>0</targetFieldLength>
-      <removeSelectedFields>N</removeSelectedFields>
-    </ConcatFields>
-    <attributes/>
-    <GUI>
-      <xloc>872</xloc>
-      <yloc>176</yloc>
-    </GUI>
-  </transform>
   <transform>
     <name>create-files</name>
     <type>Neo4JOutput</type>
@@ -237,7 +163,7 @@
     <connection>lineage-graph</connection>
     <batch_size>1000</batch_size>
     <key/>
-    <create_indexes>Y</create_indexes>
+    <create_indexes>N</create_indexes>
     <use_create>N</use_create>
     <only_create_relationships>N</only_create_relationships>
     <returning_graph>N</returning_graph>
@@ -250,50 +176,26 @@
       </labels>
       <properties>
         <property>
-          <name>fileReference</name>
-          <value>file_reference</value>
+          <name>filename</name>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
         <property>
-          <name>itemFilename</name>
-          <value>item_filename</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilenameField</name>
+          <name>filenameField</name>
           <value>item_filename_field</value>
           <type>String</type>
           <primary>N</primary>
         </property>
         <property>
-          <name>itemFilePath</name>
-          <value>item_file_path</value>
+          <name>filePath</name>
+          <value>ref_filepath</value>
           <type>String</type>
           <primary>N</primary>
         </property>
         <property>
-          <name>itemFilemask</name>
+          <name>filemask</name>
           <value>item_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemExcludeFilemask</name>
-          <value>item_exclude_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFileRequired</name>
-          <value>item_file_required</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemIncludeSubfolders</name>
-          <value>item_include_subfolders</value>
           <type>String</type>
           <primary>N</primary>
         </property>
@@ -334,23 +236,47 @@
 var file_reference = ''; 
 
 if(item_filename != null &amp;&amp; item_filename != ''){
-  file_reference  = item_filename; 
+ 	 file_reference  = item_filename; 
 }
 if(item_filename_field != null &amp;&amp; item_filename_field != ''){
-  file_reference = item_filename_field; 
+  	file_reference = item_filename_field; 
 } 
 if(item_file_path != null &amp;&amp; item_file_path != ''){
-  file_reference = item_file_path; 
-  if(item_filemask != null &amp;&amp; item_filemask != ''){
-    file_reference += ', ' + item_filemask; 
-  }
-}</jsScript_script>
+  	file_reference = item_file_path; 
+  	if(item_filemask != null &amp;&amp; item_filemask != ''){
+    		if(file_reference.slice(-1) == '\\' || file_reference.slice(-1) == '\/' ){
+			file_reference += item_filemask; 
+		}
+		else{
+			file_reference +='\\'+ item_filemask; 
+		}
+  	}
+}
+
+var ref_filename=file_reference.replace("${PROJECT_HOME}",PROJECT_DIR);
+var ref_filepath=item_file_path.replace("${PROJECT_HOME}",PROJECT_DIR);</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
         <name>file_reference</name>
         <rename>file_reference</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ref_filename</name>
+        <rename>ref_filename</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>ref_filepath</name>
+        <rename>ref_filepath</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -378,24 +304,61 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
     <send_false_to/>
     <compare>
       <condition>
-        <negated>Y</negated>
-        <leftvalue>type</leftvalue>
-        <function>IN LIST</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>Mapping;TransExecutor;TRANS;JOB;ConcatFields</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>Y</negated>
+            <leftvalue>type</leftvalue>
+            <function>IN LIST</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>Mapping;TransExecutor;TRANS;JOB;ConcatFields</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>Y</negated>
+            <operator>AND</operator>
+            <leftvalue>file_reference</leftvalue>
+            <function>ENDS WITH</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>.hpl</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+          <condition>
+            <negated>Y</negated>
+            <operator>AND</operator>
+            <leftvalue>file_reference</leftvalue>
+            <function>ENDS WITH</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>.hwf</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+        </conditions>
       </condition>
     </compare>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
+      <xloc>720</xloc>
       <yloc>176</yloc>
     </GUI>
   </transform>
@@ -461,9 +424,14 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>file_reference</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>ref_filename</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
       </condition>
     </compare>
     <attributes/>
@@ -494,7 +462,7 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
         <value>
           <name>constant</name>
           <type>String</type>
-          <text>ExcelInput;CSVInput;TextFileInput;GetFileNames</text>
+          <text>ExcelInput;CSVInput;TextFileInput;GetFileNames;TextFileInput2</text>
           <length>-1</length>
           <precision>-1</precision>
           <isnull>N</isnull>
@@ -545,6 +513,37 @@ if(item_file_path != null &amp;&amp; item_file_path != ''){
     </GUI>
   </transform>
   <transform>
+    <name>get-project-dir</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>PROJECT_DIR</name>
+        <variable>${PROJECT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>other-file-operations</name>
     <type>WriteToLog</type>
     <description/>
@@ -588,8 +587,8 @@ Uncaught file operation transform
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>filename</include_field>
     <rownum>N</rownum>
     <addresultfile>Y</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -776,8 +775,8 @@ Uncaught file operation transform
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
+    <include>Y</include>
+    <include_field>filename</include_field>
     <rownum>N</rownum>
     <addresultfile>Y</addresultfile>
     <namespaceaware>N</namespaceaware>
@@ -954,119 +953,50 @@ Uncaught file operation transform
     </GUI>
   </transform>
   <transform>
-    <name>replace-null</name>
-    <type>IfNull</type>
+    <name>replace-slash</name>
+    <type>ReplaceString</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <replaceAllByValue/>
-    <replaceAllMask/>
-    <selectFields>Y</selectFields>
-    <selectValuesType>N</selectValuesType>
-    <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
     <fields>
       <field>
-        <name>item_filename</name>
-        <value>-</value>
-        <mask/>
+        <in_stream_name>ref_filename</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
         <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
       </field>
       <field>
-        <name>item_filename_field</name>
-        <value>-</value>
-        <mask/>
+        <in_stream_name>ref_filepath</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
         <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>item_file_path</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>item_filemask</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>item_exclude_filemask</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>item_file_required</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-      <field>
-        <name>item_include_subfolders</name>
-        <value>-</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
       </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>720</xloc>
+      <xloc>872</xloc>
       <yloc>176</yloc>
     </GUI>
   </transform>
   <transform>
     <name>select-extension-type</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>item_filename</name>
-      </field>
-      <field>
-        <name>item_filename_field</name>
-      </field>
-      <field>
-        <name>item_file_path</name>
-      </field>
-      <field>
-        <name>item_filemask</name>
-      </field>
-      <field>
-        <name>item_exclude_filemask</name>
-      </field>
-      <field>
-        <name>item_file_required</name>
-      </field>
-      <field>
-        <name>item_include_subfolders</name>
-      </field>
-      <field>
-        <name>file_reference</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>872</xloc>
-      <yloc>316</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>select-extension-type-2</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1117,12 +1047,68 @@ Uncaught file operation transform
       <field>
         <name>file_reference</name>
       </field>
+      <field>
+        <name>ref_filename</name>
+      </field>
+      <field>
+        <name>filename</name>
+      </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
       <xloc>1024</xloc>
       <yloc>176</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>select-fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>item_filename</name>
+      </field>
+      <field>
+        <name>item_filename_field</name>
+      </field>
+      <field>
+        <name>item_file_path</name>
+      </field>
+      <field>
+        <name>item_filemask</name>
+      </field>
+      <field>
+        <name>item_exclude_filemask</name>
+      </field>
+      <field>
+        <name>item_file_required</name>
+      </field>
+      <field>
+        <name>item_include_subfolders</name>
+      </field>
+      <field>
+        <name>filename</name>
+      </field>
+      <field>
+        <name>ref_filename</name>
+      </field>
+      <field>
+        <name>ref_filepath</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>872</xloc>
+      <yloc>316</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1175,6 +1161,12 @@ Uncaught file operation transform
       </field>
       <field>
         <name>file_reference</name>
+      </field>
+      <field>
+        <name>ref_filename</name>
+      </field>
+      <field>
+        <name>filename</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1234,6 +1226,9 @@ Uncaught file operation transform
       </field>
       <field>
         <name>file_reference</name>
+      </field>
+      <field>
+        <name>ref_filename</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1350,7 +1345,7 @@ Uncaught file operation transform
     </GUI>
   </transform>
   <transform>
-    <name>sort-type</name>
+    <name>sort-files</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1369,55 +1364,7 @@ Uncaught file operation transform
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>item_filename</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_filename_field</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_file_path</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_filemask</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_exclude_filemask</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_file_required</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>item_include_subfolders</name>
+        <name>ref_filename</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1615,52 +1562,10 @@ Uncaught file operation transform
       </labels>
       <properties>
         <property>
-          <name>fileReference</name>
-          <value>file_reference</value>
+          <name>filename</name>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
-        </property>
-        <property>
-          <name>itemFilename</name>
-          <value>item_filename</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilenameField</name>
-          <value>item_filename_field</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilePath</name>
-          <value>item_file_path</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilemask</name>
-          <value>item_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemExcludeFilemask</name>
-          <value>item_exclude_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFileRequired</name>
-          <value>item_file_required</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemIncludeSubfolders</name>
-          <value>item_include_subfolders</value>
-          <type>String</type>
-          <primary>N</primary>
         </property>
       </properties>
     </to>
@@ -1706,12 +1611,6 @@ Uncaught file operation transform
           <primary>Y</primary>
         </property>
         <property>
-          <name>pluginId</name>
-          <value>pluginId</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
           <name>pipelineName</name>
           <value>short_filename</value>
           <type>String</type>
@@ -1727,52 +1626,10 @@ Uncaught file operation transform
       </labels>
       <properties>
         <property>
-          <name>fileReference</name>
-          <value>file_reference</value>
+          <name>filename</name>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
-        </property>
-        <property>
-          <name>itemFilename</name>
-          <value>item_filename</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilenameField</name>
-          <value>item_filename_field</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilePath</name>
-          <value>item_file_path</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilemask</name>
-          <value>item_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemExcludeFilemask</name>
-          <value>item_exclude_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFileRequired</name>
-          <value>item_file_required</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemIncludeSubfolders</name>
-          <value>item_include_subfolders</value>
-          <type>String</type>
-          <primary>N</primary>
         </property>
       </properties>
     </to>
@@ -1839,52 +1696,10 @@ Uncaught file operation transform
       </labels>
       <properties>
         <property>
-          <name>fileReference</name>
-          <value>file_reference</value>
+          <name>filename</name>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
-        </property>
-        <property>
-          <name>itemFilename</name>
-          <value>item_filename</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilenameField</name>
-          <value>item_filename_field</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilePath</name>
-          <value>item_file_path</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFilemask</name>
-          <value>item_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemExcludeFilemask</name>
-          <value>item_exclude_filemask</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemFileRequired</name>
-          <value>item_file_required</value>
-          <type>String</type>
-          <primary>N</primary>
-        </property>
-        <property>
-          <name>itemIncludeSubfolders</name>
-          <value>item_include_subfolders</value>
-          <type>String</type>
-          <primary>N</primary>
         </property>
       </properties>
     </to>

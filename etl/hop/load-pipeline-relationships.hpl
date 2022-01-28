@@ -295,6 +295,18 @@
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>hpl_name</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
     <GUI>
@@ -316,31 +328,24 @@
     <fields>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>type</name>
-        <rename/>
       </field>
       <field>
         <name>connection</name>
-        <rename/>
       </field>
       <field>
         <name>fields</name>
-        <rename/>
       </field>
       <field>
         <name>sql</name>
-        <rename/>
       </field>
       <field>
         <name>hpl_name</name>
-        <rename/>
       </field>
       <field>
         <name>pipeline</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -413,9 +418,7 @@
         <name>connection</name>
       </field>
     </fields>
-    <count_field/>
     <count_rows>N</count_rows>
-    <error_description/>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>

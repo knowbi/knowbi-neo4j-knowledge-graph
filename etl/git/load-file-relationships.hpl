@@ -24,48 +24,68 @@
   </notepads>
   <order>
     <hop>
-      <from>read-git-commit-details</from>
-      <to>calc-file</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>calc-file</from>
-      <to>filter-hash</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>filter-hash</from>
       <to>sort-commit-file</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sort-commit-file</from>
-      <to>sort-file</to>
+      <from>read-git-commit-details</from>
+      <to>get-project-dir</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>sort-commit-file</from>
-      <to>block-until-write-files-finish</to>
+      <to>filter-filename</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>block-until-write-files-finish</from>
-      <to>write-commitoperation</to>
+      <from>filter-filename</from>
+      <to>switch-label</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>sort-file</from>
-      <to>filter-label</to>
+      <from>switch-label</from>
+      <to>write-commitoperation-file</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>filter-label</from>
-      <to>write-files</to>
+      <from>switch-label</from>
+      <to>block-until-commit-file</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>switch-label</from>
+      <to>block-until-commit-pipeline</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>block-until-commit-file</from>
+      <to>write-commitoperation-pipeline</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>block-until-commit-pipeline</from>
+      <to>write-commitoperation-workflow</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-project-dir</from>
+      <to>calc-file</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>calc-file</from>
+      <to>replace-slash</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-slash</from>
+      <to>filter-hash</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>block-until-write-files-finish</name>
+    <name>block-until-commit-file</name>
     <type>BlockUntilTransformsFinish</type>
     <description/>
     <distribute>Y</distribute>
@@ -77,14 +97,35 @@
     </partitioning>
     <transforms>
       <transform>
-        <CopyNr>0</CopyNr>
-        <name>write-files</name>
+        <name>write-commitoperation-file</name>
       </transform>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1072</xloc>
-      <yloc>128</yloc>
+      <xloc>1549</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>block-until-commit-pipeline</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <name>write-commitoperation-pipeline</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>1346</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -117,7 +158,8 @@ var operations = {
 var file = null;
 var operation = null;
 var extension = null;
-var file_name = null;
+var name = null;
+var filename = null;
 var hash;
 var label = 'File'; 
 
@@ -134,7 +176,9 @@ else
 
 	extension = files.split('.').pop();
 
-	file_name = file.split('.').slice(0, -1).join('.');
+	name = file.split('.').slice(0, -1).join('.');
+
+	filename=PROJECT_DIR+'\\'+files
 
 	if(file.endsWith('.hpl')){
  		 label = 'Pipeline'; 
@@ -171,8 +215,8 @@ else
         <replace>N</replace>
       </field>
       <field>
-        <name>file_name</name>
-        <rename>file_name</rename>
+        <name>name</name>
+        <rename>name</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -194,10 +238,45 @@ else
         <precision>-1</precision>
         <replace>N</replace>
       </field>
+      <field>
+        <name>filename</name>
+        <rename>filename</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>364</xloc>
+      <xloc>534</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>filter-filename</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>name</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>1346</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -233,13 +312,13 @@ else
     </compare>
     <attributes/>
     <GUI>
-      <xloc>600</xloc>
+      <xloc>940</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>filter-label</name>
-    <type>FilterRows</type>
+    <name>get-project-dir</name>
+    <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -248,57 +327,24 @@ else
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>label</leftvalue>
-            <function>&lt;></function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>Workflow</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>label</leftvalue>
-            <function>&lt;></function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>Pipeline</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>file_name</leftvalue>
-            <function>IS NOT NULL</function>
-            <rightvalue/>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
+    <fields>
+      <field>
+        <name>PROJECT_DIR</name>
+        <variable>${PROJECT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
     <attributes/>
     <GUI>
-      <xloc>1072</xloc>
-      <yloc>256</yloc>
+      <xloc>331</xloc>
+      <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
@@ -465,7 +511,7 @@ else
         <presorted>N</presorted>
       </field>
       <field>
-        <name>file_name</name>
+        <name>name</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -475,13 +521,13 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>836</xloc>
+      <xloc>1143</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>sort-file</name>
-    <type>SortRows</type>
+    <name>switch-label</name>
+    <type>SwitchCase</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -490,97 +536,30 @@ else
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <directory>${java.io.tmpdir}</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>Y</unique_rows>
-    <fields>
-      <field>
-        <name>file_name</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>label</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
+    <cases>
+      <case>
+        <target_transform>write-commitoperation-file</target_transform>
+        <value>File</value>
+      </case>
+      <case>
+        <target_transform>block-until-commit-file</target_transform>
+        <value>Pipeline</value>
+      </case>
+      <case>
+        <target_transform>block-until-commit-pipeline</target_transform>
+        <value>Workflow</value>
+      </case>
+    </cases>
+    <fieldname>label</fieldname>
+    <use_contains>N</use_contains>
     <attributes/>
     <GUI>
-      <xloc>836</xloc>
-      <yloc>256</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>write-commitoperation</name>
-    <type>Neo4JOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>lineage-graph</connection>
-    <batch_size>1000</batch_size>
-    <key/>
-    <create_indexes>N</create_indexes>
-    <use_create>N</use_create>
-    <only_create_relationships>Y</only_create_relationships>
-    <returning_graph>N</returning_graph>
-    <return_graph_field>graph</return_graph_field>
-    <from>
-      <read_only_from_node>N</read_only_from_node>
-      <labels>
-        <label/>
-        <value>Commit</value>
-      </labels>
-      <properties>
-        <property>
-          <name>commit</name>
-          <value>hash</value>
-          <type>String</type>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </from>
-    <to>
-      <read_only_to_node>N</read_only_to_node>
-      <labels>
-        <label>label</label>
-        <value/>
-      </labels>
-      <properties>
-        <property>
-          <name>filename</name>
-          <value>file</value>
-          <type/>
-          <primary>Y</primary>
-        </property>
-      </properties>
-    </to>
-    <relationship>operation</relationship>
-    <relationship_value/>
-    <relprops/>
-    <attributes/>
-    <GUI>
-      <xloc>1308</xloc>
+      <xloc>1549</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>write-files</name>
+    <name>write-commitoperation-file</name>
     <type>Neo4JOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -602,29 +581,204 @@ else
       <read_only_from_node>N</read_only_from_node>
       <labels>
         <label/>
-        <value>File</value>
+        <value>Commit</value>
       </labels>
       <properties>
         <property>
-          <name>filename</name>
-          <value>file</value>
-          <type/>
+          <name>commit</name>
+          <value>hash</value>
+          <type>String</type>
           <primary>Y</primary>
         </property>
       </properties>
     </from>
     <to>
       <read_only_to_node>N</read_only_to_node>
-      <labels/>
-      <properties/>
+      <labels>
+        <label/>
+        <value>File</value>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>filename</value>
+          <type/>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type/>
+          <primary>N</primary>
+        </property>
+      </properties>
     </to>
-    <relationship/>
+    <relationship>operation</relationship>
     <relationship_value/>
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1308</xloc>
+      <xloc>1752</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-commitoperation-pipeline</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Commit</value>
+      </labels>
+      <properties>
+        <property>
+          <name>commit</name>
+          <value>hash</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Pipeline</value>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>filename</value>
+          <type/>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type/>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship>operation</relationship>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1760</xloc>
       <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-commitoperation-workflow</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>Commit</value>
+      </labels>
+      <properties>
+        <property>
+          <name>commit</name>
+          <value>hash</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>Workflow</value>
+      </labels>
+      <properties>
+        <property>
+          <name>filename</name>
+          <value>filename</value>
+          <type/>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>name</name>
+          <value>name</value>
+          <type/>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship>operation</relationship>
+    <relationship_value/>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>1760</xloc>
+      <yloc>384</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-slash</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>filename</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>737</xloc>
+      <yloc>128</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

@@ -402,7 +402,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>964</xloc>
+      <xloc>960</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
