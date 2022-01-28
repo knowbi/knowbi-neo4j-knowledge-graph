@@ -24,11 +24,6 @@
   </notepads>
   <order>
     <hop>
-      <from>filter-filename</from>
-      <to>replace-backward-slash</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>unique-connection</from>
       <to>filter-connection</to>
       <enabled>Y</enabled>
@@ -84,16 +79,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>switch-type</from>
-      <to>write-starts-workflow</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>replace-backward-slash</from>
-      <to>select-values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>read-workflows</from>
       <to>select-fields</to>
       <enabled>Y</enabled>
@@ -109,13 +94,33 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>switch-type</from>
+      <to>write-starts-workflow</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>wait-for-starts-workflow</from>
+      <to>write-starts-pipeline</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-project-dir</from>
       <to>replace-project-home</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>filter-filename</from>
+      <to>get-project-dir</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>replace-project-home</from>
-      <to>write-starts-pipeline</to>
+      <to>replace-backward-slash</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-backward-slash</from>
+      <to>select-values</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -143,7 +148,7 @@
     <attributes/>
     <GUI>
       <xloc>516</xloc>
-      <yloc>296</yloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -170,7 +175,38 @@
     <attributes/>
     <GUI>
       <xloc>128</xloc>
-      <yloc>172</yloc>
+      <yloc>168</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-project-dir</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>PROJECT_DIR</name>
+        <variable>${PROJECT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -944,11 +980,11 @@
     </partitioning>
     <fields>
       <field>
-        <in_stream_name>filename</in_stream_name>
-        <out_stream_name>hpl_filename</out_stream_name>
+        <in_stream_name>ref_filename</in_stream_name>
+        <out_stream_name/>
         <use_regex>no</use_regex>
-        <replace_string>\\</replace_string>
-        <replace_by_string>/</replace_by_string>
+        <replace_string>/</replace_string>
+        <replace_by_string>\\</replace_by_string>
         <set_empty_string>N</set_empty_string>
         <replace_field_by_string/>
         <whole_word>no</whole_word>
@@ -959,7 +995,44 @@
     <attributes/>
     <GUI>
       <xloc>128</xloc>
-      <yloc>296</yloc>
+      <yloc>528</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-project-home</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var ref_filename=filename.replace("${PROJECT_HOME}",PROJECT_DIR);</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>ref_filename</name>
+        <rename>ref_filename</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>408</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1016,7 +1089,7 @@
         <name>type</name>
       </field>
       <field>
-        <name>hpl_filename</name>
+        <name>ref_filename</name>
       </field>
       <field>
         <name>hwf_filename</name>
@@ -1025,8 +1098,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>128</xloc>
-      <yloc>420</yloc>
+      <xloc>322</xloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1060,7 +1133,7 @@
     <attributes/>
     <GUI>
       <xloc>322</xloc>
-      <yloc>172</yloc>
+      <yloc>168</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1083,7 +1156,7 @@
     <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>type</name>
+        <name>hwf_filename</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1099,7 +1172,7 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>hwf_filename</name>
+        <name>ref_filename</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1109,8 +1182,8 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>322</xloc>
-      <yloc>420</yloc>
+      <xloc>516</xloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1134,17 +1207,13 @@
         <value>WORKFLOW</value>
       </case>
     </cases>
-    <case_value_decimal/>
-    <case_value_format/>
-    <case_value_group/>
     <case_value_type>None</case_value_type>
-    <default_target_transform/>
     <fieldname>type</fieldname>
     <use_contains>N</use_contains>
     <attributes/>
     <GUI>
-      <xloc>516</xloc>
-      <yloc>420</yloc>
+      <xloc>704</xloc>
+      <yloc>528</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1173,7 +1242,7 @@
     <attributes/>
     <GUI>
       <xloc>322</xloc>
-      <yloc>296</yloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1195,8 +1264,8 @@
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>516</xloc>
-      <yloc>528</yloc>
+      <xloc>704</xloc>
+      <yloc>408</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1219,7 +1288,7 @@
     <attributes/>
     <GUI>
       <xloc>710</xloc>
-      <yloc>172</yloc>
+      <yloc>168</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1264,8 +1333,8 @@
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
-      <yloc>296</yloc>
+      <xloc>704</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1387,7 +1456,7 @@
     <attributes/>
     <GUI>
       <xloc>904</xloc>
-      <yloc>296</yloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1451,7 +1520,7 @@
     <attributes/>
     <GUI>
       <xloc>904</xloc>
-      <yloc>172</yloc>
+      <yloc>168</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1503,7 +1572,7 @@
       <properties>
         <property>
           <name>filename</name>
-          <value>hpl_filename</value>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1515,7 +1584,7 @@
     <attributes/>
     <GUI>
       <xloc>904</xloc>
-      <yloc>528</yloc>
+      <yloc>408</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1567,7 +1636,7 @@
       <properties>
         <property>
           <name>filename</name>
-          <value>hwf_filename</value>
+          <value>ref_filename</value>
           <type>String</type>
           <primary>Y</primary>
         </property>
@@ -1578,38 +1647,7 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>710</xloc>
-      <yloc>420</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>replace-project-home</name>
-    <type>ReplaceString</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>hpl_filename</in_stream_name>
-        <out_stream_name/>
-        <use_regex>no</use_regex>
-        <replace_string>${PROJECT_HOME}</replace_string>
-        <replace_by_string>${PROJECT_HOME}</replace_by_string>
-        <set_empty_string>N</set_empty_string>
-        <replace_field_by_string/>
-        <whole_word>no</whole_word>
-        <case_sensitive>no</case_sensitive>
-        <is_unicode>no</is_unicode>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>710</xloc>
+      <xloc>904</xloc>
       <yloc>528</yloc>
     </GUI>
   </transform>
