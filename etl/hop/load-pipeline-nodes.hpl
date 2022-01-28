@@ -331,6 +331,18 @@
         <case_sensitive>no</case_sensitive>
         <is_unicode>no</is_unicode>
       </field>
+      <field>
+        <in_stream_name>hpl_filename</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
     </fields>
     <attributes/>
     <GUI>
@@ -378,27 +390,21 @@
     <fields>
       <field>
         <name>name</name>
-        <rename/>
       </field>
       <field>
         <name>pipeline</name>
-        <rename/>
       </field>
       <field>
         <name>hpl_filename</name>
-        <rename/>
       </field>
       <field>
         <name>type</name>
-        <rename/>
       </field>
       <field>
         <name>locX</name>
-        <rename/>
       </field>
       <field>
         <name>locY</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>

@@ -24,11 +24,6 @@
   </notepads>
   <order>
     <hop>
-      <from>calc-file</from>
-      <to>filter-hash</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>filter-hash</from>
       <to>sort-commit-file</to>
       <enabled>Y</enabled>
@@ -78,6 +73,16 @@
       <to>calc-file</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>calc-file</from>
+      <to>replace-slash</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>replace-slash</from>
+      <to>filter-hash</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>block-until-commit-file</name>
@@ -92,13 +97,12 @@
     </partitioning>
     <transforms>
       <transform>
-        <CopyNr/>
         <name>write-commitoperation-file</name>
       </transform>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1526</xloc>
+      <xloc>1549</xloc>
       <yloc>256</yloc>
     </GUI>
   </transform>
@@ -115,13 +119,12 @@
     </partitioning>
     <transforms>
       <transform>
-        <CopyNr/>
         <name>write-commitoperation-pipeline</name>
       </transform>
     </transforms>
     <attributes/>
     <GUI>
-      <xloc>1293</xloc>
+      <xloc>1346</xloc>
       <yloc>384</yloc>
     </GUI>
   </transform>
@@ -175,7 +178,7 @@ else
 
 	name = file.split('.').slice(0, -1).join('.');
 
-	filename=PROJECT_DIR+'\\'+files.replace(/\//g, "\\");
+	filename=PROJECT_DIR+'\\'+files
 
 	if(file.endsWith('.hpl')){
  		 label = 'Pipeline'; 
@@ -246,7 +249,7 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>594</xloc>
+      <xloc>534</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -273,7 +276,7 @@ else
     </compare>
     <attributes/>
     <GUI>
-      <xloc>1293</xloc>
+      <xloc>1346</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -309,7 +312,7 @@ else
     </compare>
     <attributes/>
     <GUI>
-      <xloc>827</xloc>
+      <xloc>940</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -340,7 +343,7 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>361</xloc>
+      <xloc>331</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -518,7 +521,7 @@ else
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1060</xloc>
+      <xloc>1143</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -547,16 +550,11 @@ else
         <value>Workflow</value>
       </case>
     </cases>
-    <case_value_decimal/>
-    <case_value_format/>
-    <case_value_group/>
-    <case_value_type/>
-    <default_target_transform/>
     <fieldname>label</fieldname>
     <use_contains>N</use_contains>
     <attributes/>
     <GUI>
-      <xloc>1526</xloc>
+      <xloc>1549</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -611,7 +609,7 @@ else
           <name>name</name>
           <value>name</value>
           <type/>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
       </properties>
     </to>
@@ -620,7 +618,7 @@ else
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>1759</xloc>
+      <xloc>1752</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -675,7 +673,7 @@ else
           <name>name</name>
           <value>name</value>
           <type/>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
       </properties>
     </to>
@@ -739,7 +737,7 @@ else
           <name>name</name>
           <value>name</value>
           <type/>
-          <primary>Y</primary>
+          <primary>N</primary>
         </property>
       </properties>
     </to>
@@ -750,6 +748,37 @@ else
     <GUI>
       <xloc>1760</xloc>
       <yloc>384</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>replace-slash</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>filename</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>\</replace_string>
+        <replace_by_string>/</replace_by_string>
+        <set_empty_string>N</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+        <is_unicode>no</is_unicode>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>737</xloc>
+      <yloc>128</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
