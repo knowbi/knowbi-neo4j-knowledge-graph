@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>load-aws-ec2</name>
+    <name>load-aws-ec2-regions</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
     <description/>
     <extended_description/>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
     <parameters>
+      <parameter>
+        <name>region</name>
+        <default_value>eu-west-3</default_value>
+        <description/>
+      </parameter>
     </parameters>
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
@@ -24,6 +30,16 @@
   <order>
     <hop>
       <from>get-ec2</from>
+      <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-ec2-details</from>
+      <to>get-tags</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
       <to>get-ec2-details</to>
       <enabled>Y</enabled>
     </hop>
@@ -32,7 +48,59 @@
       <to>write-ec2instance</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>get-tags</from>
+      <to>wait-for-write-vpc</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>wait-for-write-vpc</from>
+      <to>write-ec2Tags</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-securitygroups</from>
+      <to>wait-for-write-vpc 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>wait-for-write-vpc 2</from>
+      <to>write-ec2Tags 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-ec2-details</from>
+      <to>get-securitygroups</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>get-ec2-details</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>instances</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>get-ec2</name>
     <type>JsonInput</type>
@@ -56,7 +124,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${PROJECT_HOME}/aws/input/ec2.json</name>
+      <name>${PROJECT_HOME}/aws/input/ec2-${region}.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -99,7 +167,7 @@
     <name>get-ec2-details</name>
     <type>JsonInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -333,6 +401,32 @@
         <trim_type>none</trim_type>
         <repeat>N</repeat>
       </field>
+      <field>
+        <name>tags</name>
+        <path>$.Tags</path>
+        <type>None</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>NetworkInterfaces</name>
+        <path>$.NetworkInterfaces</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
     </fields>
     <limit>0</limit>
     <IsInFields>Y</IsInFields>
@@ -348,7 +442,105 @@
     <sizeFieldName/>
     <attributes/>
     <GUI>
-      <xloc>336</xloc>
+      <xloc>416</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-tags</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>tagKey</name>
+        <path>$.*.Key</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>tagValue</name>
+        <path>$.*.Value</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>tags</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-vpc</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-ec2instance</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
       <yloc>128</yloc>
     </GUI>
   </transform>
@@ -375,7 +567,7 @@
       <read_only_from_node>N</read_only_from_node>
       <labels>
         <label/>
-        <value>EC2Instance</value>
+        <value>EC2</value>
       </labels>
       <properties>
         <property>
@@ -486,8 +678,227 @@
     <relprops/>
     <attributes/>
     <GUI>
-      <xloc>592</xloc>
+      <xloc>416</xloc>
+      <yloc>240</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-ec2Tags</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>EC2</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>EC2Tag</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>tagKey</name>
+          <value>tagKey</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>tagValue</name>
+          <value>tagValue</value>
+          <type>String</type>
+          <primary>N</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>EC2_HAS_TAG</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>896</xloc>
       <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-securitygroups</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>SecGroupId</name>
+        <path>$.*.Groups.*.GroupId</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>NetworkInterfaces</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>wait-for-write-vpc 2</name>
+    <type>BlockUntilTransformsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <transforms>
+      <transform>
+        <CopyNr>0</CopyNr>
+        <name>write-ec2instance</name>
+      </transform>
+    </transforms>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>write-ec2Tags 2</name>
+    <type>Neo4JOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>lineage-graph</connection>
+    <batch_size>1000</batch_size>
+    <key/>
+    <create_indexes>N</create_indexes>
+    <use_create>N</use_create>
+    <only_create_relationships>N</only_create_relationships>
+    <returning_graph>N</returning_graph>
+    <return_graph_field>graph</return_graph_field>
+    <from>
+      <read_only_from_node>N</read_only_from_node>
+      <labels>
+        <label/>
+        <value>EC2</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </from>
+    <to>
+      <read_only_to_node>N</read_only_to_node>
+      <labels>
+        <label/>
+        <value>SG</value>
+      </labels>
+      <properties>
+        <property>
+          <name>instanceId</name>
+          <value>instanceId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+        <property>
+          <name>SecgroupId</name>
+          <value>SecGroupId</value>
+          <type>String</type>
+          <primary>Y</primary>
+        </property>
+      </properties>
+    </to>
+    <relationship/>
+    <relationship_value>EC2_HAS_SG</relationship_value>
+    <relprops/>
+    <attributes/>
+    <GUI>
+      <xloc>896</xloc>
+      <yloc>224</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

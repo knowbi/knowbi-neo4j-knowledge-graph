@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
     <name>tr_insert_rds_nodes</name>
+    <name_sync_with_filename>N</name_sync_with_filename>
     <description/>
     <extended_description/>
     <pipeline_version/>
     <pipeline_type>Normal</pipeline_type>
     <pipeline_status>0</pipeline_status>
-    <directory>/</directory>
     <parameters>
       <parameter>
         <name>PRM_RDS_JSON</name>
@@ -15,23 +15,9 @@
         <description/>
       </parameter>
     </parameters>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <capture_transform_performance>N</capture_transform_performance>
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
     <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
-    
-    
-    
-    
     <created_user>-</created_user>
     <created_date>2019/11/20 08:21:33.774</created_date>
     <modified_user>-</modified_user>
@@ -116,26 +102,18 @@
     </partitioning>
     <fields>
       <field>
-        <name>region_code</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
+        <length>-1</length>
+        <name>region_code</name>
+        <precision>-1</precision>
+        <type>String</type>
       </field>
       <field>
-        <name>region_name</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
+        <length>-1</length>
+        <name>region_name</name>
+        <precision>-1</precision>
+        <type>String</type>
       </field>
     </fields>
     <data>
@@ -217,12 +195,9 @@
       </line>
     </data>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>939</xloc>
       <yloc>172</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -247,12 +222,9 @@
       </condition>
     </compare>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1114</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -279,12 +251,9 @@
       </condition>
     </compare>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>939</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -370,12 +339,9 @@
     <extensionFieldName/>
     <sizeFieldName/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>239</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -435,12 +401,9 @@
     <extensionFieldName/>
     <sizeFieldName/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>589</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -513,12 +476,9 @@
     <extensionFieldName/>
     <sizeFieldName/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>414</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -544,8 +504,8 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${PRM_RDS_JSON}</name>
-      <filemask>.*._rds_describe.json</filemask>
+      <name>${PROJECT_HOME}/aws/input/rds-eu-west-1.json</name>
+      <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
@@ -786,12 +746,9 @@
     <extensionFieldName/>
     <sizeFieldName/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>64</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -869,12 +826,9 @@
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>764</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -1074,12 +1028,9 @@
       </field>
     </fields>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1289</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -1131,12 +1082,9 @@
     <relationship_value/>
     <relprops/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1464</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -1188,12 +1136,9 @@
     <relationship_value/>
     <relprops/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1464</xloc>
       <yloc>388</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -1239,12 +1184,9 @@
     <relationship_value/>
     <relprops/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1464</xloc>
       <yloc>280</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform>
@@ -1296,17 +1238,12 @@
     <relationship_value/>
     <relprops/>
     <attributes/>
-    <cluster_schema/>
-    
     <GUI>
       <xloc>1464</xloc>
       <yloc>172</yloc>
-      <draw>Y</draw>
     </GUI>
   </transform>
   <transform_error_handling>
   </transform_error_handling>
-  
-  
   <attributes/>
 </pipeline>

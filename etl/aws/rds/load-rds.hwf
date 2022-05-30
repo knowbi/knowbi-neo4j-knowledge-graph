@@ -16,15 +16,12 @@
       <description/>
     </parameter>
   </parameters>
-  <pass_batchid>N</pass_batchid>
   <actions>
     <action>
       <name>Start</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
-      <start>Y</start>
-      <dummy>N</dummy>
       <repeat>N</repeat>
       <schedulerType>0</schedulerType>
       <intervalSeconds>0</intervalSeconds>
@@ -34,17 +31,16 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>200</xloc>
       <yloc>100</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Insert RDS Nodes</name>
+      <name>insert-rds-nodes.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/aws/rds/pl_insert_rds_nodes.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/rds/insert-rds-nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -57,7 +53,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -69,17 +64,16 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>400</xloc>
       <yloc>100</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>Insert RDS Relations</name>
+      <name>insert-rds-relations.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/aws/rds/pl_insert_rds_relations.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/rds/insert-rds-relations.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -92,7 +86,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -104,7 +97,6 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>704</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
@@ -115,7 +107,6 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <nr>0</nr>
       <xloc>928</xloc>
       <yloc>96</yloc>
       <attributes_hac/>
@@ -124,27 +115,21 @@
   <hops>
     <hop>
       <from>Start</from>
-      <to>Insert RDS Nodes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <to>insert-rds-nodes.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Insert RDS Nodes</from>
-      <to>Insert RDS Relations</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
+      <from>insert-rds-nodes.hpl</from>
+      <to>insert-rds-relations.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Insert RDS Relations</from>
+      <from>insert-rds-relations.hpl</from>
       <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
