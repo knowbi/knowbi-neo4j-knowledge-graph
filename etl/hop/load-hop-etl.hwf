@@ -36,7 +36,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-pipeline-nodes.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-pipeline-nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -49,7 +49,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -65,7 +64,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-workflow-nodes.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-workflow-nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -78,7 +77,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -94,7 +92,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-pipeline-relationships.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-pipeline-relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -107,7 +105,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -123,7 +120,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-workflow-relations.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-workflow-relations.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -136,7 +133,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -175,7 +171,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-parameters-pipeline.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-parameters-pipeline.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -188,7 +184,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -214,7 +209,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-transform-fields.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-transform-fields.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -227,7 +222,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -243,7 +237,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-pipeline-hops.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-pipeline-hops.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -256,7 +250,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -272,7 +265,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-file-modifications.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-file-modifications.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -285,7 +278,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -297,34 +289,11 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>create-indexes</name>
-      <description/>
-      <type>NEO4J_CYPHER_SCRIPT</type>
-      <attributes/>
-      <connection>lineage-graph</connection>
-      <script>CREATE INDEX IF NOT EXISTS for (n:Action) on (n.name, n.workflowName, n.pluginId, n.filename)
-;
-
-CREATE INDEX IF NOT EXISTS for (n:Transform) on (n.name, n.pipelineName, n.pluginId)
-;
-
-CREATE INDEX IF NOT EXISTS for (n:Parameter) on (n.name, n.usedBy)
-;
-
-CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
-;</script>
-      <replace_variables>N</replace_variables>
-      <parallel>N</parallel>
-      <xloc>313</xloc>
-      <yloc>64</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
       <name>load-workflow-relationship-hops</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-workflow-relationship-hops.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-workflow-relationship-hops.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -337,7 +306,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -353,7 +321,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-parameters-workflow.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-parameters-workflow.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -366,7 +334,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -382,7 +349,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-connection-nodes.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-connection-nodes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -395,7 +362,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -411,7 +377,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-connection-database.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-connection-database.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -424,7 +390,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -440,7 +405,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-transform-table-relationship.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-transform-table-relationship.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -453,7 +418,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -469,7 +433,7 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/hop/load-transform-fields-relationship.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-transform-fields-relationship.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -482,7 +446,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -491,6 +454,44 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <parallel>N</parallel>
       <xloc>530</xloc>
       <yloc>720</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>create-index</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${DEPENDENCY_HOME}/etl/utils/neo4j/create-index.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>CONNECTION_NAME</name>
+          <stream_name/>
+          <value>lineage-graph</value>
+        </parameter>
+        <parameter>
+          <name>PROJECT_DIR</name>
+          <stream_name/>
+          <value>${DEPENDENCY_HOME}/etl/hop</value>
+        </parameter>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>313</xloc>
+      <yloc>64</yloc>
       <attributes_hac/>
     </action>
   </actions>
@@ -575,20 +576,6 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
     <hop>
       <from>load-workflow-relationships</from>
       <to>load-pipeline-hops</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>start</from>
-      <to>create-indexes</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>create-indexes</from>
-      <to>load-workflow-nodes</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -704,6 +691,20 @@ CREATE INDEX IF NOT EXISTS for (t:Table) on (t.table, t.schema, t.database)
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>create-index</from>
+      <to>load-workflow-nodes</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>start</from>
+      <to>create-index</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>

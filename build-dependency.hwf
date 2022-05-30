@@ -37,6 +37,11 @@
       <description>The configuration environment of the project</description>
     </parameter>
     <parameter>
+      <name>DEPENDENCY_HOME</name>
+      <default_value>${PROJECT_HOME}</default_value>
+      <description>The location of the neo4j-dependency project</description>
+    </parameter>
+    <parameter>
       <name>ETL_LINEAGE</name>
       <default_value>N</default_value>
       <description>Indicates if lineage on Hop etl must be loaded</description>
@@ -45,11 +50,6 @@
       <name>GIT_LINEAGE</name>
       <default_value>N</default_value>
       <description>Indicates if lineage on Git must be loaded</description>
-    </parameter>
-    <parameter>
-      <name>GIT_TMP_DIR</name>
-      <default_value/>
-      <description>The directory to temporary store the git logs</description>
     </parameter>
     <parameter>
       <name>PROJECT_DIR</name>
@@ -173,7 +173,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/aws/get-aws-info.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/aws/get-aws-info.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -222,7 +222,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/hop/load-hop-etl.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-hop-etl.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -249,7 +249,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/git/write-git-logs.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/git/write-git-logs.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -308,7 +308,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/clean-database.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/utils/neo4j/remove-everything/clean-database.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -335,7 +335,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}\etl\rdbms\load-database.hwf</filename>
+      <filename>${DEPENDENCY_HOME}\etl\rdbms\load-database.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>

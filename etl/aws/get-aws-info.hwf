@@ -46,11 +46,11 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>aws ec2 describe-vpcs  > ${PROJECT_HOME}/aws/input/vpc.json
-aws ec2 describe-availability-zones >  ${PROJECT_HOME}/aws/input/availabilityzones.json
-aws ec2 describe-subnets > ${PROJECT_HOME}/aws/input/subnets.json
-aws ec2 describe-instances > ${PROJECT_HOME}/aws/input/ec2.json
-aws rds describe-db-instances > ${PROJECT_HOME}/aws/input/rds.json
+      <script>aws ec2 describe-vpcs  > ${DEPENDENCY_HOME}/aws/input/vpc.json
+aws ec2 describe-availability-zones >  ${DEPENDENCY_HOME}/aws/input/availabilityzones.json
+aws ec2 describe-subnets > ${DEPENDENCY_HOME}/aws/input/subnets.json
+aws ec2 describe-instances > ${DEPENDENCY_HOME}/aws/input/ec2.json
+aws rds describe-db-instances > ${DEPENDENCY_HOME}/aws/input/rds.json
 </script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
@@ -64,7 +64,7 @@ aws rds describe-db-instances > ${PROJECT_HOME}/aws/input/rds.json
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/aws/load-aws.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/aws/load-aws.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -90,7 +90,7 @@ aws rds describe-db-instances > ${PROJECT_HOME}/aws/input/rds.json
       <description/>
       <type>CREATE_FOLDER</type>
       <attributes/>
-      <foldername>${PROJECT_HOME}/aws/input</foldername>
+      <foldername>${DEPENDENCY_HOME}/aws/input</foldername>
       <fail_of_folder_exists>N</fail_of_folder_exists>
       <parallel>N</parallel>
       <xloc>288</xloc>

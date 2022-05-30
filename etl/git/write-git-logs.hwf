@@ -39,7 +39,7 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>git log --all --format='%d;%H;%cn;%ce;%cd;%s' --all > ${GIT_TMP_DIR}/git.csv</script>
+      <script>git log --all --format='%d;%H;%cn;%ce;%cd;%s' --all > ${DEPENDENCY_HOME}/git/input/git.csv</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
       <xloc>245</xloc>
@@ -79,7 +79,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/git/load-git-logs.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/git/load-git-logs.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -92,7 +92,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -108,7 +107,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/git/load-git-relationships.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/git/load-git-relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -121,7 +120,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -137,7 +135,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}/etl/git/load-file-relationships.hpl</filename>
+      <filename>${DEPENDENCY_HOME}/etl/git/load-file-relationships.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -150,7 +148,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -166,7 +163,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${PROJECT_HOME}\etl\git\read-commit-hashes.hpl</filename>
+      <filename>${DEPENDENCY_HOME}\etl\git\read-commit-hashes.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -179,7 +176,6 @@
       <loglevel>Basic</loglevel>
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <run_configuration>local</run_configuration>
       <parameters>
@@ -206,7 +202,7 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>git log --all --format='%%d;%%H;%%cn;%%ce;%%cd;%%s' --all > ${GIT_TMP_DIR}/git.csv</script>
+      <script>git log --all --format='%%d;%%H;%%cn;%%ce;%%cd;%%s' --all > ${DEPENDENCY_HOME}/git/input/git.csv</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
       <xloc>245</xloc>
