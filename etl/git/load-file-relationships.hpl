@@ -386,7 +386,7 @@ else
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${DEPENDENCY_HOME}/git/input/</name>
+      <name>${GENERATE_INPUT_DIR}/input/git</name>
       <filemask>gp-commit-details.csv</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>

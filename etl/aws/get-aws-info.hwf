@@ -13,7 +13,7 @@
     </parameters>
   <actions>
     <action>
-      <name>Start</name>
+      <name>start</name>
       <description/>
       <type>SPECIAL</type>
       <attributes/>
@@ -31,7 +31,7 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>get aws info</name>
+      <name>get-aws-info</name>
       <description/>
       <type>SHELL</type>
       <attributes/>
@@ -46,11 +46,11 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>aws ec2 describe-vpcs  > ${DEPENDENCY_HOME}/aws/input/vpc.json
-aws ec2 describe-availability-zones >  ${DEPENDENCY_HOME}/aws/input/availabilityzones.json
-aws ec2 describe-subnets > ${DEPENDENCY_HOME}/aws/input/subnets.json
-aws ec2 describe-instances > ${DEPENDENCY_HOME}/aws/input/ec2.json
-aws rds describe-db-instances > ${DEPENDENCY_HOME}/aws/input/rds.json
+      <script>aws ec2 describe-vpcs  > ${GENERATE_INPUT_DIR}/input/aws/vpc.json
+aws ec2 describe-availability-zones >  ${GENERATE_INPUT_DIR}/input/aws/availabilityzones.json
+aws ec2 describe-subnets > ${GENERATE_INPUT_DIR}/input/aws/subnets.json
+aws ec2 describe-instances > ${GENERATE_INPUT_DIR}/input/aws/ec2.json
+aws rds describe-db-instances > ${GENERATE_INPUT_DIR}/input/aws/rds.json
 </script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
@@ -86,11 +86,11 @@ aws rds describe-db-instances > ${DEPENDENCY_HOME}/aws/input/rds.json
       <attributes_hac/>
     </action>
     <action>
-      <name>create aws directory</name>
+      <name>create-aws-directory</name>
       <description/>
       <type>CREATE_FOLDER</type>
       <attributes/>
-      <foldername>${DEPENDENCY_HOME}/aws/input</foldername>
+      <foldername>${GENERATE_INPUT_DIR}/input/aws</foldername>
       <fail_of_folder_exists>N</fail_of_folder_exists>
       <parallel>N</parallel>
       <xloc>288</xloc>
@@ -100,22 +100,22 @@ aws rds describe-db-instances > ${DEPENDENCY_HOME}/aws/input/rds.json
   </actions>
   <hops>
     <hop>
-      <from>get aws info</from>
+      <from>get-aws-info</from>
       <to>load-aws.hwf</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Start</from>
-      <to>create aws directory</to>
+      <from>start</from>
+      <to>create-aws-directory</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>create aws directory</from>
-      <to>get aws info</to>
+      <from>create-aws-directory</from>
+      <to>get-aws-info</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>

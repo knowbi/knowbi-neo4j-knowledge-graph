@@ -24,6 +24,11 @@
   <order>
     <hop>
       <from>read-git-log</from>
+      <to>get-generated-dir</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>get-generated-dir</from>
       <to>write-git-commit-files</to>
       <enabled>Y</enabled>
     </hop>
@@ -67,7 +72,7 @@
     <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>${DEPENDENCY_HOME}/git/input/</name>
+      <name>${GENERATE_INPUT_DIR}/input/git</name>
       <filemask>git.csv</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -222,6 +227,11 @@
         <field>hash</field>
         <input/>
       </variablemapping>
+      <variablemapping>
+        <variable>GENERATE_INPUT_DIR</variable>
+        <field>GENERATE_INPUT_DIR</field>
+        <input/>
+      </variablemapping>
       <inherit_all_vars>Y</inherit_all_vars>
     </parameters>
     <execution_result_target_transform/>
@@ -244,7 +254,38 @@
     <result_files_file_name_field>FileName</result_files_file_name_field>
     <attributes/>
     <GUI>
-      <xloc>320</xloc>
+      <xloc>448</xloc>
+      <yloc>112</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>get-generated-dir</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>GENERATE_INPUT_DIR</name>
+        <variable>${GENERATE_INPUT_DIR}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>304</xloc>
       <yloc>112</yloc>
     </GUI>
   </transform>

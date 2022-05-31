@@ -52,7 +52,9 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>git show --name-status --pretty="format:${GIT_COMMIT_HASH};" ${GIT_COMMIT_HASH} >> ${GIT_TMP_DIR}/gp-commit-details.csv</script>
+      <script>git show --name-status --pretty="format:${GIT_COMMIT_HASH};" ${GIT_COMMIT_HASH} >> ${GENERATE_INPUT_DIR}/input/git/gp-commit-details.csv
+
+</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
       <xloc>225</xloc>

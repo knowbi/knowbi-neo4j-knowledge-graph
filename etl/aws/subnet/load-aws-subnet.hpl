@@ -274,7 +274,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${DEPENDENCY_HOME}/aws/input/subnets.json</name>
+      <name>${GENERATE_INPUT_DIR}/input/aws/subnets.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
