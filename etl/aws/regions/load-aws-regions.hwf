@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workflow>
-  <name>load-aws</name>
+  <name>load-aws-regions</name>
   <name_sync_with_filename>N</name_sync_with_filename>
   <description/>
   <extended_description/>
@@ -11,7 +11,12 @@
   <modified_user>-</modified_user>
   <modified_date>2020/11/19 14:18:51.259</modified_date>
   <parameters>
-    </parameters>
+    <parameter>
+      <name>region</name>
+      <default_value/>
+      <description/>
+    </parameter>
+  </parameters>
   <actions>
     <action>
       <name>start</name>
@@ -27,16 +32,16 @@
       <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
       <parallel>N</parallel>
-      <xloc>64</xloc>
-      <yloc>160</yloc>
+      <xloc>128</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>load-aws-vpc</name>
+      <name>load-aws-vpc-regions.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/vpc/load-aws-vpc.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/vpc/load-aws-vpc-regions.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -55,16 +60,49 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>366</xloc>
-      <yloc>160</yloc>
+      <xloc>298</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>load-aws-az</name>
+      <name>load-aws-az-regions.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/availability-zone/load-aws-az.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/availability-zone/load-aws-az-regions.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>region</name>
+          <stream_name/>
+          <value/>
+        </parameter>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>468</xloc>
+      <yloc>176</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-aws-subnet-regions.hpl</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${PROJECT_HOME}/etl/aws/subnet/load-aws-subnet-regions.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -83,16 +121,16 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>517</xloc>
-      <yloc>160</yloc>
+      <xloc>638</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
-      <name>load-aws-subnet</name>
+      <name>load-aws-ec2-regions.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/subnet/load-aws-subnet.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/ec2/load-aws-ec2-regions.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -109,38 +147,15 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>region</name>
+          <stream_name/>
+          <value/>
+        </parameter>
       </parameters>
       <parallel>N</parallel>
-      <xloc>668</xloc>
-      <yloc>160</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>load-aws-ec2</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/ec2/load-aws-ec2.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <xloc>819</xloc>
-      <yloc>160</yloc>
+      <xloc>808</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -148,7 +163,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/load-aws-relations-subnet.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/load-aws-relations-subnet.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -167,8 +182,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>970</xloc>
-      <yloc>160</yloc>
+      <xloc>978</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -177,8 +192,8 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1423</xloc>
-      <yloc>160</yloc>
+      <xloc>1520</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -186,7 +201,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/load-aws-relations-az.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/load-aws-relations-az.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -205,8 +220,8 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1121</xloc>
-      <yloc>160</yloc>
+      <xloc>1148</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -214,7 +229,7 @@
       <description/>
       <type>PIPELINE</type>
       <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/aws/load-aws-relations-dns.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/aws/load-aws-relations-dns.hpl</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
@@ -233,73 +248,42 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>1272</xloc>
-      <yloc>160</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>create-index</name>
-      <description/>
-      <type>PIPELINE</type>
-      <attributes/>
-      <filename>${DEPENDENCY_HOME}/etl/utils/neo4j/create-index.hpl</filename>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <create_parent_folder>N</create_parent_folder>
-      <run_configuration>local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-        <parameter>
-          <name>CONNECTION_NAME</name>
-          <stream_name/>
-          <value>lineage-graph</value>
-        </parameter>
-        <parameter>
-          <name>PROJECT_DIR</name>
-          <stream_name/>
-          <value>${DEPENDENCY_HOME}/etl/aws</value>
-        </parameter>
-      </parameters>
-      <parallel>N</parallel>
-      <xloc>215</xloc>
-      <yloc>160</yloc>
+      <xloc>1318</xloc>
+      <yloc>176</yloc>
       <attributes_hac/>
     </action>
   </actions>
   <hops>
     <hop>
-      <from>load-aws-vpc</from>
-      <to>load-aws-az</to>
+      <from>start</from>
+      <to>load-aws-vpc-regions.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>load-aws-vpc-regions.hpl</from>
+      <to>load-aws-az-regions.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-aws-az</from>
-      <to>load-aws-subnet</to>
+      <from>load-aws-az-regions.hpl</from>
+      <to>load-aws-subnet-regions.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-aws-subnet</from>
-      <to>load-aws-ec2</to>
+      <from>load-aws-subnet-regions.hpl</from>
+      <to>load-aws-ec2-regions.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load-aws-ec2</from>
+      <from>load-aws-ec2-regions.hpl</from>
       <to>load-aws-relations-subnet</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
@@ -322,20 +306,6 @@
     <hop>
       <from>load-aws-relations-dns</from>
       <to>success</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>start</from>
-      <to>create-index</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>create-index</from>
-      <to>load-aws-vpc</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

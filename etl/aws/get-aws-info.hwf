@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+  <name>get-aws-info</name>
+  <name_sync_with_filename>Y</name_sync_with_filename>
+  <description/>
+  <extended_description/>
+  <workflow_version/>
+  <created_user>-</created_user>
+  <created_date>2022/05/17 09:44:48.465</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2022/05/17 09:44:48.465</modified_date>
+  <parameters>
+    </parameters>
+  <actions>
+    <action>
+      <name>start</name>
+      <description/>
+      <type>SPECIAL</type>
+      <attributes/>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <hour>12</hour>
+      <minutes>0</minutes>
+      <weekDay>1</weekDay>
+      <DayOfMonth>1</DayOfMonth>
+      <parallel>N</parallel>
+      <xloc>144</xloc>
+      <yloc>80</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>get-aws-info</name>
+      <description/>
+      <type>SHELL</type>
+      <attributes/>
+      <filename/>
+      <work_directory/>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>Y</insertScript>
+      <script>aws ec2 describe-vpcs  > ${GENERATE_INPUT_DIR}/input/aws/vpc.json
+aws ec2 describe-availability-zones >  ${GENERATE_INPUT_DIR}/input/aws/availabilityzones.json
+aws ec2 describe-subnets > ${GENERATE_INPUT_DIR}/input/aws/subnets.json
+aws ec2 describe-instances > ${GENERATE_INPUT_DIR}/input/aws/ec2.json
+aws rds describe-db-instances > ${GENERATE_INPUT_DIR}/input/aws/rds.json
+</script>
+      <loglevel>Basic</loglevel>
+      <parallel>N</parallel>
+      <xloc>432</xloc>
+      <yloc>80</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>load-aws.hwf</name>
+      <description/>
+      <type>WORKFLOW</type>
+      <attributes/>
+      <run_configuration>local</run_configuration>
+      <filename>${DEPENDENCY_HOME}/etl/aws/load-aws.hwf</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <wait_until_finished>Y</wait_until_finished>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <xloc>576</xloc>
+      <yloc>80</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>create-aws-directory</name>
+      <description/>
+      <type>CREATE_FOLDER</type>
+      <attributes/>
+      <foldername>${GENERATE_INPUT_DIR}/input/aws</foldername>
+      <fail_of_folder_exists>N</fail_of_folder_exists>
+      <parallel>N</parallel>
+      <xloc>288</xloc>
+      <yloc>80</yloc>
+      <attributes_hac/>
+    </action>
+  </actions>
+  <hops>
+    <hop>
+      <from>get-aws-info</from>
+      <to>load-aws.hwf</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>start</from>
+      <to>create-aws-directory</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>create-aws-directory</from>
+      <to>get-aws-info</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+  </notepads>
+  <attributes/>
+</workflow>

@@ -37,19 +37,24 @@
       <description>The configuration environment of the project</description>
     </parameter>
     <parameter>
+      <name>DEPENDENCY_HOME</name>
+      <default_value>${PROJECT_HOME}</default_value>
+      <description>The location of the neo4j-dependency project</description>
+    </parameter>
+    <parameter>
       <name>ETL_LINEAGE</name>
       <default_value>N</default_value>
       <description>Indicates if lineage on Hop etl must be loaded</description>
     </parameter>
     <parameter>
+      <name>GENERATE_INPUT_DIR</name>
+      <default_value>${PROJECT_HOME}</default_value>
+      <description>The location where input files can be generated</description>
+    </parameter>
+    <parameter>
       <name>GIT_LINEAGE</name>
       <default_value>N</default_value>
       <description>Indicates if lineage on Git must be loaded</description>
-    </parameter>
-    <parameter>
-      <name>GIT_TMP_DIR</name>
-      <default_value/>
-      <description>The directory to temporary store the git logs</description>
     </parameter>
     <parameter>
       <name>PROJECT_DIR</name>
@@ -173,7 +178,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/aws/load-aws.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/aws/get-aws-info.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -183,12 +188,15 @@
       <add_time>N</add_time>
       <loglevel>Nothing</loglevel>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>GENERATE_INPUT_DIR</name>
+          <stream_name/>
+          <value>${GENERATE_INPUT_DIR}</value>
+        </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
@@ -224,7 +232,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/hop/load-hop-etl.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/hop/load-hop-etl.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -234,9 +242,7 @@
       <add_time>N</add_time>
       <loglevel>Nothing</loglevel>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -253,7 +259,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/git/write-git-logs.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/git/write-git-logs.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -263,21 +269,19 @@
       <add_time>N</add_time>
       <loglevel>Nothing</loglevel>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
         <parameter>
-          <name>GIT_TMP_DIR</name>
-          <stream_name/>
-          <value>${GIT_TMP_DIR}</value>
-        </parameter>
-        <parameter>
           <name>PROJECT_DIR</name>
           <stream_name/>
           <value>${PROJECT_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>GENERATE_INPUT_DIR</name>
+          <stream_name/>
+          <value>${GENERATE_INPUT_DIR}</value>
         </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
@@ -314,7 +318,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}/etl/utils/neo4j/remove-everything/clean-database.hwf</filename>
+      <filename>${DEPENDENCY_HOME}/etl/utils/neo4j/remove-everything/clean-database.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -324,9 +328,7 @@
       <add_time>N</add_time>
       <loglevel>Nothing</loglevel>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -343,7 +345,7 @@
       <type>WORKFLOW</type>
       <attributes/>
       <run_configuration>local</run_configuration>
-      <filename>${PROJECT_HOME}\etl\rdbms\load-database.hwf</filename>
+      <filename>${DEPENDENCY_HOME}\etl\rdbms\load-database.hwf</filename>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
@@ -353,9 +355,7 @@
       <add_time>N</add_time>
       <loglevel>Nothing</loglevel>
       <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
