@@ -56,7 +56,7 @@
     <defaultPathLeafToNull>Y</defaultPathLeafToNull>
     <rownum_field/>
     <file>
-      <name>${DEPENDENCY_HOME}/aws/input/availabilityzones.json</name>
+      <name>${GENERATE_INPUT_DIR}/input/aws/availabilityzones.json</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>

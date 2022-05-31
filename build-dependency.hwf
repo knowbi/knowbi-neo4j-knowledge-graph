@@ -47,6 +47,11 @@
       <description>Indicates if lineage on Hop etl must be loaded</description>
     </parameter>
     <parameter>
+      <name>GENERATE_INPUT_DIR</name>
+      <default_value>${PROJECT_HOME}</default_value>
+      <description>The location where input files can be generated</description>
+    </parameter>
+    <parameter>
       <name>GIT_LINEAGE</name>
       <default_value>N</default_value>
       <description>Indicates if lineage on Git must be loaded</description>
@@ -187,6 +192,11 @@
       <run_configuration>local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>GENERATE_INPUT_DIR</name>
+          <stream_name/>
+          <value>${GENERATE_INPUT_DIR}</value>
+        </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
@@ -264,14 +274,14 @@
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
         <parameter>
-          <name>GIT_TMP_DIR</name>
-          <stream_name/>
-          <value>${GIT_TMP_DIR}</value>
-        </parameter>
-        <parameter>
           <name>PROJECT_DIR</name>
           <stream_name/>
           <value>${PROJECT_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>GENERATE_INPUT_DIR</name>
+          <stream_name/>
+          <value>${GENERATE_INPUT_DIR}</value>
         </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>
