@@ -18,12 +18,12 @@
     </parameter>
     <parameter>
       <name>AWS_LINEAGE</name>
-      <default_value>N</default_value>
+      <default_value/>
       <description>Indicates if lineage on aws must be loaded</description>
     </parameter>
     <parameter>
       <name>CLEAN_NEO4J_DATA</name>
-      <default_value>N</default_value>
+      <default_value/>
       <description>Indicates if the data in Neo4j graph must be removed</description>
     </parameter>
     <parameter>
@@ -38,22 +38,22 @@
     </parameter>
     <parameter>
       <name>DEPENDENCY_HOME</name>
-      <default_value>${PROJECT_HOME}</default_value>
+      <default_value/>
       <description>The location of the neo4j-dependency project</description>
     </parameter>
     <parameter>
       <name>ETL_LINEAGE</name>
-      <default_value>N</default_value>
+      <default_value/>
       <description>Indicates if lineage on Hop etl must be loaded</description>
     </parameter>
     <parameter>
       <name>GENERATE_INPUT_DIR</name>
-      <default_value>${PROJECT_HOME}</default_value>
+      <default_value/>
       <description>The location where input files can be generated</description>
     </parameter>
     <parameter>
       <name>GIT_LINEAGE</name>
-      <default_value>N</default_value>
+      <default_value/>
       <description>Indicates if lineage on Git must be loaded</description>
     </parameter>
     <parameter>
@@ -63,7 +63,7 @@
     </parameter>
     <parameter>
       <name>RDBMS_LINEAGE</name>
-      <default_value>N</default_value>
+      <default_value/>
       <description>Indicates if lineage on rdbms must be loaded</description>
     </parameter>
   </parameters>
