@@ -66,6 +66,11 @@
       <default_value/>
       <description>Indicates if lineage on rdbms must be loaded</description>
     </parameter>
+    <parameter>
+      <name>REGION</name>
+      <default_value/>
+      <description>The aws region</description>
+    </parameter>
   </parameters>
   <actions>
     <action>
@@ -196,6 +201,11 @@
           <name>GENERATE_INPUT_DIR</name>
           <stream_name/>
           <value>${GENERATE_INPUT_DIR}</value>
+        </parameter>
+        <parameter>
+          <name>REGION</name>
+          <stream_name/>
+          <value>${REGION}</value>
         </parameter>
       </parameters>
       <set_append_logfile>N</set_append_logfile>

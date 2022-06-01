@@ -46,11 +46,11 @@
       <add_date>N</add_date>
       <add_time>N</add_time>
       <insertScript>Y</insertScript>
-      <script>aws ec2 describe-vpcs  > ${GENERATE_INPUT_DIR}/input/aws/vpc.json
-aws ec2 describe-availability-zones >  ${GENERATE_INPUT_DIR}/input/aws/availabilityzones.json
-aws ec2 describe-subnets > ${GENERATE_INPUT_DIR}/input/aws/subnets.json
-aws ec2 describe-instances > ${GENERATE_INPUT_DIR}/input/aws/ec2.json
-aws rds describe-db-instances > ${GENERATE_INPUT_DIR}/input/aws/rds.json
+      <script>aws ec2 describe-vpcs --region ${REGION}  > ${GENERATE_INPUT_DIR}/input/aws/vpc.json
+aws ec2 describe-availability-zones --region ${REGION}  >  ${GENERATE_INPUT_DIR}/input/aws/availabilityzones.json
+aws ec2 describe-subnets --region ${REGION}  > ${GENERATE_INPUT_DIR}/input/aws/subnets.json
+aws ec2 describe-instances --region ${REGION}  > ${GENERATE_INPUT_DIR}/input/aws/ec2.json
+aws rds describe-db-instances --region ${REGION}  > ${GENERATE_INPUT_DIR}/input/aws/rds.json
 </script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
