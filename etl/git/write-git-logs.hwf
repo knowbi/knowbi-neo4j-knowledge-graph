@@ -37,7 +37,7 @@
       <script>git log --all --format='%d;%H;%cn;%ce;%cd;%s' --all > ${GENERATE_INPUT_DIR}/input/git/git.csv</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
-      <xloc>372</xloc>
+      <xloc>496</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -65,7 +65,7 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1142</xloc>
+      <xloc>1216</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -93,7 +93,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>526</xloc>
+      <xloc>640</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -121,7 +121,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>680</xloc>
+      <xloc>784</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -149,7 +149,7 @@
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
       <parallel>N</parallel>
-      <xloc>988</xloc>
+      <xloc>1072</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -182,7 +182,7 @@
         </parameter>
       </parameters>
       <parallel>N</parallel>
-      <xloc>834</xloc>
+      <xloc>928</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -205,7 +205,7 @@
       <script>git log --all --format='%%d;%%H;%%cn;%%ce;%%cd;%%s' --all > ${GENERATE_INPUT_DIR}/input/git/git.csv</script>
       <loglevel>Basic</loglevel>
       <parallel>N</parallel>
-      <xloc>372</xloc>
+      <xloc>496</xloc>
       <yloc>192</yloc>
       <attributes_hac/>
     </action>
@@ -217,7 +217,45 @@
       <foldername>${GENERATE_INPUT_DIR}/input/git</foldername>
       <fail_of_folder_exists>N</fail_of_folder_exists>
       <parallel>N</parallel>
-      <xloc>218</xloc>
+      <xloc>352</xloc>
+      <yloc>64</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>create-index</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <filename>${DEPENDENCY_HOME}/etl/utils/neo4j/create-index.hpl</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <create_parent_folder>N</create_parent_folder>
+      <run_configuration>local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+        <parameter>
+          <name>CONNECTION_NAME</name>
+          <stream_name/>
+          <value>lineage-graph</value>
+        </parameter>
+        <parameter>
+          <name>PROJECT_DIR</name>
+          <stream_name/>
+          <value>${DEPENDENCY_HOME}/etl/git</value>
+        </parameter>
+      </parameters>
+      <parallel>N</parallel>
+      <xloc>208</xloc>
       <yloc>64</yloc>
       <attributes_hac/>
     </action>
@@ -259,13 +297,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>start</from>
-      <to>create-git-directory</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
       <from>create-git-directory</from>
       <to>write-git-log-linux</to>
       <enabled>Y</enabled>
@@ -282,6 +313,20 @@
     <hop>
       <from>write-git-log-windows</from>
       <to>load-git-logs</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>start</from>
+      <to>create-index</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>create-index</from>
+      <to>create-git-directory</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
